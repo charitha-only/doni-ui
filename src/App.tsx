@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Sparkles,
   Github,
@@ -9,7 +9,6 @@ import {
   Zap,
   Sliders,
   Palette,
-  Eye,
   Flame,
   Gauge,
   Feather,
@@ -21,6 +20,10 @@ import {
   User,
   Shield,
   Layers,
+  Search,
+  Terminal,
+  Stars,
+  Radio,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -47,6 +50,7 @@ import {
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
 import { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
 import { Slider } from './components/ui/slider';
+import { Skeleton } from './components/ui/skeleton';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -60,6 +64,10 @@ import { FlameButton } from './components/ui/flame-button';
 import { Keycap } from './components/ui/keycap';
 import { BorderBeam } from './components/ui/border-beam';
 import { BentoGrid, BentoGridItem } from './components/ui/bento-grid';
+import { Meteors } from './components/ui/meteors';
+import { Ripple } from './components/ui/ripple';
+import { FloatingDock } from './components/ui/floating-dock';
+import { CommandPalette } from './components/ui/command-palette';
 import { Marquee } from './components/ui/marquee';
 import { Typewriter } from './components/ui/typewriter';
 import { CodeDialog } from './components/showcase/code-dialog';
@@ -85,11 +93,24 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('showstopper');
+  const [activeTab, setActiveTab] = useState('cosmic');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
+
+  // Keyboard shortcut ⌘K or Ctrl+K to open search command palette
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -144,6 +165,15 @@ export function App() {
           <div className="absolute top-1/2 -right-40 w-[30rem] h-[30rem] bg-primary/15 rounded-full blur-[140px]" />
         </div>
 
+        {/* Global Command Palette (⌘K) */}
+        <CommandPalette
+          open={commandPaletteOpen}
+          onOpenChange={setCommandPaletteOpen}
+          onSelectComponent={(id) => {
+            copySnippet(id);
+          }}
+        />
+
         {/* Navigation Bar */}
         <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -160,12 +190,25 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.2
+                  v0.0.3
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
+              {/* Search ⌘K Trigger Button */}
+              <button
+                type="button"
+                onClick={() => setCommandPaletteOpen(true)}
+                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground transition-colors cursor-pointer"
+              >
+                <Search className="w-3.5 h-3.5 text-primary" />
+                <span>Search components...</span>
+                <kbd className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
+                  ⌘K
+                </kbd>
+              </button>
+
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -220,7 +263,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.2 — 3D Keycaps, Border Beams & Bento Grids
+              ✨ Doni UI v0.0.3 — Meteors, Ripples, macOS Dock & ⌘K Search
             </Badge>
           </motion.div>
 
@@ -272,13 +315,10 @@ export function App() {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => {
-                const el = document.getElementById('playground');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setCommandPaletteOpen(true)}
             >
-              <Eye className="w-4 h-4 mr-2" />
-              Explore Components
+              <Search className="w-4 h-4 mr-2 text-primary" />
+              Press ⌘K to Search
             </Button>
           </motion.div>
 
@@ -322,6 +362,22 @@ export function App() {
           </div>
         </section>
 
+        {/* macOS Floating Dock Showcase */}
+        <div className="py-6 flex flex-col items-center justify-center gap-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Interactive Magnification Floating Dock
+          </p>
+          <FloatingDock
+            items={[
+              { title: 'Home', icon: <Home />, onClick: () => toast({ title: 'Navigated to Home', type: 'info' }) },
+              { title: 'Components', icon: <Boxes />, onClick: () => setCommandPaletteOpen(true) },
+              { title: 'Theme Engine', icon: <Palette />, onClick: () => toast({ title: 'Dynamic Colors Active', type: 'success' }) },
+              { title: 'Terminal CLI', icon: <Terminal />, onClick: () => copyToClipboard('npx doni-ui init', 'CLI Command') },
+              { title: 'Explore', icon: <Compass />, onClick: () => triggerConfetti() },
+            ]}
+          />
+        </div>
+
         {/* Infinite Feature Marquee */}
         <div className="py-6 border-y border-border/40 bg-muted/20">
           <Marquee speed={25}>
@@ -335,6 +391,7 @@ export function App() {
               '🛡️ Full TypeScript Safety',
               '🌈 Tubelight & Spotlight Glows',
               '⌨️ Vintage 3D Keycaps',
+              '💫 Shooting Stars & Meteors',
             ].map((text, idx) => (
               <span
                 key={idx}
@@ -508,7 +565,8 @@ export function App() {
 
             <Tabs
               tabs={[
-                { id: 'showstopper', label: 'Showstopper & 3D' },
+                { id: 'cosmic', label: 'Cosmic & Motion' },
+                { id: 'showstopper', label: 'Keycaps & Bento' },
                 { id: 'spotlight', label: 'Spotlight & Navbar' },
                 { id: 'buttons', label: 'Buttons & Flame' },
                 { id: 'inputs', label: 'Forms & Slider' },
@@ -520,7 +578,99 @@ export function App() {
             />
           </div>
 
-          {/* 0. SHOWSTOPPER & 3D SECTION */}
+          {/* 0. COSMIC & MOTION SECTION */}
+          {activeTab === 'cosmic' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Meteors Card */}
+                <Card className="relative overflow-hidden p-6 bg-gradient-to-b from-card to-background border-border/80 min-h-[260px] flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-4 z-10">
+                    <div>
+                      <Badge variant="glow" className="gap-1">
+                        <Stars className="w-3 h-3" /> Meteors Effect
+                      </Badge>
+                      <h3 className="text-xl font-bold mt-1">Meteor Shower Stars</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Ambient animated shooting stars streak diagonally with glowing linear tails.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="meteors" />
+                  </div>
+                  <Meteors number={25} />
+                  <div className="mt-4 flex justify-end z-10">
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('meteors')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Meteors Code
+                    </Button>
+                  </div>
+                </Card>
+
+                {/* Ripple Background */}
+                <Card className="relative overflow-hidden p-6 border-border/80 min-h-[260px] flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-2 z-10">
+                    <div>
+                      <Badge variant="neon" className="gap-1">
+                        <Radio className="w-3 h-3" /> Water Ripple
+                      </Badge>
+                      <h3 className="text-xl font-bold mt-1">Concentric Water Ripples</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Fluid circular soundwave ripples expanding outward.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="ripple" />
+                  </div>
+
+                  <div className="relative flex items-center justify-center my-4 py-8">
+                    <Avatar status="online" className="h-14 w-14 z-10 ring-4 ring-primary/30">
+                      <AvatarImage src="https://github.com/charitha-only.png" alt="Charitha" />
+                      <AvatarFallback>CH</AvatarFallback>
+                    </Avatar>
+                    <Ripple numCircles={5} mainCircleSize={120} />
+                  </div>
+
+                  <div className="flex justify-end z-10">
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('ripple')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Ripple Code
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Skeleton Loader Demo */}
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold">Shimmering Skeleton Loader</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Silky-smooth placeholder skeletons for loading profiles, cards, and tables.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="skeleton" />
+                </div>
+                <div className="flex items-center gap-4 py-2">
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                  <div className="space-y-2 flex-1 max-w-sm">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <Button variant="outline" size="sm" onClick={() => copySnippet('skeleton')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Skeleton Code
+                  </Button>
+                </div>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* 1. SHOWSTOPPER SECTION */}
           {activeTab === 'showstopper' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -529,7 +679,6 @@ export function App() {
               className="space-y-6"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Vintage 3D Mechanical Keycaps */}
                 <Card className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -566,7 +715,6 @@ export function App() {
                   </div>
                 </Card>
 
-                {/* Border Beam Laser Card */}
                 <Card className="relative overflow-hidden p-6 border-border/80">
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -596,7 +744,6 @@ export function App() {
                 </Card>
               </div>
 
-              {/* Bento Grid Showcase */}
               <div className="pt-4">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -635,7 +782,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 1. SPOTLIGHT & NAVBAR SECTION */}
+          {/* 2. SPOTLIGHT SECTION */}
           {activeTab === 'spotlight' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -713,7 +860,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 2. BUTTONS & FLAME SECTION */}
+          {/* 3. BUTTONS SECTION */}
           {activeTab === 'buttons' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -786,7 +933,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 3. FORMS & SLIDER SECTION */}
+          {/* 4. FORMS SECTION */}
           {activeTab === 'inputs' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -832,7 +979,6 @@ export function App() {
                 </CardFooter>
               </Card>
 
-              {/* Slider & Switch */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
@@ -882,7 +1028,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 4. AVATAR & DROPDOWN SECTION */}
+          {/* 5. DISPLAY SECTION */}
           {activeTab === 'display' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -890,7 +1036,6 @@ export function App() {
               transition={transitions.smoothEase}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              {/* Avatar Component */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
@@ -932,7 +1077,6 @@ export function App() {
                 </CardFooter>
               </Card>
 
-              {/* Dropdown Menu */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
@@ -972,7 +1116,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 5. FEEDBACK SECTION (DIALOG & ACCORDION) */}
+          {/* 6. FEEDBACK SECTION */}
           {activeTab === 'feedback' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -1034,32 +1178,34 @@ export function App() {
                 </CardFooter>
               </Card>
 
-              {/* Accordion */}
               <Card>
-                <CardHeader>
-                  <CardTitle>Smooth Accordion</CardTitle>
-                  <CardDescription>
-                    Animated height collapse and expanding rotating chevrons.
-                  </CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Smooth Accordion</CardTitle>
+                    <CardDescription>
+                      Animated height collapse and expanding rotating chevrons.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="accordion" trigger={<Button variant="ghost" size="sm" className="h-8 text-xs">View Code</Button>} />
                 </CardHeader>
                 <CardContent>
                   <Accordion type="single" collapsible defaultValue="item-1">
                     <AccordionItem value="item-1">
+                      <AccordionTrigger>How to use the ⌘K command palette?</AccordionTrigger>
+                      <AccordionContent>
+                        Press ⌘K (or Ctrl+K on Windows) anywhere on this website to open the instant search palette. You can filter all components and copy their CLI add commands immediately.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
                       <AccordionTrigger>How to copy components to my project?</AccordionTrigger>
                       <AccordionContent>
                         Click any "Copy Code" button in this gallery, or click "View Code" to see the full import statement, installation instructions, and TypeScript usage.
                       </AccordionContent>
                     </AccordionItem>
-                    <AccordionItem value="item-2">
+                    <AccordionItem value="item-3">
                       <AccordionTrigger>How does CLI installation work?</AccordionTrigger>
                       <AccordionContent>
                         Run "npx doni-ui add &lt;component&gt;" in any React or Next.js project to instantly copy that component into your codebase with zero setup.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                      <AccordionTrigger>Does it support dark and light mode?</AccordionTrigger>
-                      <AccordionContent>
-                        Full first-class dark and light mode support with high-contrast accessibility across all color presets.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
@@ -1074,7 +1220,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.2</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.3</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.2-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.2)
+[![Version](https://img.shields.io/badge/Release-v0.0.3-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.3)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,13 +51,14 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add meteors
+npx doni-ui add ripple
+npx doni-ui add floating-dock
+npx doni-ui add keycap
+npx doni-ui add border-beam
 npx doni-ui add tubelight-navbar
 npx doni-ui add spotlight-card
 npx doni-ui add flame-button
-npx doni-ui add keycap
-npx doni-ui add border-beam
-npx doni-ui add bento-grid
-npx doni-ui add button
 ```
 
 ---
@@ -82,9 +83,70 @@ bun add doni-ui
 
 ---
 
-## 🌟 Showstopper Components
+## 🌟 Featured Showstopper Components
 
-### 1. ⌨️ Vintage 3D Mechanical Keycaps
+### 1. 💫 Meteors Effect (Shooting Stars)
+Ambient animated shooting stars streaking with glowing linear tails:
+
+```tsx
+import { Meteors, Card } from 'doni-ui';
+
+export function MeteorCard() {
+  return (
+    <Card className="relative overflow-hidden p-6">
+      <h3>Meteor Shower</h3>
+      <Meteors number={25} />
+    </Card>
+  );
+}
+```
+
+---
+
+### 2. 🌊 Concentric Water Ripples
+Concentric soundwave water ripples expanding outward with spring physics:
+
+```tsx
+import { Ripple, Avatar, AvatarFallback } from 'doni-ui';
+
+export function RippleHero() {
+  return (
+    <div className="relative flex h-[300px] items-center justify-center overflow-hidden">
+      <Avatar status="online" className="h-16 w-16 z-10">
+        <AvatarFallback>AI</AvatarFallback>
+      </Avatar>
+      <Ripple />
+    </div>
+  );
+}
+```
+
+---
+
+### 3. 🖥️ macOS Floating Dock
+Magnification dock with fluid spring physics inspired by macOS:
+
+```tsx
+import { FloatingDock } from 'doni-ui';
+import { Home, Terminal, Sparkles, Settings } from 'lucide-react';
+
+export function Dock() {
+  return (
+    <FloatingDock
+      items={[
+        { title: 'Home', icon: <Home /> },
+        { title: 'Terminal', icon: <Terminal /> },
+        { title: 'Explore', icon: <Sparkles /> },
+        { title: 'Settings', icon: <Settings /> },
+      ]}
+    />
+  );
+}
+```
+
+---
+
+### 4. ⌨️ Vintage 3D Mechanical Keycaps
 Authentic mechanical keyboard keycaps with tactile 3D press depression physics:
 
 ```tsx
@@ -104,7 +166,7 @@ export function KeyboardShortcuts() {
 
 ---
 
-### 2. ⚡ Animated Border Beam
+### 5. ⚡ Animated Border Beam
 Continuous high-energy laser beam running along the perimeter of cards and containers:
 
 ```tsx
@@ -114,7 +176,6 @@ export function PerimeterCard() {
   return (
     <Card className="relative overflow-hidden p-6">
       <h3>Perimeter Laser Card</h3>
-      <p>The beam reacts live to your selected theme color.</p>
       <BorderBeam size={220} duration={8} />
     </Card>
   );
@@ -123,40 +184,12 @@ export function PerimeterCard() {
 
 ---
 
-### 3. 🍱 Bento Grid Layout
-Modern Apple and Linear-inspired responsive dashboard grid:
-
-```tsx
-import { BentoGrid, BentoGridItem } from 'doni-ui';
-import { Zap, Shield, Cpu } from 'lucide-react';
-
-export function Dashboard() {
-  return (
-    <BentoGrid>
-      <BentoGridItem
-        title="Zero-Lag Engine"
-        description="0ms runtime CSS evaluation."
-        icon={<Zap />}
-        className="md:col-span-2"
-      />
-      <BentoGridItem
-        title="100% Tree-Shakeable"
-        description="Only ship what you use."
-        icon={<Shield />}
-      />
-    </BentoGrid>
-  );
-}
-```
-
----
-
-### 4. 💡 Tubelight Island Navbar
-Floating dock navigation equipped with an electric glowing lamp beam indicator that slides smoothly between active tabs:
+### 6. 💡 Tubelight Island Navbar
+Floating dock navigation equipped with an electric glowing lamp beam indicator:
 
 ```tsx
 import { TubelightNavbar } from 'doni-ui';
-import { Home, Boxes, Compass, Settings } from 'lucide-react';
+import { Home, Boxes, Settings } from 'lucide-react';
 
 export function Navigation() {
   return (
@@ -167,46 +200,6 @@ export function Navigation() {
         { id: 'settings', label: 'Settings', icon: <Settings className="w-3.5 h-3.5" /> },
       ]}
     />
-  );
-}
-```
-
----
-
-### 5. 🔦 Interactive Spotlight Card
-Mouse-tracking flashlight beam that illuminates borders and backgrounds at 0% layout cost:
-
-```tsx
-import { SpotlightCard, Badge, Button } from 'doni-ui';
-
-export function FeatureCard() {
-  return (
-    <SpotlightCard className="p-6">
-      <Badge variant="glow" className="mb-3">Serenity Inspired</Badge>
-      <h3 className="text-xl font-bold">Interactive Spotlight</h3>
-      <p className="text-sm text-muted-foreground mt-2">
-        Move your cursor over this card to watch the radiant beam bloom.
-      </p>
-    </SpotlightCard>
-  );
-}
-```
-
----
-
-### 6. 🔥 Flame Button
-High-intensity rotating conic gradient border beam with an ambient radiant flame bloom:
-
-```tsx
-import { FlameButton } from 'doni-ui';
-import { Flame } from 'lucide-react';
-
-export function Action() {
-  return (
-    <FlameButton onClick={() => alert('Ignited!')}>
-      <Flame className="w-4 h-4 mr-2 text-primary" />
-      Ignite Experience
-    </FlameButton>
   );
 }
 ```
@@ -238,6 +231,11 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **Meteors** | Special | Falling shooting stars with glowing linear tails |
+| **Ripple** | Special | Concentric pulsing water ripples expanding with spring physics |
+| **FloatingDock** | Navigation | macOS magnification hover dock with spring physics |
+| **CommandPalette** | Navigation | Global ⌘K spotlight search dialog with instant CLI copy |
+| **Skeleton** | Feedback | Shimmering placeholder loader for smooth data loading |
 | **Keycap** | Buttons | Vintage mechanical 3D key depression physics |
 | **BorderBeam** | Special | Continuous perimeter laser beam animation |
 | **BentoGrid** | Layout | Apple & Linear responsive dashboard cards |
@@ -264,7 +262,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.2**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.3**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---
