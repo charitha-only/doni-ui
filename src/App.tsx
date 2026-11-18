@@ -19,6 +19,8 @@ import {
   Boxes,
   Settings,
   User,
+  Shield,
+  Layers,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -55,6 +57,9 @@ import {
 import { TubelightNavbar } from './components/ui/tubelight-navbar';
 import { SpotlightCard } from './components/ui/spotlight-card';
 import { FlameButton } from './components/ui/flame-button';
+import { Keycap } from './components/ui/keycap';
+import { BorderBeam } from './components/ui/border-beam';
+import { BentoGrid, BentoGridItem } from './components/ui/bento-grid';
 import { Marquee } from './components/ui/marquee';
 import { Typewriter } from './components/ui/typewriter';
 import { CodeDialog } from './components/showcase/code-dialog';
@@ -80,7 +85,7 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('spotlight');
+  const [activeTab, setActiveTab] = useState('showstopper');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
@@ -155,7 +160,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.1
+                  v0.0.2
                 </span>
               </div>
             </div>
@@ -215,7 +220,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.1 — Ultra Fast, Lightest & Spring Animated
+              ✨ Doni UI v0.0.2 — 3D Keycaps, Border Beams & Bento Grids
             </Badge>
           </motion.div>
 
@@ -329,6 +334,7 @@ export function App() {
               '♿ Radix UI a11y Standards',
               '🛡️ Full TypeScript Safety',
               '🌈 Tubelight & Spotlight Glows',
+              '⌨️ Vintage 3D Keycaps',
             ].map((text, idx) => (
               <span
                 key={idx}
@@ -502,6 +508,7 @@ export function App() {
 
             <Tabs
               tabs={[
+                { id: 'showstopper', label: 'Showstopper & 3D' },
                 { id: 'spotlight', label: 'Spotlight & Navbar' },
                 { id: 'buttons', label: 'Buttons & Flame' },
                 { id: 'inputs', label: 'Forms & Slider' },
@@ -512,6 +519,121 @@ export function App() {
               onChange={setActiveTab}
             />
           </div>
+
+          {/* 0. SHOWSTOPPER & 3D SECTION */}
+          {activeTab === 'showstopper' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Vintage 3D Mechanical Keycaps */}
+                <Card className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <Badge variant="glow">Mechanical 3D</Badge>
+                      <h3 className="text-xl font-bold mt-1">Tactile Mechanical Keycaps</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Authentic 3D key depression physics. Click them to feel the spring bounce!
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="keycap" />
+                  </div>
+                  <div className="flex flex-wrap items-center justify-center gap-3 py-6 bg-muted/40 rounded-xl border border-border/60">
+                    <Keycap subText="CMD" onClick={() => toast({ title: 'Key: Command (⌘)', type: 'info' })}>
+                      ⌘
+                    </Keycap>
+                    <Keycap subText="OPT" onClick={() => toast({ title: 'Key: Option (⌥)', type: 'info' })}>
+                      ⌥
+                    </Keycap>
+                    <Keycap subText="SHIFT" onClick={() => toast({ title: 'Key: Shift (⇧)', type: 'info' })}>
+                      ⇧
+                    </Keycap>
+                    <Keycap subText="ENTER" onClick={() => toast({ title: 'Key: Return (↵)', type: 'success' })}>
+                      ↵
+                    </Keycap>
+                    <Keycap subText="ESC" onClick={() => toast({ title: 'Key: Escape (ESC)', type: 'error' })}>
+                      ESC
+                    </Keycap>
+                  </div>
+                  <div className="mt-4 flex justify-end">
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('keycap')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Keycap Code
+                    </Button>
+                  </div>
+                </Card>
+
+                {/* Border Beam Laser Card */}
+                <Card className="relative overflow-hidden p-6 border-border/80">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <Badge variant="neon">Perimeter Laser</Badge>
+                      <h3 className="text-xl font-bold mt-1">Animated Border Beam</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        High-energy laser beam running continuously along the card perimeter.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="borderBeam" />
+                  </div>
+                  <div className="py-6 space-y-2 text-sm text-muted-foreground">
+                    <p>
+                      The beam reacts live to whichever theme color you pick in the Theme Studio above.
+                    </p>
+                    <p className="font-mono text-xs text-primary font-bold">
+                      &lt;BorderBeam size=&#123;250&#125; duration=&#123;10&#125; /&gt;
+                    </p>
+                  </div>
+                  <BorderBeam size={220} duration={8} />
+                  <div className="mt-4 flex justify-end">
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('borderBeam')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Beam Code
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Bento Grid Showcase */}
+              <div className="pt-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold">Responsive Bento Grid Layout</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Modern Apple and Linear-inspired responsive grid cards with hover physics.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="bento" />
+                </div>
+                <BentoGrid>
+                  <BentoGridItem
+                    title="Zero-Lag Engine"
+                    description="0ms runtime CSS evaluation. Pure atomic Tailwind classes compiled at build time."
+                    icon={<Zap className="w-5 h-5 text-primary" />}
+                    className="md:col-span-2"
+                  />
+                  <BentoGridItem
+                    title="100% Tree-Shakeable"
+                    description="Only ship the components you actually import."
+                    icon={<Shield className="w-5 h-5 text-primary" />}
+                  />
+                  <BentoGridItem
+                    title="Spring Animations"
+                    description="Framer Motion spring physics for tactile micro-interactions."
+                    icon={<Cpu className="w-5 h-5 text-primary" />}
+                  />
+                  <BentoGridItem
+                    title="Dynamic Any-Color"
+                    description="Adapt the whole library to any custom hex code in microseconds."
+                    icon={<Layers className="w-5 h-5 text-primary" />}
+                    className="md:col-span-2"
+                  />
+                </BentoGrid>
+              </div>
+            </motion.div>
+          )}
 
           {/* 1. SPOTLIGHT & NAVBAR SECTION */}
           {activeTab === 'spotlight' && (
@@ -929,9 +1051,9 @@ export function App() {
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-2">
-                      <AccordionTrigger>How is the website hosted?</AccordionTrigger>
+                      <AccordionTrigger>How does CLI installation work?</AccordionTrigger>
                       <AccordionContent>
-                        Doni UI is automatically deployed to GitHub Pages with continuous integration workflows on every release.
+                        Run "npx doni-ui add &lt;component&gt;" in any React or Next.js project to instantly copy that component into your codebase with zero setup.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
@@ -952,7 +1074,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.1</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.2</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

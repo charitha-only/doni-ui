@@ -52,6 +52,58 @@ import { Flame } from 'lucide-react';`,
   Ignite Experience
 </FlameButton>`,
   },
+  keycap: {
+    id: 'keycap',
+    name: 'Mechanical Keycap',
+    description: 'Vintage 3D mechanical keyboard keycap with realistic tactile press depression.',
+    category: 'Buttons',
+    importCode: `import { Keycap } from 'doni-ui';`,
+    usageCode: `<div className="flex gap-2">
+  <Keycap subText="CMD">⌘</Keycap>
+  <Keycap subText="OPT">⌥</Keycap>
+  <Keycap subText="SHIFT">⇧</Keycap>
+  <Keycap subText="ENTER">↵</Keycap>
+</div>`,
+  },
+  borderBeam: {
+    id: 'border-beam',
+    name: 'Border Beam',
+    description: 'Laser beam running continuously around the perimeter of any card or container.',
+    category: 'Special',
+    importCode: `import { BorderBeam, Card } from 'doni-ui';`,
+    usageCode: `<Card className="relative overflow-hidden p-6">
+  <h3 className="font-bold text-lg">Border Beam Card</h3>
+  <p className="text-sm text-muted-foreground mt-1">
+    Continuous perimeter laser animation.
+  </p>
+  <BorderBeam size={250} duration={10} delay={0} />
+</Card>`,
+  },
+  bento: {
+    id: 'bento-grid',
+    name: 'Bento Grid',
+    description: 'Apple and Linear style responsive dashboard bento grid layout.',
+    category: 'Layout',
+    importCode: `import { BentoGrid, BentoGridItem } from 'doni-ui';
+import { Zap, Shield, Cpu } from 'lucide-react';`,
+    usageCode: `<BentoGrid>
+  <BentoGridItem
+    title="Spring Physics"
+    description="Zero-lag hardware acceleration."
+    icon={<Zap />}
+  />
+  <BentoGridItem
+    title="Type-Safe"
+    description="Full autocompletion and prop validation."
+    icon={<Shield />}
+  />
+  <BentoGridItem
+    title="GPU Compositor"
+    description="Smooth 120 FPS transforms."
+    icon={<Cpu />}
+  />
+</BentoGrid>`,
+  },
   button: {
     id: 'button',
     name: 'Animated Button',
@@ -68,11 +120,6 @@ import { Zap } from 'lucide-react';`,
 {/* Shimmer Variant */}
 <Button variant="shimmer">
   Shimmer Shine
-</Button>
-
-{/* Glassmorphism Variant */}
-<Button variant="glass">
-  Frosted Glass
 </Button>`,
   },
   input: {
@@ -139,9 +186,6 @@ import { Sparkles } from 'lucide-react';`,
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Animated Dialog</DialogTitle>
-      <DialogDescription>
-        Spring physics modal with keyboard a11y and focus trap.
-      </DialogDescription>
     </DialogHeader>
     <DialogFooter>
       <Button variant="glow">Save</Button>
@@ -158,7 +202,6 @@ import { Sparkles } from 'lucide-react';`,
     usageCode: `<Marquee speed={25} pauseOnHover={true}>
   <span className="mx-4 font-bold">🚀 0ms Runtime Lag</span>
   <span className="mx-4 font-bold">📦 100% Tree-Shakeable</span>
-  <span className="mx-4 font-bold">🎨 Any Color Engine</span>
 </Marquee>`,
   },
   typewriter: {
@@ -201,7 +244,6 @@ import { Sparkles } from 'lucide-react';`,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   Button,
 } from 'doni-ui';`,
     usageCode: `<DropdownMenu>
@@ -210,9 +252,6 @@ import { Sparkles } from 'lucide-react';`,
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     <DropdownMenuItem>Profile Settings</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem className="text-destructive">Log out</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>`,
   },

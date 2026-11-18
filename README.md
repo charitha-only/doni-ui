@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.1-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.1)
+[![Version](https://img.shields.io/badge/Release-v0.0.2-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -42,9 +42,29 @@ Traditional component libraries rely on heavy runtime CSS-in-JS (like Emotion in
 
 ---
 
+## 💻 CLI Quick Installation (shadcn Style)
+
+You can copy components directly into your project using the Doni UI CLI:
+
+```bash
+# Initialize Doni UI in your React / Next.js project
+npx doni-ui init
+
+# Add any component with zero dependencies
+npx doni-ui add tubelight-navbar
+npx doni-ui add spotlight-card
+npx doni-ui add flame-button
+npx doni-ui add keycap
+npx doni-ui add border-beam
+npx doni-ui add bento-grid
+npx doni-ui add button
+```
+
+---
+
 ## 📦 Universal Package Manager Support
 
-Doni UI is designed to be installed seamlessly using **npm, yarn, pnpm, or bun**:
+Doni UI is also available as an npm package supporting **npm, yarn, pnpm, and bun**:
 
 ```bash
 # npm
@@ -64,8 +84,75 @@ bun add doni-ui
 
 ## 🌟 Showstopper Components
 
-### 1. 💡 Tubelight Island Navbar
-A floating navigation dock with an electric glowing lamp beam indicator that slides smoothly between active tabs:
+### 1. ⌨️ Vintage 3D Mechanical Keycaps
+Authentic mechanical keyboard keycaps with tactile 3D press depression physics:
+
+```tsx
+import { Keycap } from 'doni-ui';
+
+export function KeyboardShortcuts() {
+  return (
+    <div className="flex gap-2">
+      <Keycap subText="CMD">⌘</Keycap>
+      <Keycap subText="OPT">⌥</Keycap>
+      <Keycap subText="SHIFT">⇧</Keycap>
+      <Keycap subText="ENTER">↵</Keycap>
+    </div>
+  );
+}
+```
+
+---
+
+### 2. ⚡ Animated Border Beam
+Continuous high-energy laser beam running along the perimeter of cards and containers:
+
+```tsx
+import { BorderBeam, Card } from 'doni-ui';
+
+export function PerimeterCard() {
+  return (
+    <Card className="relative overflow-hidden p-6">
+      <h3>Perimeter Laser Card</h3>
+      <p>The beam reacts live to your selected theme color.</p>
+      <BorderBeam size={220} duration={8} />
+    </Card>
+  );
+}
+```
+
+---
+
+### 3. 🍱 Bento Grid Layout
+Modern Apple and Linear-inspired responsive dashboard grid:
+
+```tsx
+import { BentoGrid, BentoGridItem } from 'doni-ui';
+import { Zap, Shield, Cpu } from 'lucide-react';
+
+export function Dashboard() {
+  return (
+    <BentoGrid>
+      <BentoGridItem
+        title="Zero-Lag Engine"
+        description="0ms runtime CSS evaluation."
+        icon={<Zap />}
+        className="md:col-span-2"
+      />
+      <BentoGridItem
+        title="100% Tree-Shakeable"
+        description="Only ship what you use."
+        icon={<Shield />}
+      />
+    </BentoGrid>
+  );
+}
+```
+
+---
+
+### 4. 💡 Tubelight Island Navbar
+Floating dock navigation equipped with an electric glowing lamp beam indicator that slides smoothly between active tabs:
 
 ```tsx
 import { TubelightNavbar } from 'doni-ui';
@@ -77,10 +164,8 @@ export function Navigation() {
       items={[
         { id: 'home', label: 'Home', icon: <Home className="w-3.5 h-3.5" /> },
         { id: 'components', label: 'Components', icon: <Boxes className="w-3.5 h-3.5" /> },
-        { id: 'explore', label: 'Explore', icon: <Compass className="w-3.5 h-3.5" /> },
         { id: 'settings', label: 'Settings', icon: <Settings className="w-3.5 h-3.5" /> },
       ]}
-      onSelect={(id) => console.log('Active:', id)}
     />
   );
 }
@@ -88,7 +173,7 @@ export function Navigation() {
 
 ---
 
-### 2. 🔦 Interactive Spotlight Card
+### 5. 🔦 Interactive Spotlight Card
 Mouse-tracking flashlight beam that illuminates borders and backgrounds at 0% layout cost:
 
 ```tsx
@@ -102,9 +187,6 @@ export function FeatureCard() {
       <p className="text-sm text-muted-foreground mt-2">
         Move your cursor over this card to watch the radiant beam bloom.
       </p>
-      <Button variant="glow" size="sm" className="mt-4">
-        Explore Feature
-      </Button>
     </SpotlightCard>
   );
 }
@@ -112,7 +194,7 @@ export function FeatureCard() {
 
 ---
 
-### 3. 🔥 Flame Button
+### 6. 🔥 Flame Button
 High-intensity rotating conic gradient border beam with an ambient radiant flame bloom:
 
 ```tsx
@@ -125,86 +207,6 @@ export function Action() {
       <Flame className="w-4 h-4 mr-2 text-primary" />
       Ignite Experience
     </FlameButton>
-  );
-}
-```
-
----
-
-### 4. ♾️ Continuous Infinite Marquee
-GPU-accelerated seamless horizontal scrolling row with bilateral fade masks and pause-on-hover:
-
-```tsx
-import { Marquee } from 'doni-ui';
-
-export function Banner() {
-  return (
-    <Marquee speed={25} pauseOnHover={true}>
-      <span className="mx-4 font-bold uppercase">🚀 0ms Runtime Lag</span>
-      <span className="mx-4 font-bold uppercase">📦 100% Tree-Shakeable</span>
-      <span className="mx-4 font-bold uppercase">🎨 Any Color Engine</span>
-    </Marquee>
-  );
-}
-```
-
----
-
-### 5. ✍️ Typewriter Text Reveal
-Smooth character typewriter stream with a blinking indicator for hero headlines:
-
-```tsx
-import { Typewriter } from 'doni-ui';
-
-export function Hero() {
-  return (
-    <h1>
-      Build interfaces that are{' '}
-      <Typewriter
-        words={['ultra fast.', 'super lightweight.', 'fluidly animated.', '100% themeable.']}
-      />
-    </h1>
-  );
-}
-```
-
----
-
-### 6. 👤 Avatars with Live Status
-Radix UI avatar primitive with pulsing online, busy, and away live status indicators:
-
-```tsx
-import { Avatar, AvatarImage, AvatarFallback } from 'doni-ui';
-
-export function UserProfile() {
-  return (
-    <div className="flex gap-3">
-      <Avatar status="online">
-        <AvatarImage src="https://github.com/charitha-only.png" alt="Charitha" />
-        <AvatarFallback>CH</AvatarFallback>
-      </Avatar>
-      <Avatar status="away">
-        <AvatarFallback>JD</AvatarFallback>
-      </Avatar>
-    </div>
-  );
-}
-```
-
----
-
-### 7. 🎚️ Glowing Slider & Spring Switch
-Tactile mechanical toggles and dynamic range controls:
-
-```tsx
-import { Slider, Switch } from 'doni-ui';
-
-export function Controls() {
-  return (
-    <div className="space-y-4">
-      <Slider defaultValue={[65]} max={100} step={1} />
-      <Switch defaultChecked={true} />
-    </div>
   );
 }
 ```
@@ -230,22 +232,15 @@ function ColorPicker() {
 }
 ```
 
-### Preset Palettes Included:
-- 🟣 **Electric Violet** (`#8b5cf6`)
-- 🔵 **Cyber Cyan** (`#06b6d4`)
-- 🟢 **Lush Emerald** (`#10b981`)
-- 🔴 **Neon Rose** (`#f43f5e`)
-- 🟠 **Sunfire Amber** (`#f59e0b`)
-- 🟦 **Deep Indigo** (`#6366f1`)
-- 🍏 **Acid Lime** (`#84cc16`)
-- 🌈 **Any Custom Hex** (`#...`)
-
 ---
 
 ## 🧩 Complete Component Directory
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **Keycap** | Buttons | Vintage mechanical 3D key depression physics |
+| **BorderBeam** | Special | Continuous perimeter laser beam animation |
+| **BentoGrid** | Layout | Apple & Linear responsive dashboard cards |
 | **TubelightNavbar** | Navigation | Electric glowing lamp beam indicator with spring physics |
 | **SpotlightCard** | Cards | Mouse-tracking flashlight radial beam |
 | **FlameButton** | Buttons | Rotating conic gradient border beam with ambient flame bloom |
@@ -267,28 +262,9 @@ function ColorPicker() {
 
 ---
 
-## 💻 Local Development & Contribution
-
-```bash
-# 1. Clone repository
-git clone https://github.com/charitha-only/doni-ui.git
-cd doni-ui
-
-# 2. Install dependencies
-npm install
-
-# 3. Start local development showcase
-npm run dev
-
-# 4. Build library & documentation
-npm run build
-```
-
----
-
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.1**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.2**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

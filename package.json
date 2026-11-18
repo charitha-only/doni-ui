@@ -1,10 +1,13 @@
 {
   "name": "doni-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ultra-fast, spring-animated, hyper-customizable React UI component library",
   "author": "Charitha <charitha-only@users.noreply.github.com>",
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "doni-ui": "./bin/cli.js"
+  },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",

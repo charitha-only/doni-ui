@@ -19,6 +19,9 @@ export * from './components/ui/spotlight-card';
 export * from './components/ui/flame-button';
 export * from './components/ui/marquee';
 export * from './components/ui/typewriter';
+export * from './components/ui/keycap';
+export * from './components/ui/border-beam';
+export * from './components/ui/bento-grid';
 
 // Theme Engine Exports
 export * from './theme/theme-context';
