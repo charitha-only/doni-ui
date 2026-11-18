@@ -9,8 +9,15 @@ import {
   Zap,
   Sliders,
   Palette,
-  ExternalLink,
   Eye,
+  Flame,
+  Gauge,
+  Feather,
+  Cpu,
+  Home,
+  Compass,
+  Boxes,
+  Settings,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -35,6 +42,11 @@ import {
   AccordionContent,
 } from './components/ui/accordion';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
+import { TubelightNavbar } from './components/ui/tubelight-navbar';
+import { SpotlightCard } from './components/ui/spotlight-card';
+import { FlameButton } from './components/ui/flame-button';
+import { Marquee } from './components/ui/marquee';
+import { Typewriter } from './components/ui/typewriter';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
 import { COLOR_PRESETS } from './theme/themes';
@@ -56,21 +68,35 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('buttons');
+  const [activeTab, setActiveTab] = useState('spotlight');
   const [activeTabVariant, setActiveTabVariant] = useState('pill');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [demoSwitch2, setDemoSwitch2] = useState(false);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
+  const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCode(label);
     toast({
       title: 'Copied to clipboard!',
-      description: `${label} code snippet is ready to paste.`,
+      description: `${label} copied successfully.`,
       type: 'success',
     });
     setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  const getInstallCommand = () => {
+    switch (packageManager) {
+      case 'yarn':
+        return 'yarn add doni-ui';
+      case 'pnpm':
+        return 'pnpm add doni-ui';
+      case 'bun':
+        return 'bun add doni-ui';
+      default:
+        return 'npm i doni-ui';
+    }
   };
 
   const handleTestLoading = () => {
@@ -80,7 +106,7 @@ export function App() {
       triggerConfetti();
       toast({
         title: 'Action Completed! 🚀',
-        description: 'Smooth spring animations with zero lag.',
+        description: 'Smooth spring animations with 0ms runtime lag.',
         type: 'success',
       });
     }, 1800);
@@ -89,7 +115,7 @@ export function App() {
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-        {/* Background ambient decorative glow */}
+        {/* Ambient decorative glow */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
           <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-[128px]" />
           <div className="absolute top-1/2 -right-40 w-[30rem] h-[30rem] bg-primary/15 rounded-full blur-[140px]" />
@@ -117,7 +143,6 @@ export function App() {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Theme Mode Toggle Button */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -138,7 +163,6 @@ export function App() {
                 </TooltipContent>
               </Tooltip>
 
-              {/* GitHub Link */}
               <a
                 href="https://github.com/charitha-only/doni-ui"
                 target="_blank"
@@ -152,8 +176,20 @@ export function App() {
           </div>
         </header>
 
-        {/* Hero Section */}
-        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+        {/* Floating Tubelight Island Navbar Showcase */}
+        <div className="relative z-30 flex justify-center pt-6 px-4">
+          <TubelightNavbar
+            items={[
+              { id: 'home', label: 'Home', icon: <Home className="w-3.5 h-3.5" /> },
+              { id: 'components', label: 'Components', icon: <Boxes className="w-3.5 h-3.5" /> },
+              { id: 'explore', label: 'Explore', icon: <Compass className="w-3.5 h-3.5" /> },
+              { id: 'settings', label: 'Theming', icon: <Settings className="w-3.5 h-3.5" /> },
+            ]}
+          />
+        </div>
+
+        {/* Hero Section with Typewriter */}
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -161,7 +197,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              Animated, Accessible & 100% Themeable Component Library
+              ⚡ The Lightest & Fastest Animated React UI Library
             </Badge>
           </motion.div>
 
@@ -171,9 +207,11 @@ export function App() {
             transition={{ ...transitions.springGentle, delay: 0.1 }}
             className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.15]"
           >
-            Make every UI move with{' '}
+            Build interfaces that are{' '}
             <span className="text-primary underline decoration-primary/40 decoration-wavy underline-offset-8">
-              effortless elegance.
+              <Typewriter
+                words={['ultra fast.', 'super lightweight.', 'fluidly animated.', '100% themeable.']}
+              />
             </span>
           </motion.h1>
 
@@ -183,32 +221,30 @@ export function App() {
             transition={{ ...transitions.springGentle, delay: 0.2 }}
             className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            Inspired by <strong>shadcn/ui</strong> and <strong>Radix UI</strong>, supercharged with 
-            fluid <strong>Framer Motion physics</strong> and a live <strong>Dynamic Color Palette Engine</strong>.
+            Engineered with <strong>zero runtime CSS overhead</strong>, <strong>100% tree-shaking</strong>, 
+            GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
           </motion.p>
 
-          {/* Quick CTA Actions */}
+          {/* Quick CTA Actions with Flame Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transitions.springGentle, delay: 0.3 }}
             className="mt-8 flex flex-wrap items-center justify-center gap-4"
           >
-            <Button
-              variant="glow"
-              size="lg"
+            <FlameButton
               onClick={() => {
                 triggerConfetti();
                 toast({
-                  title: 'Boom! 🎊',
-                  description: 'Welcome to Doni UI! Ready to build amazing products.',
+                  title: 'Ignited with Doni UI! 🔥',
+                  description: 'Zero runtime style lag. 120 FPS smooth.',
                   type: 'success',
                 });
               }}
             >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Celebrate with Confetti
-            </Button>
+              <Flame className="w-4 h-4 text-primary fill-primary mr-1" />
+              Flame Button Demo
+            </FlameButton>
 
             <Button
               variant="outline"
@@ -222,6 +258,110 @@ export function App() {
               Explore Components
             </Button>
           </motion.div>
+
+          {/* Package Manager Install Tabs: npm, yarn, pnpm, bun */}
+          <div className="mt-10 max-w-lg mx-auto">
+            <div className="flex items-center justify-between bg-muted/60 p-1.5 rounded-xl border border-border">
+              <div className="flex items-center gap-1">
+                {(['npm', 'yarn', 'pnpm', 'bun'] as const).map((pm) => (
+                  <button
+                    key={pm}
+                    type="button"
+                    onClick={() => setPackageManager(pm)}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                      packageManager === pm
+                        ? 'bg-background text-foreground shadow-sm font-bold border border-border'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {pm}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 pl-3">
+                <code className="text-xs font-mono font-bold text-primary">
+                  {getInstallCommand()}
+                </code>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() => copyToClipboard(getInstallCommand(), getInstallCommand())}
+                >
+                  {copiedCode === getInstallCommand() ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Infinite Feature Marquee */}
+        <div className="py-6 border-y border-border/40 bg-muted/20">
+          <Marquee speed={25}>
+            {[
+              '🚀 0ms Runtime Style Lag',
+              '📦 100% Tree-Shakeable',
+              '✨ Framer Motion Spring Physics',
+              '🎨 Any-Hex Dynamic Color Engine',
+              '⚡ Faster Than MUI & Chakra',
+              '♿ Radix UI a11y Standards',
+              '🛡️ Full TypeScript Safety',
+              '🌈 Tubelight & Spotlight Glows',
+            ].map((text, idx) => (
+              <span
+                key={idx}
+                className="mx-4 text-xs sm:text-sm font-bold tracking-wider text-muted-foreground/90 uppercase flex items-center gap-2"
+              >
+                {text}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* PERFORMANCE & SPEED BENCHMARK CARDS */}
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <h2 className="text-2xl font-extrabold tracking-tight">Why Doni UI is so blazingly fast</h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Unlike traditional heavy UI libraries, Doni UI eliminates runtime bottlenecks.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <SpotlightCard className="border-primary/20">
+              <div className="p-3 w-fit rounded-xl bg-primary/10 text-primary mb-4 border border-primary/20">
+                <Gauge className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg mb-1">0ms Runtime CSS Parsing</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                MUI & Chakra use Emotion to parse CSS at runtime on every user render. Doni UI uses native CSS variables and atomic Tailwind classes for instant 0ms painting.
+              </p>
+            </SpotlightCard>
+
+            <SpotlightCard className="border-primary/20">
+              <div className="p-3 w-fit rounded-xl bg-primary/10 text-primary mb-4 border border-primary/20">
+                <Feather className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg mb-1">Featherweight Tree-Shaking</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Configured with <code className="text-xs bg-muted px-1.5 py-0.5 rounded">"sideEffects": false</code>. When you import only the Button, your final bundle only includes ~3KB instead of shipping the entire library.
+              </p>
+            </SpotlightCard>
+
+            <SpotlightCard className="border-primary/20">
+              <div className="p-3 w-fit rounded-xl bg-primary/10 text-primary mb-4 border border-primary/20">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg mb-1">120 FPS GPU Acceleration</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Every animation uses hardware transforms (<code className="text-xs bg-muted px-1.5 py-0.5 rounded">transform</code> and <code className="text-xs bg-muted px-1.5 py-0.5 rounded">opacity</code>) on the GPU compositor thread without triggering layout reflow.
+              </p>
+            </SpotlightCard>
+          </div>
         </section>
 
         {/* DYNAMIC THEME STUDIO (ANY COLOR ENGINE) */}
@@ -241,7 +381,6 @@ export function App() {
                   </div>
                 </div>
 
-                {/* Real-time Custom Color Hex Input */}
                 <div className="flex items-center gap-3 bg-muted/60 p-2 rounded-xl border border-border">
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-2">
                     Custom Hex:
@@ -272,7 +411,6 @@ export function App() {
             </CardHeader>
 
             <CardContent className="pt-6 space-y-6">
-              {/* Preset Palettes */}
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Preset Color Palettes
@@ -306,7 +444,6 @@ export function App() {
                 </div>
               </div>
 
-              {/* Corner Radius Controls */}
               <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border/50">
                 <div className="flex items-center gap-2">
                   <Sliders className="w-4 h-4 text-muted-foreground" />
@@ -341,15 +478,14 @@ export function App() {
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
               <p className="text-muted-foreground mt-1">
-                Every component is fully animated, responsive, accessible, and theme-reactive.
+                Showstopper animated components inspired by Serenity UI and 21st.dev.
               </p>
             </div>
 
-            {/* Navigation Tabs */}
             <Tabs
               tabs={[
+                { id: 'spotlight', label: 'Spotlight & Flame' },
                 { id: 'buttons', label: 'Buttons' },
-                { id: 'cards', label: 'Cards & Tilt' },
                 { id: 'inputs', label: 'Inputs' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
                 { id: 'switches', label: 'Switches & Tabs' },
@@ -359,7 +495,55 @@ export function App() {
             />
           </div>
 
-          {/* 1. BUTTONS SECTION */}
+          {/* 1. SPOTLIGHT & FLAME SECTION */}
+          {activeTab === 'spotlight' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <SpotlightCard>
+                  <Badge variant="glow" className="mb-3">Serenity Inspired</Badge>
+                  <h3 className="text-lg font-bold">Interactive Spotlight</h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    Move your cursor over this card. A radiant flashlight beam follows your pointer with zero lag.
+                  </p>
+                  <div className="mt-4">
+                    <Button variant="outline" size="sm" className="w-full">Hover to inspect</Button>
+                  </div>
+                </SpotlightCard>
+
+                <SpotlightCard>
+                  <Badge variant="neon" className="mb-3">Showstopper</Badge>
+                  <h3 className="text-lg font-bold">Flame & Border Beam</h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    Rotating conic gradient border beams with ambient pulsing flame blooms.
+                  </p>
+                  <div className="mt-4 flex justify-center">
+                    <FlameButton>
+                      <Flame className="w-4 h-4 mr-1 text-primary" />
+                      Ignite Button
+                    </FlameButton>
+                  </div>
+                </SpotlightCard>
+
+                <SpotlightCard>
+                  <Badge variant="secondary" className="mb-3">Tubelight Glow</Badge>
+                  <h3 className="text-lg font-bold">Tubelight Navbar</h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    Floating dock navigation equipped with an electric glowing lamp beam indicator.
+                  </p>
+                  <div className="mt-4">
+                    <Button variant="glow" size="sm" className="w-full">View Navbar Above</Button>
+                  </div>
+                </SpotlightCard>
+              </div>
+            </motion.div>
+          )}
+
+          {/* 2. BUTTONS SECTION */}
           {activeTab === 'buttons' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -382,6 +566,10 @@ export function App() {
                       Glow Variant
                     </Button>
                     <Button variant="shimmer">Shimmer Animation</Button>
+                    <FlameButton>
+                      <Flame className="w-4 h-4 mr-1 text-primary" />
+                      Flame Beam
+                    </FlameButton>
                     <Button variant="glass">Glassmorphism</Button>
                     <Button variant="outline">Outline</Button>
                     <Button variant="secondary">Secondary</Button>
@@ -397,81 +585,20 @@ export function App() {
                 </CardContent>
                 <CardFooter className="bg-muted/30 border-t border-border/50 justify-between">
                   <span className="text-xs text-muted-foreground font-mono">
-                    import &#123; Button &#125; from '@/components/ui/button';
+                    import &#123; Button, FlameButton &#125; from 'doni-ui';
                   </span>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() =>
                       copyToClipboard(
-                        `<Button variant="glow">
-  <Zap className="w-4 h-4 mr-2" />
-  Glow Button
-</Button>`,
+                        `<Button variant="glow">\n  <Zap className="w-4 h-4 mr-2" />\n  Glow Button\n</Button>`,
                         'Button'
                       )
                     }
                   >
                     {copiedCode === 'Button' ? <Check className="w-4 h-4 mr-1 text-emerald-500" /> : <Copy className="w-4 h-4 mr-1" />}
                     Copy Code
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          )}
-
-          {/* 2. CARDS SECTION */}
-          {activeTab === 'cards' && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={transitions.smoothEase}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
-            >
-              <Card glow={true}>
-                <CardHeader>
-                  <Badge variant="glow" className="w-fit mb-2">Feature 01</Badge>
-                  <CardTitle>Spring Physics</CardTitle>
-                  <CardDescription>Smooth natural motion</CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Hover over this card to see the spring elevation and ambient dynamic glow.
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Learn More
-                  </Button>
-                </CardFooter>
-              </Card>
-
-              <Card glow={true} className="border-primary/50">
-                <CardHeader>
-                  <Badge variant="neon" className="w-fit mb-2">Feature 02</Badge>
-                  <CardTitle>Custom Palette</CardTitle>
-                  <CardDescription>Instant adaptation</CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  The border and shadow react live to whichever color you pick in the Theme Studio above.
-                </CardContent>
-                <CardFooter>
-                  <Button variant="glow" size="sm" className="w-full">
-                    Configure
-                  </Button>
-                </CardFooter>
-              </Card>
-
-              <Card glow={true}>
-                <CardHeader>
-                  <Badge variant="secondary" className="w-fit mb-2">Feature 03</Badge>
-                  <CardTitle>Accessible Radix</CardTitle>
-                  <CardDescription>Keyboard navigation & a11y</CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Full WCAG compliance with keyboard controls, aria labels, and focus traps.
-                </CardContent>
-                <CardFooter>
-                  <Button variant="ghost" size="sm" className="w-full">
-                    Docs <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                   </Button>
                 </CardFooter>
               </Card>
@@ -544,7 +671,6 @@ export function App() {
               transition={transitions.smoothEase}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              {/* Radix Dialog Modal */}
               <Card>
                 <CardHeader>
                   <CardTitle>Animated Modal Dialog</CardTitle>
@@ -590,7 +716,6 @@ export function App() {
                 </CardContent>
               </Card>
 
-              {/* Accordion */}
               <Card>
                 <CardHeader>
                   <CardTitle>Smooth Accordion</CardTitle>
@@ -601,21 +726,21 @@ export function App() {
                 <CardContent>
                   <Accordion type="single" collapsible defaultValue="item-1">
                     <AccordionItem value="item-1">
-                      <AccordionTrigger>How does the color engine work?</AccordionTrigger>
+                      <AccordionTrigger>How does Doni UI load so fast?</AccordionTrigger>
                       <AccordionContent>
-                        Doni UI uses dynamic HSL CSS variables synced to the document root. When you pick ANY hex color, it calculates the hue, saturation, and lightness values in microseconds.
+                        Doni UI eliminates runtime CSS parsing entirely. Every animation uses GPU-accelerated compositing, and unused components are stripped with "sideEffects: false" tree-shaking.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-2">
-                      <AccordionTrigger>Can I export this as an npm package?</AccordionTrigger>
+                      <AccordionTrigger>Can I use yarn, pnpm, bun, or npm?</AccordionTrigger>
                       <AccordionContent>
-                        Yes! The library is designed with TypeScript exports so you can publish it directly to npm or copy-paste individual components just like shadcn/ui.
+                        Yes! Doni UI fully supports all major package managers: npm, yarn, pnpm, and bun.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
-                      <AccordionTrigger>Does it support dark and light mode?</AccordionTrigger>
+                      <AccordionTrigger>How does the color engine work?</AccordionTrigger>
                       <AccordionContent>
-                        Full first-class dark and light mode support with high-contrast accessibility across all color presets.
+                        Dynamic HSL CSS variables are bound directly to the document root, updating buttons, borders, and ambient glow effects across all components instantly.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>

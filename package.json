@@ -1,12 +1,40 @@
 {
   "name": "doni-ui",
-  "private": true,
   "version": "1.0.0",
+  "description": "Ultra-fast, spring-animated, hyper-customizable React UI component library",
+  "author": "Charitha <charitha-only@users.noreply.github.com>",
+  "license": "MIT",
   "type": "module",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "react",
+    "ui-library",
+    "framer-motion",
+    "tailwind",
+    "radix-ui",
+    "animated-ui",
+    "fast-ui",
+    "shadcn"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "tsc -b && vite build && vite build --config vite.lib.config.ts",
+    "build:demo": "vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -74,9 +74,9 @@ export default {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-        'gradient-rotate': {
-          '0%': { filter: 'hue-rotate(0deg)' },
-          '100%': { filter: 'hue-rotate(360deg)' },
+        'marquee': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - 1.5rem))' },
         },
       },
       animation: {
@@ -85,7 +85,7 @@ export default {
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'gradient-rotate': 'gradient-rotate 8s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
       },
     },
   },

@@ -10,6 +10,13 @@ export * from './components/ui/accordion';
 export * from './components/ui/tooltip';
 export * from './components/ui/toast';
 
+// Showstopper & Animated Components
+export * from './components/ui/tubelight-navbar';
+export * from './components/ui/spotlight-card';
+export * from './components/ui/flame-button';
+export * from './components/ui/marquee';
+export * from './components/ui/typewriter';
+
 // Theme Engine Exports
 export * from './theme/theme-context';
 export * from './theme/themes';
