@@ -9,6 +9,9 @@ export * from './components/ui/dialog';
 export * from './components/ui/accordion';
 export * from './components/ui/tooltip';
 export * from './components/ui/toast';
+export * from './components/ui/avatar';
+export * from './components/ui/slider';
+export * from './components/ui/dropdown-menu';
 
 // Showstopper & Animated Components
 export * from './components/ui/tubelight-navbar';

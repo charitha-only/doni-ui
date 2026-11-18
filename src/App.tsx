@@ -18,6 +18,7 @@ import {
   Compass,
   Boxes,
   Settings,
+  User,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -42,15 +43,26 @@ import {
   AccordionContent,
 } from './components/ui/accordion';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
+import { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
+import { Slider } from './components/ui/slider';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from './components/ui/dropdown-menu';
 import { TubelightNavbar } from './components/ui/tubelight-navbar';
 import { SpotlightCard } from './components/ui/spotlight-card';
 import { FlameButton } from './components/ui/flame-button';
 import { Marquee } from './components/ui/marquee';
 import { Typewriter } from './components/ui/typewriter';
+import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
 import { COLOR_PRESETS } from './theme/themes';
 import { transitions } from './lib/utils';
+import { COMPONENT_SNIPPETS } from './data/component-snippets';
 
 export function App() {
   const {
@@ -69,10 +81,9 @@ export function App() {
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('spotlight');
-  const [activeTabVariant, setActiveTabVariant] = useState('pill');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
-  const [demoSwitch2, setDemoSwitch2] = useState(false);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
+  const [sliderValue, setSliderValue] = useState([65]);
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
 
   const copyToClipboard = (text: string, label: string) => {
@@ -84,6 +95,13 @@ export function App() {
       type: 'success',
     });
     setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  const copySnippet = (snippetId: string) => {
+    const s = COMPONENT_SNIPPETS[snippetId];
+    if (!s) return;
+    const full = `${s.importCode}\n\n${s.usageCode}`;
+    copyToClipboard(full, `${s.name} Code`);
   };
 
   const getInstallCommand = () => {
@@ -137,7 +155,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v1.0
+                  v0.0.1
                 </span>
               </div>
             </div>
@@ -197,7 +215,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ⚡ The Lightest & Fastest Animated React UI Library
+              ✨ Doni UI v0.0.1 — Ultra Fast, Lightest & Spring Animated
             </Badge>
           </motion.div>
 
@@ -225,7 +243,7 @@ export function App() {
             GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
           </motion.p>
 
-          {/* Quick CTA Actions with Flame Button */}
+          {/* Quick CTA Actions with Flame Button & Copy */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -478,24 +496,24 @@ export function App() {
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
               <p className="text-muted-foreground mt-1">
-                Showstopper animated components inspired by Serenity UI and 21st.dev.
+                Every component includes 1-click code copying and CLI commands.
               </p>
             </div>
 
             <Tabs
               tabs={[
-                { id: 'spotlight', label: 'Spotlight & Flame' },
-                { id: 'buttons', label: 'Buttons' },
-                { id: 'inputs', label: 'Inputs' },
+                { id: 'spotlight', label: 'Spotlight & Navbar' },
+                { id: 'buttons', label: 'Buttons & Flame' },
+                { id: 'inputs', label: 'Forms & Slider' },
+                { id: 'display', label: 'Avatar & Dropdown' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
-                { id: 'switches', label: 'Switches & Tabs' },
               ]}
               activeTab={activeTab}
               onChange={setActiveTab}
             />
           </div>
 
-          {/* 1. SPOTLIGHT & FLAME SECTION */}
+          {/* 1. SPOTLIGHT & NAVBAR SECTION */}
           {activeTab === 'spotlight' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -505,45 +523,75 @@ export function App() {
             >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <SpotlightCard>
-                  <Badge variant="glow" className="mb-3">Serenity Inspired</Badge>
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="glow">Spotlight</Badge>
+                    <CodeDialog snippetId="spotlight" />
+                  </div>
                   <h3 className="text-lg font-bold">Interactive Spotlight</h3>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                     Move your cursor over this card. A radiant flashlight beam follows your pointer with zero lag.
                   </p>
-                  <div className="mt-4">
-                    <Button variant="outline" size="sm" className="w-full">Hover to inspect</Button>
+                  <div className="mt-5 flex gap-2">
+                    <Button
+                      variant="glow"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => copySnippet('spotlight')}
+                    >
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Code
+                    </Button>
                   </div>
                 </SpotlightCard>
 
                 <SpotlightCard>
-                  <Badge variant="neon" className="mb-3">Showstopper</Badge>
-                  <h3 className="text-lg font-bold">Flame & Border Beam</h3>
-                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                    Rotating conic gradient border beams with ambient pulsing flame blooms.
-                  </p>
-                  <div className="mt-4 flex justify-center">
-                    <FlameButton>
-                      <Flame className="w-4 h-4 mr-1 text-primary" />
-                      Ignite Button
-                    </FlameButton>
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="neon">Tubelight</Badge>
+                    <CodeDialog snippetId="tubelight" />
                   </div>
-                </SpotlightCard>
-
-                <SpotlightCard>
-                  <Badge variant="secondary" className="mb-3">Tubelight Glow</Badge>
-                  <h3 className="text-lg font-bold">Tubelight Navbar</h3>
+                  <h3 className="text-lg font-bold">Tubelight Island Navbar</h3>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                     Floating dock navigation equipped with an electric glowing lamp beam indicator.
                   </p>
-                  <div className="mt-4">
-                    <Button variant="glow" size="sm" className="w-full">View Navbar Above</Button>
+                  <div className="mt-5 flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => copySnippet('tubelight')}
+                    >
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Code
+                    </Button>
+                  </div>
+                </SpotlightCard>
+
+                <SpotlightCard>
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="secondary">Marquee</Badge>
+                    <CodeDialog snippetId="marquee" />
+                  </div>
+                  <h3 className="text-lg font-bold">Infinite Marquee</h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    GPU-accelerated horizontal scrolling row with bilateral fade masks and hover-pause.
+                  </p>
+                  <div className="mt-5 flex gap-2">
+                    <Button
+                      variant="glow"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => copySnippet('marquee')}
+                    >
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Code
+                    </Button>
                   </div>
                 </SpotlightCard>
               </div>
             </motion.div>
           )}
 
-          {/* 2. BUTTONS SECTION */}
+          {/* 2. BUTTONS & FLAME SECTION */}
           {activeTab === 'buttons' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -552,11 +600,17 @@ export function App() {
               className="space-y-6"
             >
               <Card>
-                <CardHeader>
-                  <CardTitle>Button Variants & Physics</CardTitle>
-                  <CardDescription>
-                    Tactile hover scale, spring click depressions, glowing states, and shimmer reflections.
-                  </CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Button Variants & Physics</CardTitle>
+                    <CardDescription>
+                      Tactile hover scale, spring click depressions, glowing states, and shimmer reflections.
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CodeDialog snippetId="button" />
+                    <CodeDialog snippetId="flame" trigger={<Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs">Flame Code</Button>} />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap items-center gap-4">
@@ -565,7 +619,7 @@ export function App() {
                       <Zap className="w-4 h-4 mr-2" />
                       Glow Variant
                     </Button>
-                    <Button variant="shimmer">Shimmer Animation</Button>
+                    <Button variant="shimmer">Shimmer Shine</Button>
                     <FlameButton>
                       <Flame className="w-4 h-4 mr-1 text-primary" />
                       Flame Beam
@@ -587,25 +641,30 @@ export function App() {
                   <span className="text-xs text-muted-foreground font-mono">
                     import &#123; Button, FlameButton &#125; from 'doni-ui';
                   </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      copyToClipboard(
-                        `<Button variant="glow">\n  <Zap className="w-4 h-4 mr-2" />\n  Glow Button\n</Button>`,
-                        'Button'
-                      )
-                    }
-                  >
-                    {copiedCode === 'Button' ? <Check className="w-4 h-4 mr-1 text-emerald-500" /> : <Copy className="w-4 h-4 mr-1" />}
-                    Copy Code
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="glow"
+                      size="sm"
+                      onClick={() => copySnippet('button')}
+                    >
+                      <Copy className="w-3.5 h-3.5 mr-1" />
+                      Copy Button Code
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copySnippet('flame')}
+                    >
+                      <Copy className="w-3.5 h-3.5 mr-1" />
+                      Copy Flame Code
+                    </Button>
+                  </div>
                 </CardFooter>
               </Card>
             </motion.div>
           )}
 
-          {/* 3. INPUTS SECTION */}
+          {/* 3. FORMS & SLIDER SECTION */}
           {activeTab === 'inputs' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -614,11 +673,14 @@ export function App() {
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
               <Card>
-                <CardHeader>
-                  <CardTitle>Glow Focus Inputs</CardTitle>
-                  <CardDescription>
-                    Click inside the inputs to see the smooth animated focus ring bloom into view.
-                  </CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Glow Focus Inputs</CardTitle>
+                    <CardDescription>
+                      Expanding glowing focus ring bloom with icon slots.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="input" />
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -640,30 +702,155 @@ export function App() {
                     />
                   </div>
                 </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('input')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Input Code
+                  </Button>
+                </CardFooter>
               </Card>
 
+              {/* Slider & Switch */}
               <Card>
-                <CardHeader>
-                  <CardTitle>Badges & Status Indicators</CardTitle>
-                  <CardDescription>
-                    Pulsing live indicators and glowing status tags.
-                  </CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Slider & Spring Switch</CardTitle>
+                    <CardDescription>
+                      Dynamic theme range sliders and tactile spring switches.
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CodeDialog snippetId="slider" trigger={<Button variant="ghost" size="sm" className="h-8 text-xs">Slider Code</Button>} />
+                    <CodeDialog snippetId="switch" trigger={<Button variant="ghost" size="sm" className="h-8 text-xs">Switch Code</Button>} />
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Badge variant="glow" withPulse>Live Server</Badge>
-                    <Badge variant="neon">Production Ready</Badge>
-                    <Badge variant="default">Primary Badge</Badge>
-                    <Badge variant="secondary">Secondary</Badge>
-                    <Badge variant="destructive">Critical Error</Badge>
-                    <Badge variant="outline">Neutral Tag</Badge>
+                <CardContent className="space-y-6">
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-semibold text-muted-foreground">Range Value:</span>
+                      <span className="text-xs font-bold text-primary">{sliderValue[0]}%</span>
+                    </div>
+                    <Slider
+                      value={sliderValue}
+                      onValueChange={setSliderValue}
+                      max={100}
+                      step={1}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t border-border/60">
+                    <div>
+                      <p className="text-sm font-semibold">Micro-animations</p>
+                      <p className="text-xs text-muted-foreground">Spring layout toggle</p>
+                    </div>
+                    <Switch
+                      checked={demoSwitch1}
+                      onCheckedChange={setDemoSwitch1}
+                      size="default"
+                    />
                   </div>
                 </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('slider')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Slider Code
+                  </Button>
+                </CardFooter>
               </Card>
             </motion.div>
           )}
 
-          {/* 4. FEEDBACK SECTION (DIALOG & ACCORDION) */}
+          {/* 4. AVATAR & DROPDOWN SECTION */}
+          {activeTab === 'display' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              {/* Avatar Component */}
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Avatars with Status Indicators</CardTitle>
+                    <CardDescription>
+                      Pulsing online, busy, and away live status badges.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="avatar" />
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <Avatar status="online" className="h-12 w-12">
+                      <AvatarImage src="https://github.com/charitha-only.png" alt="Charitha" />
+                      <AvatarFallback>CH</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="away" className="h-11 w-11">
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="busy" className="h-10 w-10">
+                      <AvatarFallback>AI</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="offline" className="h-9 w-9">
+                      <AvatarFallback>UI</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Avatars support images with fallback initials and pulsing live status dots.
+                  </p>
+                </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('avatar')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Avatar Code
+                  </Button>
+                </CardFooter>
+              </Card>
+
+              {/* Dropdown Menu */}
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Spring Dropdown Menu</CardTitle>
+                    <CardDescription>
+                      Radix popover with spring entrance and shortcuts.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="dropdown" />
+                </CardHeader>
+                <CardContent className="flex items-center justify-center p-8">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="glow" size="lg">
+                        <User className="w-4 h-4 mr-2" />
+                        Open Account Menu
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuItem>Profile Settings</DropdownMenuItem>
+                      <DropdownMenuItem>Billing & Invoices</DropdownMenuItem>
+                      <DropdownMenuItem>Team Management</DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="text-destructive font-bold">
+                        Log out
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="outline" size="sm" onClick={() => copySnippet('dropdown')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Dropdown Code
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* 5. FEEDBACK SECTION (DIALOG & ACCORDION) */}
           {activeTab === 'feedback' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -672,11 +859,14 @@ export function App() {
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
               <Card>
-                <CardHeader>
-                  <CardTitle>Animated Modal Dialog</CardTitle>
-                  <CardDescription>
-                    Spring scale-up entry, frosted backdrop blur, and smooth exit.
-                  </CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Animated Modal Dialog</CardTitle>
+                    <CardDescription>
+                      Spring scale-up entry, frosted backdrop blur, and smooth exit.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="dialog" />
                 </CardHeader>
                 <CardContent className="flex items-center justify-center p-8">
                   <Dialog>
@@ -714,8 +904,15 @@ export function App() {
                     </DialogContent>
                   </Dialog>
                 </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('dialog')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Dialog Code
+                  </Button>
+                </CardFooter>
               </Card>
 
+              {/* Accordion */}
               <Card>
                 <CardHeader>
                   <CardTitle>Smooth Accordion</CardTitle>
@@ -726,106 +923,24 @@ export function App() {
                 <CardContent>
                   <Accordion type="single" collapsible defaultValue="item-1">
                     <AccordionItem value="item-1">
-                      <AccordionTrigger>How does Doni UI load so fast?</AccordionTrigger>
+                      <AccordionTrigger>How to copy components to my project?</AccordionTrigger>
                       <AccordionContent>
-                        Doni UI eliminates runtime CSS parsing entirely. Every animation uses GPU-accelerated compositing, and unused components are stripped with "sideEffects: false" tree-shaking.
+                        Click any "Copy Code" button in this gallery, or click "View Code" to see the full import statement, installation instructions, and TypeScript usage.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-2">
-                      <AccordionTrigger>Can I use yarn, pnpm, bun, or npm?</AccordionTrigger>
+                      <AccordionTrigger>How is the website hosted?</AccordionTrigger>
                       <AccordionContent>
-                        Yes! Doni UI fully supports all major package managers: npm, yarn, pnpm, and bun.
+                        Doni UI is automatically deployed to GitHub Pages with continuous integration workflows on every release.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
-                      <AccordionTrigger>How does the color engine work?</AccordionTrigger>
+                      <AccordionTrigger>Does it support dark and light mode?</AccordionTrigger>
                       <AccordionContent>
-                        Dynamic HSL CSS variables are bound directly to the document root, updating buttons, borders, and ambient glow effects across all components instantly.
+                        Full first-class dark and light mode support with high-contrast accessibility across all color presets.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-
-          {/* 5. SWITCHES & TABS SECTION */}
-          {activeTab === 'switches' && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={transitions.smoothEase}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle>Bouncy Spring Switch</CardTitle>
-                  <CardDescription>
-                    Tactile mechanical feel powered by Framer Motion layout animations.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-semibold">Enable Micro-animations</p>
-                      <p className="text-xs text-muted-foreground">Physics-based spring transitions</p>
-                    </div>
-                    <Switch
-                      checked={demoSwitch1}
-                      onCheckedChange={setDemoSwitch1}
-                      size="default"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-semibold">Neon Glow Mode</p>
-                      <p className="text-xs text-muted-foreground">Ambient shadow bloom around controls</p>
-                    </div>
-                    <Switch
-                      checked={demoSwitch2}
-                      onCheckedChange={setDemoSwitch2}
-                      size="lg"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Sliding Pill Tabs</CardTitle>
-                  <CardDescription>
-                    iOS & Linear-inspired sliding active indicator pill.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground mb-3">Pill Variant</p>
-                    <Tabs
-                      tabs={[
-                        { id: 'all', label: 'All Projects' },
-                        { id: 'active', label: 'Active' },
-                        { id: 'archived', label: 'Archived' },
-                      ]}
-                      activeTab={activeTabVariant}
-                      onChange={setActiveTabVariant}
-                      variant="pill"
-                    />
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground mb-3">Underline Variant</p>
-                    <Tabs
-                      tabs={[
-                        { id: 'all', label: 'Overview' },
-                        { id: 'active', label: 'Analytics' },
-                        { id: 'archived', label: 'Settings' },
-                      ]}
-                      activeTab={activeTabVariant}
-                      onChange={setActiveTabVariant}
-                      variant="underline"
-                    />
-                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -837,20 +952,29 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.1</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>
             </div>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
-              Open source on{' '}
+              Live on{' '}
+              <a
+                href="https://charitha-only.github.io/doni-ui/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary hover:underline font-semibold"
+              >
+                GitHub Pages
+              </a>
+              {' '}&amp;{' '}
               <a
                 href="https://github.com/charitha-only/doni-ui"
                 target="_blank"
                 rel="noreferrer"
                 className="text-primary hover:underline font-semibold"
               >
-                GitHub
+                GitHub Repo
               </a>
             </p>
           </div>
