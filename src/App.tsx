@@ -17,13 +17,14 @@ import {
   Compass,
   Boxes,
   Settings,
-  User,
   Shield,
   Layers,
   Search,
   Terminal,
   Stars,
   Radio,
+  Eye,
+  Type,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -51,13 +52,6 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './comp
 import { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
 import { Slider } from './components/ui/slider';
 import { Skeleton } from './components/ui/skeleton';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from './components/ui/dropdown-menu';
 import { TubelightNavbar } from './components/ui/tubelight-navbar';
 import { SpotlightCard } from './components/ui/spotlight-card';
 import { FlameButton } from './components/ui/flame-button';
@@ -68,8 +62,10 @@ import { Meteors } from './components/ui/meteors';
 import { Ripple } from './components/ui/ripple';
 import { FloatingDock } from './components/ui/floating-dock';
 import { CommandPalette } from './components/ui/command-palette';
+import { FlipWords } from './components/ui/flip-words';
+import { CardContainer, CardItem } from './components/ui/card-3d';
+import { TextReveal } from './components/ui/text-reveal';
 import { Marquee } from './components/ui/marquee';
-import { Typewriter } from './components/ui/typewriter';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -93,7 +89,7 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('cosmic');
+  const [activeTab, setActiveTab] = useState('card3d');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
@@ -190,13 +186,12 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.3
+                  v0.0.4
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Search ⌘K Trigger Button */}
               <button
                 type="button"
                 onClick={() => setCommandPaletteOpen(true)}
@@ -254,7 +249,7 @@ export function App() {
           />
         </div>
 
-        {/* Hero Section with Typewriter */}
+        {/* Hero Section with 3D Flip Words */}
         <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -263,7 +258,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.3 — Meteors, Ripples, macOS Dock & ⌘K Search
+              ✨ Doni UI v0.0.4 — 3D Tilt Cards, Flip Words & Text Reveal
             </Badge>
           </motion.div>
 
@@ -271,14 +266,13 @@ export function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transitions.springGentle, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.15]"
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.2]"
           >
             Build interfaces that are{' '}
-            <span className="text-primary underline decoration-primary/40 decoration-wavy underline-offset-8">
-              <Typewriter
-                words={['ultra fast.', 'super lightweight.', 'fluidly animated.', '100% themeable.']}
-              />
-            </span>
+            <FlipWords
+              words={['ultra-fast.', '3D-animated.', 'super-light.', '100% themeable.']}
+              duration={2400}
+            />
           </motion.h1>
 
           <motion.p
@@ -291,7 +285,7 @@ export function App() {
             GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
           </motion.p>
 
-          {/* Quick CTA Actions with Flame Button & Copy */}
+          {/* Quick CTA Actions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -392,6 +386,7 @@ export function App() {
               '🌈 Tubelight & Spotlight Glows',
               '⌨️ Vintage 3D Keycaps',
               '💫 Shooting Stars & Meteors',
+              '🧊 3D Perspective Tilt Cards',
             ].map((text, idx) => (
               <span
                 key={idx}
@@ -565,12 +560,12 @@ export function App() {
 
             <Tabs
               tabs={[
+                { id: 'card3d', label: '3D Tilt & Reveal' },
                 { id: 'cosmic', label: 'Cosmic & Motion' },
                 { id: 'showstopper', label: 'Keycaps & Bento' },
                 { id: 'spotlight', label: 'Spotlight & Navbar' },
                 { id: 'buttons', label: 'Buttons & Flame' },
                 { id: 'inputs', label: 'Forms & Slider' },
-                { id: 'display', label: 'Avatar & Dropdown' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
               ]}
               activeTab={activeTab}
@@ -578,7 +573,79 @@ export function App() {
             />
           </div>
 
-          {/* 0. COSMIC & MOTION SECTION */}
+          {/* 0. 3D TILT & TEXT REVEAL SECTION */}
+          {activeTab === 'card3d' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                {/* 3D Perspective Tilt Card */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="glow" className="gap-1">
+                      <Eye className="w-3 h-3" /> 3D Mouse Tilt
+                    </Badge>
+                    <CodeDialog snippetId="card3d" />
+                  </div>
+                  <CardContainer className="py-2">
+                    <div className="bg-card border border-border/80 p-6 rounded-2xl w-full max-w-sm [transform-style:preserve-3d] shadow-2xl backdrop-blur-xl">
+                      <CardItem translateZ="50" className="text-xl font-extrabold tracking-tight">
+                        Perspective 3D Card
+                      </CardItem>
+                      <CardItem as="p" translateZ="60" className="text-muted-foreground text-xs mt-2 leading-relaxed">
+                        Move your mouse over this container to watch child items float out into real 3D depth space.
+                      </CardItem>
+                      <CardItem translateZ="80" className="w-full mt-4">
+                        <div className="h-36 w-full rounded-xl bg-gradient-to-tr from-primary/30 to-accent/30 border border-primary/20 flex items-center justify-center text-primary font-bold shadow-inner-glow">
+                          Layered 3D Element (Z: 80)
+                        </div>
+                      </CardItem>
+                      <div className="flex justify-between items-center mt-6">
+                        <CardItem translateZ="30" as="span" className="text-xs text-primary font-bold">
+                          Framer Spring Physics
+                        </CardItem>
+                        <CardItem translateZ="50" as={Button} variant="glow" size="sm">
+                          Hover to Tilt
+                        </CardItem>
+                      </div>
+                    </div>
+                  </CardContainer>
+                </div>
+
+                {/* Staggered Text Reveal & Typography */}
+                <Card className="p-6 h-full flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <Badge variant="neon" className="gap-1">
+                        <Type className="w-3 h-3" /> Blur Stagger
+                      </Badge>
+                      <CodeDialog snippetId="textReveal" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-3">Staggered Word Blur Reveal</h3>
+                    <TextReveal
+                      text="Doni UI is engineered from the ground up for maximum visual impact, 120 FPS hardware acceleration, and zero runtime styling overhead."
+                      className="text-base text-muted-foreground font-medium leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="pt-6 border-t border-border/60 mt-6 flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground font-mono">
+                      &lt;TextReveal text="..." /&gt;
+                    </span>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('textReveal')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Text Reveal
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+            </motion.div>
+          )}
+
+          {/* 1. COSMIC & MOTION SECTION */}
           {activeTab === 'cosmic' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -587,7 +654,6 @@ export function App() {
               className="space-y-6"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Meteors Card */}
                 <Card className="relative overflow-hidden p-6 bg-gradient-to-b from-card to-background border-border/80 min-h-[260px] flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4 z-10">
                     <div>
@@ -610,7 +676,6 @@ export function App() {
                   </div>
                 </Card>
 
-                {/* Ripple Background */}
                 <Card className="relative overflow-hidden p-6 border-border/80 min-h-[260px] flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-2 z-10">
                     <div>
@@ -642,7 +707,6 @@ export function App() {
                 </Card>
               </div>
 
-              {/* Skeleton Loader Demo */}
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -670,7 +734,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 1. SHOWSTOPPER SECTION */}
+          {/* 2. SHOWSTOPPER SECTION */}
           {activeTab === 'showstopper' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -782,7 +846,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 2. SPOTLIGHT SECTION */}
+          {/* 3. SPOTLIGHT SECTION */}
           {activeTab === 'spotlight' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -860,7 +924,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 3. BUTTONS SECTION */}
+          {/* 4. BUTTONS SECTION */}
           {activeTab === 'buttons' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -933,7 +997,7 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 4. FORMS SECTION */}
+          {/* 5. FORMS SECTION */}
           {activeTab === 'inputs' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -1028,94 +1092,6 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 5. DISPLAY SECTION */}
-          {activeTab === 'display' && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={transitions.smoothEase}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            >
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Avatars with Status Indicators</CardTitle>
-                    <CardDescription>
-                      Pulsing online, busy, and away live status badges.
-                    </CardDescription>
-                  </div>
-                  <CodeDialog snippetId="avatar" />
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <Avatar status="online" className="h-12 w-12">
-                      <AvatarImage src="https://github.com/charitha-only.png" alt="Charitha" />
-                      <AvatarFallback>CH</AvatarFallback>
-                    </Avatar>
-
-                    <Avatar status="away" className="h-11 w-11">
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-
-                    <Avatar status="busy" className="h-10 w-10">
-                      <AvatarFallback>AI</AvatarFallback>
-                    </Avatar>
-
-                    <Avatar status="offline" className="h-9 w-9">
-                      <AvatarFallback>UI</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Avatars support images with fallback initials and pulsing live status dots.
-                  </p>
-                </CardContent>
-                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
-                  <Button variant="glow" size="sm" onClick={() => copySnippet('avatar')}>
-                    <Copy className="w-3.5 h-3.5 mr-1.5" />
-                    Copy Avatar Code
-                  </Button>
-                </CardFooter>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Spring Dropdown Menu</CardTitle>
-                    <CardDescription>
-                      Radix popover with spring entrance and shortcuts.
-                    </CardDescription>
-                  </div>
-                  <CodeDialog snippetId="dropdown" />
-                </CardHeader>
-                <CardContent className="flex items-center justify-center p-8">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="glow" size="lg">
-                        <User className="w-4 h-4 mr-2" />
-                        Open Account Menu
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuItem>Profile Settings</DropdownMenuItem>
-                      <DropdownMenuItem>Billing & Invoices</DropdownMenuItem>
-                      <DropdownMenuItem>Team Management</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem className="text-destructive font-bold">
-                        Log out
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </CardContent>
-                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
-                  <Button variant="outline" size="sm" onClick={() => copySnippet('dropdown')}>
-                    <Copy className="w-3.5 h-3.5 mr-1.5" />
-                    Copy Dropdown Code
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          )}
-
           {/* 6. FEEDBACK SECTION */}
           {activeTab === 'feedback' && (
             <motion.div
@@ -1191,21 +1167,21 @@ export function App() {
                 <CardContent>
                   <Accordion type="single" collapsible defaultValue="item-1">
                     <AccordionItem value="item-1">
-                      <AccordionTrigger>How to use the ⌘K command palette?</AccordionTrigger>
+                      <AccordionTrigger>How does 3D tilt work?</AccordionTrigger>
                       <AccordionContent>
-                        Press ⌘K (or Ctrl+K on Windows) anywhere on this website to open the instant search palette. You can filter all components and copy their CLI add commands immediately.
+                        Doni UI uses Framer Motion spring physics mapped to pointer coordinates, computing rotateX and rotateY with preserve-3d layers at 120 FPS.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-2">
                       <AccordionTrigger>How to copy components to my project?</AccordionTrigger>
                       <AccordionContent>
-                        Click any "Copy Code" button in this gallery, or click "View Code" to see the full import statement, installation instructions, and TypeScript usage.
+                        Click any "Copy Code" button in this gallery, or run "npx doni-ui add &lt;component&gt;" in your project terminal.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
-                      <AccordionTrigger>How does CLI installation work?</AccordionTrigger>
+                      <AccordionTrigger>Does it support dark and light mode?</AccordionTrigger>
                       <AccordionContent>
-                        Run "npx doni-ui add &lt;component&gt;" in any React or Next.js project to instantly copy that component into your codebase with zero setup.
+                        Full first-class dark and light mode support with high-contrast accessibility across all color presets.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
@@ -1220,7 +1196,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.3</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.4</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

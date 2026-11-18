@@ -27,6 +27,9 @@ export * from './components/ui/meteors';
 export * from './components/ui/ripple';
 export * from './components/ui/floating-dock';
 export * from './components/ui/command-palette';
+export * from './components/ui/flip-words';
+export * from './components/ui/card-3d';
+export * from './components/ui/text-reveal';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

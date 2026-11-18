@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.3-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.3)
+[![Version](https://img.shields.io/badge/Release-v0.0.4-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.4)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,9 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add card-3d
+npx doni-ui add flip-words
+npx doni-ui add text-reveal
 npx doni-ui add meteors
 npx doni-ui add ripple
 npx doni-ui add floating-dock
@@ -85,7 +88,72 @@ bun add doni-ui
 
 ## 🌟 Featured Showstopper Components
 
-### 1. 💫 Meteors Effect (Shooting Stars)
+### 1. 🧊 3D Perspective Tilt Card
+Mouse-tracking container with true 3D perspective and `translateZ` child layer elevation:
+
+```tsx
+import { CardContainer, CardItem, Button } from 'doni-ui';
+
+export function TiltCard() {
+  return (
+    <CardContainer>
+      <div className="bg-card border border-border/80 p-6 rounded-2xl w-[30rem] [transform-style:preserve-3d]">
+        <CardItem translateZ="50" className="text-xl font-bold">
+          3D Perspective Card
+        </CardItem>
+        <CardItem as="p" translateZ="60" className="text-muted-foreground text-sm mt-2">
+          Hover over this card to watch layers float into real 3D depth space.
+        </CardItem>
+        <div className="flex justify-between items-center mt-6">
+          <CardItem translateZ="40" as={Button} variant="glow" size="sm">
+            Explore
+          </CardItem>
+        </div>
+      </div>
+    </CardContainer>
+  );
+}
+```
+
+---
+
+### 2. 🔤 3D Flip Words Text Transition
+Smooth letter-by-letter 3D flip rotation between keywords:
+
+```tsx
+import { FlipWords } from 'doni-ui';
+
+export function Headline() {
+  return (
+    <h2>
+      Build interfaces that are{' '}
+      <FlipWords words={['ultra-fast.', '3D-animated.', 'super-light.', '100% themeable.']} />
+    </h2>
+  );
+}
+```
+
+---
+
+### 3. ✍️ Staggered Word Blur Reveal
+Apple & Linear-inspired staggered blur-to-focus word entrance:
+
+```tsx
+import { TextReveal } from 'doni-ui';
+
+export function Announcement() {
+  return (
+    <TextReveal
+      text="Doni UI is engineered from the ground up for maximum visual impact and zero runtime overhead."
+      className="text-2xl font-bold leading-relaxed"
+    />
+  );
+}
+```
+
+---
+
+### 4. 💫 Meteors Effect (Shooting Stars)
 Ambient animated shooting stars streaking with glowing linear tails:
 
 ```tsx
@@ -103,7 +171,7 @@ export function MeteorCard() {
 
 ---
 
-### 2. 🌊 Concentric Water Ripples
+### 5. 🌊 Concentric Water Ripples
 Concentric soundwave water ripples expanding outward with spring physics:
 
 ```tsx
@@ -123,7 +191,7 @@ export function RippleHero() {
 
 ---
 
-### 3. 🖥️ macOS Floating Dock
+### 6. 🖥️ macOS Floating Dock
 Magnification dock with fluid spring physics inspired by macOS:
 
 ```tsx
@@ -146,7 +214,7 @@ export function Dock() {
 
 ---
 
-### 4. ⌨️ Vintage 3D Mechanical Keycaps
+### 7. ⌨️ Vintage 3D Mechanical Keycaps
 Authentic mechanical keyboard keycaps with tactile 3D press depression physics:
 
 ```tsx
@@ -166,7 +234,7 @@ export function KeyboardShortcuts() {
 
 ---
 
-### 5. ⚡ Animated Border Beam
+### 8. ⚡ Animated Border Beam
 Continuous high-energy laser beam running along the perimeter of cards and containers:
 
 ```tsx
@@ -184,7 +252,7 @@ export function PerimeterCard() {
 
 ---
 
-### 6. 💡 Tubelight Island Navbar
+### 9. 💡 Tubelight Island Navbar
 Floating dock navigation equipped with an electric glowing lamp beam indicator:
 
 ```tsx
@@ -231,6 +299,9 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **CardContainer / CardItem** | Cards | 3D perspective mouse tilt with layered translateZ depth |
+| **FlipWords** | Typography | 3D letter flip text transitions between rotating keywords |
+| **TextReveal** | Typography | Staggered blur-to-focus word reveal entrance |
 | **Meteors** | Special | Falling shooting stars with glowing linear tails |
 | **Ripple** | Special | Concentric pulsing water ripples expanding with spring physics |
 | **FloatingDock** | Navigation | macOS magnification hover dock with spring physics |
@@ -243,7 +314,6 @@ function ColorPicker() {
 | **SpotlightCard** | Cards | Mouse-tracking flashlight radial beam |
 | **FlameButton** | Buttons | Rotating conic gradient border beam with ambient flame bloom |
 | **Marquee** | Display | Seamless continuous GPU-accelerated horizontal scroll |
-| **Typewriter** | Typography | Character typewriter stream with blinking cursor |
 | **Button** | Buttons | Tactile spring depression, shimmer shine, glow states |
 | **Card** | Cards | 3D hover elevation & ambient border glow |
 | **Input** | Forms | Expanding glowing focus ring bloom |
@@ -251,7 +321,6 @@ function ColorPicker() {
 | **Tabs** | Navigation | iOS & Linear-style sliding active indicator pill |
 | **Avatar** | Data Display | Pulsing live status indicator (online, busy, away) |
 | **Slider** | Forms | Dynamic theme color track with hover scale |
-| **DropdownMenu** | Navigation | Radix popover with spring entrance and keyboard shortcuts |
 | **Dialog** | Feedback | Accessible modal with spring scale & backdrop blur |
 | **Accordion** | Feedback | Animated height collapse & rotating chevrons |
 | **Badge** | Display | Live pulse indicator & neon gradient borders |
@@ -262,7 +331,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.3**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.4**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

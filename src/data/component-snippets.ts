@@ -8,6 +8,53 @@ export interface ComponentSnippet {
 }
 
 export const COMPONENT_SNIPPETS: Record<string, ComponentSnippet> = {
+  flipWords: {
+    id: 'flip-words',
+    name: 'Flip Words',
+    description: 'Dynamic 3D letter flip text transitions between rotating keywords.',
+    category: 'Typography',
+    importCode: `import { FlipWords } from 'doni-ui';`,
+    usageCode: `<h2>
+  Build websites that are{' '}
+  <FlipWords words={['modern', 'ultra-fast', 'animated', 'delightful']} />
+</h2>`,
+  },
+  card3d: {
+    id: 'card-3d',
+    name: '3D Perspective Tilt Card',
+    description: 'Perspective 3D mouse tracking container with translateZ layered depth.',
+    category: 'Cards',
+    importCode: `import { CardContainer, CardItem, Button } from 'doni-ui';`,
+    usageCode: `<CardContainer className="inter-var">
+  <div className="bg-card border border-border/80 p-6 rounded-2xl w-auto sm:w-[30rem] [transform-style:preserve-3d]">
+    <CardItem translateZ="50" className="text-xl font-bold">
+      Interactive 3D Card
+    </CardItem>
+    <CardItem as="p" translateZ="60" className="text-muted-foreground text-sm mt-2">
+      Hover over this card to watch perspective physics elevate layers into 3D space.
+    </CardItem>
+    <div className="flex justify-between items-center mt-6">
+      <CardItem translateZ="20" as="button" className="text-xs text-primary font-bold">
+        Explore
+      </CardItem>
+      <CardItem translateZ="40" as={Button} variant="glow" size="sm">
+        Sign Up
+      </CardItem>
+    </div>
+  </div>
+</CardContainer>`,
+  },
+  textReveal: {
+    id: 'text-reveal',
+    name: 'Text Reveal',
+    description: 'Staggered word blur-to-focus reveal animation.',
+    category: 'Typography',
+    importCode: `import { TextReveal } from 'doni-ui';`,
+    usageCode: `<TextReveal
+  text="Doni UI is engineered from the ground up for maximum visual impact and zero runtime overhead."
+  className="text-2xl font-bold leading-relaxed"
+/>`,
+  },
   meteors: {
     id: 'meteors',
     name: 'Meteors & Shooting Stars',
@@ -16,9 +63,6 @@ export const COMPONENT_SNIPPETS: Record<string, ComponentSnippet> = {
     importCode: `import { Meteors, Card } from 'doni-ui';`,
     usageCode: `<Card className="relative overflow-hidden p-6 bg-gradient-to-b from-card to-background">
   <h3 className="font-bold text-xl">Meteor Shower Card</h3>
-  <p className="text-sm text-muted-foreground mt-2">
-    Ambient animated stars streak behind content.
-  </p>
   <Meteors number={25} />
 </Card>`,
   },
@@ -92,9 +136,6 @@ import { Home, Boxes, Compass, Settings } from 'lucide-react';`,
     usageCode: `<SpotlightCard className="p-6">
   <Badge variant="glow" className="mb-3">Feature</Badge>
   <h3 className="text-xl font-bold">Interactive Spotlight</h3>
-  <p className="text-sm text-muted-foreground mt-2">
-    Move your cursor over this card to watch the radiant beam bloom.
-  </p>
   <Button variant="glow" size="sm" className="mt-4">Explore</Button>
 </SpotlightCard>`,
   },
@@ -146,11 +187,6 @@ import { Zap, Shield } from 'lucide-react';`,
     title="Spring Physics"
     description="Zero-lag hardware acceleration."
     icon={<Zap />}
-  />
-  <BentoGridItem
-    title="Type-Safe"
-    description="Full autocompletion and prop validation."
-    icon={<Shield />}
   />
 </BentoGrid>`,
   },
