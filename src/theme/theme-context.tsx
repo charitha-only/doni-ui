@@ -58,12 +58,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.remove('dark');
     }
 
-    // Determine active HSL
+    // Determine active HSL & contrast
     let primaryHsl = activePreset.hsl;
+    let fgColor = '210 40% 98%';
     if (isCustom && customHex) {
       try {
-        const { str } = hexToHsl(customHex);
+        const { str, l } = hexToHsl(customHex);
         primaryHsl = str;
+        // If the color is very light, use dark foreground for crisp contrast
+        if (l > 65) {
+          fgColor = '224 71% 4%';
+        }
       } catch {
         // Fallback to active preset
       }
@@ -71,6 +76,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     // Set dynamic CSS variables
     root.style.setProperty('--primary', primaryHsl);
+    root.style.setProperty('--primary-glow', primaryHsl);
+    root.style.setProperty('--primary-foreground', fgColor);
     root.style.setProperty('--ring', primaryHsl);
     root.style.setProperty('--radius', radius);
 

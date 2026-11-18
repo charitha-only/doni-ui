@@ -17,6 +17,7 @@ import {
   Compass,
   Boxes,
   Settings,
+  User,
   Shield,
   Layers,
   Search,
@@ -52,6 +53,13 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './comp
 import { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
 import { Slider } from './components/ui/slider';
 import { Skeleton } from './components/ui/skeleton';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from './components/ui/dropdown-menu';
 import { TubelightNavbar } from './components/ui/tubelight-navbar';
 import { SpotlightCard } from './components/ui/spotlight-card';
 import { FlameButton } from './components/ui/flame-button';
@@ -566,6 +574,7 @@ export function App() {
                 { id: 'spotlight', label: 'Spotlight & Navbar' },
                 { id: 'buttons', label: 'Buttons & Flame' },
                 { id: 'inputs', label: 'Forms & Slider' },
+                { id: 'display', label: 'Avatar & Dropdown' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
               ]}
               activeTab={activeTab}
@@ -1092,7 +1101,95 @@ export function App() {
             </motion.div>
           )}
 
-          {/* 6. FEEDBACK SECTION */}
+          {/* 6. DISPLAY SECTION (AVATAR & DROPDOWN) */}
+          {activeTab === 'display' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Avatars with Status Indicators</CardTitle>
+                    <CardDescription>
+                      Pulsing online, busy, and away live status badges.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="avatar" />
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <Avatar status="online" className="h-12 w-12">
+                      <AvatarImage src="https://github.com/charitha-only.png" alt="Charitha" />
+                      <AvatarFallback>CH</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="away" className="h-11 w-11">
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="busy" className="h-10 w-10">
+                      <AvatarFallback>AI</AvatarFallback>
+                    </Avatar>
+
+                    <Avatar status="offline" className="h-9 w-9">
+                      <AvatarFallback>UI</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Avatars support images with fallback initials and pulsing live status dots.
+                  </p>
+                </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('avatar')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Avatar Code
+                  </Button>
+                </CardFooter>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Spring Dropdown Menu</CardTitle>
+                    <CardDescription>
+                      Radix popover with spring entrance and shortcuts.
+                    </CardDescription>
+                  </div>
+                  <CodeDialog snippetId="dropdown" />
+                </CardHeader>
+                <CardContent className="flex items-center justify-center p-8">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="glow" size="lg">
+                        <User className="w-4 h-4 mr-2" />
+                        Open Account Menu
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuItem>Profile Settings</DropdownMenuItem>
+                      <DropdownMenuItem>Billing & Invoices</DropdownMenuItem>
+                      <DropdownMenuItem>Team Management</DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="text-destructive font-bold">
+                        Log out
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </CardContent>
+                <CardFooter className="bg-muted/30 border-t border-border/50 justify-end">
+                  <Button variant="outline" size="sm" onClick={() => copySnippet('dropdown')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Dropdown Code
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* 7. FEEDBACK SECTION */}
           {activeTab === 'feedback' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}

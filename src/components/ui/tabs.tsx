@@ -26,7 +26,7 @@ export const Tabs: React.FC<TabsProps> = ({
   return (
     <div
       className={cn(
-        'inline-flex items-center rounded-xl p-1',
+        'inline-flex items-center rounded-xl p-1 max-w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden',
         variant === 'pill'
           ? 'bg-muted/70 backdrop-blur-sm border border-border/50'
           : 'border-b border-border w-full gap-2',
@@ -41,7 +41,7 @@ export const Tabs: React.FC<TabsProps> = ({
             type="button"
             onClick={() => onChange(tab.id)}
             className={cn(
-              'relative flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium transition-colors outline-none cursor-pointer select-none rounded-lg',
+              'relative flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-colors outline-none cursor-pointer select-none rounded-lg shrink-0 whitespace-nowrap',
               isActive
                 ? 'text-foreground font-semibold'
                 : 'text-muted-foreground hover:text-foreground'

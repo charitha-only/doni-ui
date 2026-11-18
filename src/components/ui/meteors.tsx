@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface MeteorsProps {
@@ -7,11 +7,18 @@ export interface MeteorsProps {
 }
 
 export const Meteors: React.FC<MeteorsProps> = ({ number = 20, className }) => {
-  const meteors = new Array(number).fill(true);
+  const meteorsStyles = useMemo(() => {
+    return Array.from({ length: number }).map(() => ({
+      top: 0,
+      left: Math.floor(Math.random() * 800 - 400) + 'px',
+      animationDelay: (Math.random() * 0.6 + 0.2).toFixed(2) + 's',
+      animationDuration: Math.floor(Math.random() * 8 + 3) + 's',
+    }));
+  }, [number]);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {meteors.map((_, idx) => (
+      {meteorsStyles.map((style, idx) => (
         <span
           key={'meteor' + idx}
           className={cn(
@@ -19,12 +26,7 @@ export const Meteors: React.FC<MeteorsProps> = ({ number = 20, className }) => {
             "before:content-[''] before:absolute before:top-1/2 before:transform before:-translate-y-[50%] before:w-[50px] before:h-[1px] before:bg-gradient-to-r before:from-primary before:to-transparent",
             className
           )}
-          style={{
-            top: 0,
-            left: Math.floor(Math.random() * (400 - -400) + -400) + 'px',
-            animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + 's',
-            animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + 's',
-          }}
+          style={style}
         />
       ))}
     </div>

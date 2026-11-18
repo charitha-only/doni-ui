@@ -37,7 +37,7 @@ export const TubelightNavbar: React.FC<TubelightNavbarProps> = ({
   return (
     <nav
       className={cn(
-        'relative inline-flex items-center gap-1 rounded-full border border-border/80 bg-background/80 p-1.5 shadow-xl backdrop-blur-xl',
+        'relative inline-flex items-center gap-1 rounded-full border border-border/80 bg-background/80 p-1.5 shadow-xl backdrop-blur-xl max-w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         className
       )}
     >
