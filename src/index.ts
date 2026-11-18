@@ -30,6 +30,9 @@ export * from './components/ui/command-palette';
 export * from './components/ui/flip-words';
 export * from './components/ui/card-3d';
 export * from './components/ui/text-reveal';
+export * from './components/ui/evervault-card';
+export * from './components/ui/grid-background';
+export * from './components/ui/sparkles';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

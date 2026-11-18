@@ -74,6 +74,9 @@ import { FlipWords } from './components/ui/flip-words';
 import { CardContainer, CardItem } from './components/ui/card-3d';
 import { TextReveal } from './components/ui/text-reveal';
 import { Marquee } from './components/ui/marquee';
+import { EvervaultCard } from './components/ui/evervault-card';
+import { SparklesCore } from './components/ui/sparkles';
+import { GridBackground } from './components/ui/grid-background';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -194,7 +197,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.4
+                  v0.0.5
                 </span>
               </div>
             </div>
@@ -266,7 +269,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.4 — 3D Tilt Cards, Flip Words & Text Reveal
+              ✨ Doni UI v0.0.5 — Evervault Matrix, Canvas Sparkles &amp; Audio Keycaps
             </Badge>
           </motion.div>
 
@@ -568,8 +571,8 @@ export function App() {
 
             <Tabs
               tabs={[
-                { id: 'card3d', label: '3D Tilt & Reveal' },
-                { id: 'cosmic', label: 'Cosmic & Motion' },
+                { id: 'card3d', label: '3D Tilt & Evervault' },
+                { id: 'cosmic', label: 'Sparkles & Cosmic' },
                 { id: 'showstopper', label: 'Keycaps & Bento' },
                 { id: 'spotlight', label: 'Spotlight & Navbar' },
                 { id: 'buttons', label: 'Buttons & Flame' },
@@ -582,7 +585,7 @@ export function App() {
             />
           </div>
 
-          {/* 0. 3D TILT & TEXT REVEAL SECTION */}
+          {/* 0. 3D TILT & EVERVAULT SECTION */}
           {activeTab === 'card3d' && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -590,7 +593,7 @@ export function App() {
               transition={transitions.smoothEase}
               className="space-y-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 {/* 3D Perspective Tilt Card */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -624,33 +627,55 @@ export function App() {
                   </CardContainer>
                 </div>
 
-                {/* Staggered Text Reveal & Typography */}
-                <Card className="p-6 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <Badge variant="neon" className="gap-1">
-                        <Type className="w-3 h-3" /> Blur Stagger
-                      </Badge>
-                      <CodeDialog snippetId="textReveal" />
-                    </div>
-                    <h3 className="text-lg font-bold mb-3">Staggered Word Blur Reveal</h3>
-                    <TextReveal
-                      text="Doni UI is engineered from the ground up for maximum visual impact, 120 FPS hardware acceleration, and zero runtime styling overhead."
-                      className="text-base text-muted-foreground font-medium leading-relaxed"
-                    />
+                {/* Evervault Holographic Encryption Matrix Card */}
+                <div className="flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="glow" className="gap-1">
+                      <Shield className="w-3 h-3" /> Holographic Matrix
+                    </Badge>
+                    <CodeDialog snippetId="evervault" />
                   </div>
-
-                  <div className="pt-6 border-t border-border/60 mt-6 flex justify-between items-center">
+                  <div className="h-[340px] w-full flex items-center justify-center">
+                    <EvervaultCard text="DONI" className="max-w-xs h-full" />
+                  </div>
+                  <div className="mt-4 flex justify-between items-center">
                     <span className="text-xs text-muted-foreground font-mono">
-                      &lt;TextReveal text="..." /&gt;
+                      &lt;EvervaultCard text="DONI" /&gt;
                     </span>
-                    <Button variant="glow" size="sm" onClick={() => copySnippet('textReveal')}>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('evervault')}>
                       <Copy className="w-3.5 h-3.5 mr-1.5" />
-                      Copy Text Reveal
+                      Copy Evervault Code
                     </Button>
                   </div>
-                </Card>
+                </div>
               </div>
+
+              {/* Staggered Text Reveal & Typography */}
+              <Card className="p-6">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge variant="neon" className="gap-1">
+                      <Type className="w-3 h-3" /> Blur Stagger
+                    </Badge>
+                    <CodeDialog snippetId="textReveal" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-3">Staggered Word Blur Reveal</h3>
+                  <TextReveal
+                    text="Doni UI is engineered from the ground up for maximum visual impact, 120 FPS hardware acceleration, and zero runtime styling overhead."
+                    className="text-base text-muted-foreground font-medium leading-relaxed"
+                  />
+                </div>
+
+                <div className="pt-6 border-t border-border/60 mt-6 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;TextReveal text="..." /&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('textReveal')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Text Reveal
+                  </Button>
+                </div>
+              </Card>
             </motion.div>
           )}
 
@@ -662,6 +687,61 @@ export function App() {
               transition={transitions.smoothEase}
               className="space-y-6"
             >
+              {/* Sparkles Particle Engine with Grid Background */}
+              <Card className="relative overflow-hidden p-6 border-border/80 min-h-[300px] flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-4 z-10">
+                  <div>
+                    <Badge variant="glow" className="gap-1">
+                      <Sparkles className="w-3 h-3" /> Canvas Particle Engine
+                    </Badge>
+                    <h3 className="text-xl font-bold mt-1">Interactive Sparkles &amp; Grid Background</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      60 FPS canvas particle physics reactive to active theme colors, with radial dot-matrix background.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <CodeDialog snippetId="sparkles" />
+                    <CodeDialog
+                      snippetId="gridBackground"
+                      trigger={
+                        <Button variant="outline" size="sm" className="h-8 text-xs">
+                          Grid Code
+                        </Button>
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="relative h-48 w-full rounded-xl overflow-hidden border border-border/60 bg-card my-2 flex items-center justify-center">
+                  <GridBackground variant="dots" className="absolute inset-0">
+                    <SparklesCore
+                      minSize={0.8}
+                      maxSize={2.4}
+                      particleDensity={70}
+                      className="w-full h-full"
+                    />
+                  </GridBackground>
+                  <div className="relative z-20 flex flex-col items-center gap-2">
+                    <span className="text-2xl font-black tracking-wider text-foreground">
+                      DONI SPARKLES
+                    </span>
+                    <Badge variant="neon">Theme-Reactive Particles</Badge>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center z-10 mt-2">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;SparklesCore /&gt; + &lt;GridBackground /&gt;
+                  </span>
+                  <div className="flex gap-2">
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('sparkles')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Sparkles Code
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card className="relative overflow-hidden p-6 bg-gradient-to-b from-card to-background border-border/80 min-h-[260px] flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4 z-10">
@@ -755,10 +835,10 @@ export function App() {
                 <Card className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <Badge variant="glow">Mechanical 3D</Badge>
+                      <Badge variant="glow">Mechanical 3D &amp; Audio</Badge>
                       <h3 className="text-xl font-bold mt-1">Tactile Mechanical Keycaps</h3>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        Authentic 3D key depression physics. Click them to feel the spring bounce!
+                        Authentic 3D key depression physics with synthesized mechanical audio clicks (Web Audio API)!
                       </p>
                     </div>
                     <CodeDialog snippetId="keycap" />
@@ -1293,7 +1373,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.4</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.5</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

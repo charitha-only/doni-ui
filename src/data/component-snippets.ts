@@ -8,6 +8,37 @@ export interface ComponentSnippet {
 }
 
 export const COMPONENT_SNIPPETS: Record<string, ComponentSnippet> = {
+  evervault: {
+    id: 'evervault-card',
+    name: 'Evervault Scramble Card',
+    description: 'Matrix encrypted text scramble card that reveals random characters beneath cursor.',
+    category: 'Cards',
+    importCode: `import { EvervaultCard } from 'doni-ui';`,
+    usageCode: `<div className="w-80 h-96">
+  <EvervaultCard text="secure" />
+</div>`,
+  },
+  sparkles: {
+    id: 'sparkles',
+    name: 'Sparkles Core Particles',
+    description: 'Floating ambient radiant sparkling stars canvas.',
+    category: 'Special',
+    importCode: `import { SparklesCore } from 'doni-ui';`,
+    usageCode: `<div className="relative h-60 w-full flex items-center justify-center">
+  <h1 className="text-3xl font-bold z-20">Glowing Universe</h1>
+  <SparklesCore minSize={0.4} maxSize={2} particleDensity={70} />
+</div>`,
+  },
+  gridBackground: {
+    id: 'grid-background',
+    name: 'Dot & Grid Background',
+    description: 'Subtle SVG dot pattern or square grid with soft radial center mask.',
+    category: 'Layout',
+    importCode: `import { GridBackground } from 'doni-ui';`,
+    usageCode: `<GridBackground variant="dots" className="h-64">
+  <p className="text-xl font-bold">Subtle Dot Grid</p>
+</GridBackground>`,
+  },
   flipWords: {
     id: 'flip-words',
     name: 'Flip Words',
@@ -154,7 +185,7 @@ import { Flame } from 'lucide-react';`,
   keycap: {
     id: 'keycap',
     name: 'Mechanical Keycap',
-    description: 'Vintage 3D mechanical keyboard keycap with realistic tactile press depression.',
+    description: 'Vintage 3D mechanical keyboard keycap with realistic tactile press depression & Web Audio sound.',
     category: 'Buttons',
     importCode: `import { Keycap } from 'doni-ui';`,
     usageCode: `<div className="flex gap-2">
@@ -259,17 +290,6 @@ import { Sparkles } from 'lucide-react';`,
     usageCode: `<Marquee speed={25}>
   <span className="mx-4 font-bold">🚀 0ms Runtime Lag</span>
 </Marquee>`,
-  },
-  typewriter: {
-    id: 'typewriter',
-    name: 'Typewriter Text',
-    description: 'Dynamic character typewriter stream with blinking cursor.',
-    category: 'Typography',
-    importCode: `import { Typewriter } from 'doni-ui';`,
-    usageCode: `<h1>
-  Build with{' '}
-  <Typewriter words={['speed.', 'motion.', 'elegance.']} />
-</h1>`,
   },
   avatar: {
     id: 'avatar',

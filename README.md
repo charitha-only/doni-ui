@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.4-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.4)
+[![Version](https://img.shields.io/badge/Release-v0.0.5-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.5)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,9 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add evervault-card
+npx doni-ui add sparkles
+npx doni-ui add grid-background
 npx doni-ui add card-3d
 npx doni-ui add flip-words
 npx doni-ui add text-reveal
@@ -214,8 +217,8 @@ export function Dock() {
 
 ---
 
-### 7. ⌨️ Vintage 3D Mechanical Keycaps
-Authentic mechanical keyboard keycaps with tactile 3D press depression physics:
+### 7. ⌨️ Vintage 3D Mechanical Keycaps (with Audio Click Synthesis)
+Authentic mechanical keyboard keycaps with tactile 3D press depression physics and synthesized mechanical click sounds via Web Audio API:
 
 ```tsx
 import { Keycap } from 'doni-ui';
@@ -223,10 +226,10 @@ import { Keycap } from 'doni-ui';
 export function KeyboardShortcuts() {
   return (
     <div className="flex gap-2">
-      <Keycap subText="CMD">⌘</Keycap>
-      <Keycap subText="OPT">⌥</Keycap>
-      <Keycap subText="SHIFT">⇧</Keycap>
-      <Keycap subText="ENTER">↵</Keycap>
+      <Keycap subText="CMD" sound={true}>⌘</Keycap>
+      <Keycap subText="OPT" sound={true}>⌥</Keycap>
+      <Keycap subText="SHIFT" sound={true}>⇧</Keycap>
+      <Keycap subText="ENTER" sound={true}>↵</Keycap>
     </div>
   );
 }
@@ -274,6 +277,42 @@ export function Navigation() {
 
 ---
 
+### 10. 🛡️ Evervault Holographic Encryption Matrix Card
+Card with real-time pointer-tracking cryptographic character mask and holographic cipher glow:
+
+```tsx
+import { EvervaultCard } from 'doni-ui';
+
+export function EncryptedCard() {
+  return (
+    <div className="w-80 h-96">
+      <EvervaultCard text="SECURE" />
+    </div>
+  );
+}
+```
+
+---
+
+### 11. ✨ Sparkles Particle Engine & Grid Background
+Hardware-accelerated 60 FPS canvas particle physics with radial dot and grid matrix backgrounds:
+
+```tsx
+import { SparklesCore, GridBackground } from 'doni-ui';
+
+export function ParticleHero() {
+  return (
+    <div className="relative h-64 w-full rounded-2xl overflow-hidden">
+      <GridBackground variant="dots" className="absolute inset-0">
+        <SparklesCore minSize={0.8} maxSize={2.4} particleDensity={70} />
+      </GridBackground>
+    </div>
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -299,6 +338,9 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **EvervaultCard** | Cards | Real-time pointer cryptographic character mask with holographic glow |
+| **SparklesCore** | Special | Hardware-accelerated 60 FPS canvas particle physics |
+| **GridBackground** | Layout | Radial-masked geometric dot matrix and linear grid pattern |
 | **CardContainer / CardItem** | Cards | 3D perspective mouse tilt with layered translateZ depth |
 | **FlipWords** | Typography | 3D letter flip text transitions between rotating keywords |
 | **TextReveal** | Typography | Staggered blur-to-focus word reveal entrance |
@@ -307,7 +349,7 @@ function ColorPicker() {
 | **FloatingDock** | Navigation | macOS magnification hover dock with spring physics |
 | **CommandPalette** | Navigation | Global ⌘K spotlight search dialog with instant CLI copy |
 | **Skeleton** | Feedback | Shimmering placeholder loader for smooth data loading |
-| **Keycap** | Buttons | Vintage mechanical 3D key depression physics |
+| **Keycap** | Buttons | Vintage mechanical 3D key depression physics with audio clicks |
 | **BorderBeam** | Special | Continuous perimeter laser beam animation |
 | **BentoGrid** | Layout | Apple & Linear responsive dashboard cards |
 | **TubelightNavbar** | Navigation | Electric glowing lamp beam indicator with spring physics |
@@ -331,7 +373,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.4**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.5**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---
