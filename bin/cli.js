@@ -12,7 +12,7 @@ const command = args[0];
 const target = args[1];
 
 const banner = `
-   ⚡ Doni UI CLI (v0.2.0)
+   ⚡ Doni UI CLI (v0.3.0)
    Ultra-fast, spring-animated React UI library
 `;
 
@@ -72,8 +72,9 @@ if (command === 'add') {
   fs.copyFileSync(srcFile, destFile);
 
   const DEPENDENCY_MAP = {
-    'animated-icons': ['animated-icons-suite.tsx', 'icon-customizer-modal.tsx', 'animated-social-icons.tsx'],
+    'animated-icons': ['animated-icons-suite.tsx', 'animated-catalog-icon.tsx', 'icon-customizer-modal.tsx', 'animated-social-icons.tsx'],
     'animated-icons-suite': ['icon-customizer-modal.tsx'],
+    'animated-catalog-icon': ['icon-customizer-modal.tsx'],
     'icon-customizer-modal': ['animated-icons-suite.tsx'],
   };
 

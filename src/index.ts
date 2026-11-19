@@ -50,7 +50,9 @@ export * from './components/ui/tracing-beam';
 export * from './components/ui/animated-social-icons';
 export * from './components/ui/animated-icons';
 export * from './components/ui/animated-icons-suite';
+export * from './components/ui/animated-catalog-icon';
 export * from './components/ui/icon-customizer-modal';
+export * from './data/icons-catalog-1000';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

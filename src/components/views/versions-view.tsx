@@ -24,10 +24,32 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.3.0',
+      title: '1,000+ Categorized Animated Icons Suite, High-Performance Paginated Studio & Global Search',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Expanded Animated Icon Suite to over 1,100 total vector icons, featuring a 1,000-icon Super Catalog across 20 distinct domains (50 icons each) plus 100 signature handcrafted 3D animated icons.',
+        '20 Curated Icon Domains: Navigation & Arrows, Devices & Hardware, Code & Development, Media, Commerce & Finance, Communication & Chat, Security & Warnings, Weather & Climate, Files & Documents, Interface & Controls, Health & Medical, Design & Graphics, Travel & Transport, Gaming & Play, Science & Education, Food & Dining, Tools & Hardware, Nature & Ecology, Sports & Fitness, and Badges & Symbols.',
+        'High-Performance Paginated Rendering Engine (60 icons per page) ensuring 120 FPS hardware-accelerated animations with zero DOM lag or browser stutter.',
+        'One-by-One Customization Studio integration: Every single icon from the 1,000+ catalog can be customized with size (18-96px), stroke width (1-3px), custom hex colors + palette swatches, hover tint, neon glow, animation triggers, and container tile styles.',
+        'Global Studio Quick Toolbar: Instant live search across all 1,000+ icons, horizontal category filter pills with live counters, size slider, tile shape selector, glow switch, and loop-all mode.',
+        'Added AnimatedCatalogIcon and ICON_1000_CATALOG to core library exports.',
+      ],
+      componentsAdded: [
+        'AnimatedCatalogIcon',
+        'ICON_1000_CATALOG',
+        'ICON_1000_CATEGORIES',
+        'getLucideComponent',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.3.0',
+    },
+    {
       version: 'v0.2.0',
       title: '100+ Handcrafted Animated Icons Suite, Live Icon Customizer Studio & Clean Homepage Redesign',
       date: 'November 19, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Massive 100 Animated Vector Icons suite across 10 rich categories (10 icons each): Social & Dev, Vehicles & Transport, Warning & Security, Entertainment & Gaming, Weather & Nature, Interface & Controls, Business & Finance, Communication & Network, Content & Creative, and Tools & Productivity.',

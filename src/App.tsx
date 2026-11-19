@@ -229,7 +229,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.2.0
+                  v0.3.0
                 </span>
               </div>
             </div>
@@ -240,7 +240,7 @@ export function App() {
                 { id: 'home', label: 'Home' },
                 { id: 'docs', label: 'Documentation' },
                 { id: 'components', label: 'Components' },
-                { id: 'icons', label: 'Icons (100+)' },
+                { id: 'icons', label: 'Icons (1,000+)' },
                 { id: 'versions', label: 'Versions' },
                 { id: 'about', label: 'About' },
               ].map((item) => (
@@ -311,7 +311,7 @@ export function App() {
             { id: 'home', label: 'Home' },
             { id: 'docs', label: 'Docs' },
             { id: 'components', label: 'Components' },
-            { id: 'icons', label: 'Icons (100)' },
+            { id: 'icons', label: 'Icons (1,000+)' },
             { id: 'versions', label: 'Versions' },
             { id: 'about', label: 'About' },
           ].map((item) => (
@@ -344,7 +344,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.2.0 — 100+ Spring Animated Icons Suite &amp; Live Customizer Studio
+                  ✨ Doni UI v0.3.0 — 1,000+ Spring Animated Icons Suite &amp; Live Customizer Studio
                 </Badge>
               </motion.div>
 
@@ -398,7 +398,7 @@ export function App() {
                   className="h-12 px-6 text-sm font-semibold border-primary/30 hover:border-primary/60 bg-card/60"
                 >
                   <Sparkles className="w-4 h-4 mr-2 text-primary" />
-                  Browse 100+ Icons &amp; Studio
+                  Browse 1,000+ Icons &amp; Studio
                 </Button>
 
                 <Button
@@ -509,7 +509,7 @@ export function App() {
             </div>
             <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
               <div className="text-3xl sm:text-4xl font-black text-foreground">
-                <NumberTicker value={145} suffix="+" />
+                <NumberTicker value={1145} suffix="+" />
               </div>
               <div className="text-xs text-muted-foreground font-semibold mt-1">Components &amp; Icons</div>
             </div>
@@ -668,7 +668,7 @@ export function App() {
                 Explore All 45+ Components →
               </Button>
               <Button variant="glow" size="sm" onClick={() => setCurrentPage('icons')}>
-                View 100+ Animated Icons & Studio →
+                View 1,000+ Animated Icons &amp; Studio →
               </Button>
             </div>
           </div>
@@ -705,10 +705,10 @@ export function App() {
 
             <Card className="p-6 flex flex-col justify-between bg-card/70 border-border/80">
               <div>
-                <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions & Studio</Badge>
-                <h3 className="font-bold text-lg">100+ Animated Icons</h3>
+                <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions &amp; Studio</Badge>
+                <h3 className="font-bold text-lg">1,000+ Animated Icons</h3>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Pure SVG spring physics across 10 categories with interactive live Studio, customizable size, stroke, colors & trigger loops.
+                  Pure SVG spring physics across 20+ rich categories with interactive live Studio, customizable size, stroke, colors &amp; trigger loops.
                 </p>
                 <div className="mt-4 flex gap-2 justify-center">
                   <AnimatedGithub size={28} />
@@ -718,7 +718,7 @@ export function App() {
                 </div>
               </div>
               <Button variant="glow" size="sm" className="w-fit mx-auto mt-4" onClick={() => setCurrentPage('icons')}>
-                Open Icon Studio & Icons
+                Open 1,000+ Icon Studio
               </Button>
             </Card>
           </div>

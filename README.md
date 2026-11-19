@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.2.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.2.0)
+[![Version](https://img.shields.io/badge/Release-v0.3.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.3.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -587,20 +587,33 @@ export function ArticleWithTracer() {
 
 ---
 
-### 26. 🌐 100+ Handcrafted Animated Icons Suite & Live Customizer Studio
-A massive collection of **100 handcrafted SVG vector animated icons** across **10 distinct categories** (10 icons per category). Built with Framer Motion spring physics, neon brand glows, interactive micro-interactions, and fully customizable via props or the visual Live Studio.
+### 26. 🌐 1,000+ Categorized Animated Icons Suite & Live Customizer Studio
+A monumental collection of over **1,100 vector animated icons**, featuring a curated **1,000-icon Super Catalog across 20 distinct domains** (50 icons each) alongside **100 signature handcrafted 3D animated icons**. Built with Framer Motion spring physics, neon brand glows, interactive micro-interactions, silky smooth 60-per-page paginated grid (no DOM lag), and one-by-one customization via the visual Live Studio.
 
-#### 10 Icon Categories (100 Icons Total)
-1. **Social & Dev (10)**: `IconGithub`, `IconTwitter`, `IconYoutube`, `IconLinkedin`, `IconInstagram`, `IconDiscord`, `IconTelegram`, `IconTiktok`, `IconFacebook`, `IconDribbble`.
-2. **Vehicles & Transport (10)**: `IconRocket`, `IconPlane`, `IconCar`, `IconBicycle`, `IconTrain`, `IconShip`, `IconHelicopter`, `IconTruck`, `IconDrone`, `IconScooter`.
-3. **Warning & Security (10)**: `IconAlertTriangle`, `IconShieldCheck`, `IconFlameDanger`, `IconBellRing`, `IconLockKey`, `IconFingerprint`, `IconEyeScanner`, `IconBugFix`, `IconShieldAlert`, `IconCpuChip`.
-4. **Entertainment & Gaming (10)**: `IconGamepad`, `IconHeadphones`, `IconFilmReel`, `IconSparkleStar`, `IconTrophy`, `IconDice`, `IconCamera`, `IconMusicNote`, `IconClapperboard`, `IconTvMonitor`.
-5. **Weather & Nature (10)**: `IconSun`, `IconMoonStars`, `IconCloudRain`, `IconSnowflake`, `IconLightningBolt`, `IconWindBreeze`, `IconPlanetSaturn`, `IconCompassRose`, `IconMountainPeak`, `IconLeafEco`.
-6. **Interface & Controls (10)**: `IconSearchLens`, `IconTrashCan`, `IconSettingsCog`, `IconHeartLike`, `IconBookmarkPin`, `IconShareNodes`, `IconDownloadArrow`, `IconUploadArrow`, `IconRefreshSync`, `IconPowerSwitch`.
-7. **Business & Finance (10)**: `IconCreditCard`, `IconWalletMoney`, `IconShoppingCart`, `IconShoppingBag`, `IconBankVault`, `IconBarChart`, `IconTrendingUp`, `IconDollarCoin`, `IconReceiptBill`, `IconBriefcase`.
-8. **Communication & Network (10)**: `IconMessageChat`, `IconMailEnvelope`, `IconPhoneCall`, `IconVideoCamera`, `IconSendPlane`, `IconAtSign`, `IconGlobeWeb`, `IconUserProfile`, `IconUsersGroup`, `IconThumbsUp`.
-9. **Content & Creative (10)**: `IconFileText`, `IconFolderOpen`, `IconEditPencil`, `IconCopyClipboard`, `IconScissorsCut`, `IconPaperclipAttach`, `IconSaveDisk`, `IconCodeBrackets`, `IconImagePic`, `IconPaletteColor`.
-10. **Tools & Productivity (10)**: `IconLightbulbIdea`, `IconBatteryCharging`, `IconWifiSignal`, `IconCalendarDate`, `IconClockTimer`, `IconGaugeMeter`, `IconMagnetPhysics`, `IconAtomScience`, `IconWrenchTool`, `IconAwardBadge`.
+#### 20 Curated Icon Domains (1,000 Catalog Icons)
+1. **🧭 Navigation & Arrows (50)**: Directional vectors, arrows, chevrons, compass, waypoints, orientation.
+2. **💻 Devices & Hardware (50)**: Screens, laptops, smartphones, servers, storage, microchips, peripherals.
+3. **⚡ Code & Development (50)**: Code blocks, git workflows, terminals, databases, containers, debugging.
+4. **🎵 Media, Audio & Video (50)**: Playback controls, equalizer waves, film reels, cameras, microphones.
+5. **💳 Commerce & Finance (50)**: Wallets, credit cards, bank vaults, receipts, currency signs, pricing tags.
+6. **💬 Communication & Chat (50)**: Chat bubbles, email envelopes, phones, users, contacts, notifications.
+7. **🛡️ Security & Warnings (50)**: Defensive shields, cryptographic locks, biometric fingerprints, hazard alerts.
+8. **🌦️ Weather & Climate (50)**: Sun coronas, moons, rain clouds, snowflakes, lightning, wind currents.
+9. **📁 Files & Documents (50)**: Folders, archives, clipboards, spreadsheets, notebooks, bookmarks.
+10. **🎛️ Interface & Controls (50)**: Search lens, settings cogs, sliders, toggles, filters, grids, pagination.
+11. **🏥 Health & Medical (50)**: Heart pulses, activities, stethoscopes, medical crosses, pharmacy pills.
+12. **🎨 Design & Graphics (50)**: Color palettes, paintbrushes, vector pens, layers, cropping, rulers.
+13. **✈️ Travel & Transport (50)**: Airplanes, trains, automobiles, cruise ships, luggage, travel tickets.
+14. **🎮 Gaming & Play (50)**: Gamepads, trophies, rollable dice, magical sparks, battle swords, crowns.
+15. **🔬 Science & Education (50)**: Atomic orbits, microscopes, chemical flasks, graduation caps, lightbulbs.
+16. **🍔 Food & Dining (50)**: Coffee cups, pizza slices, dining utensils, celebratory cakes, bakery.
+17. **⚙️ Tools & Hardware (50)**: Wrenches, hammers, screwdrivers, drills, measurement gauges, magnets.
+18. **🌿 Nature & Ecology (50)**: Plant leaves, forest trees, organic sprouts, wildlife animals, landscapes.
+19. **🏅 Sports & Fitness (50)**: Dumbbells, sprint stopwatches, victory medals, golf flags, athletic gear.
+20. **✨ Badges & Symbols (50)**: Geometric badges, stars, infinity loops, hash tags, checkmarks, hearts.
+
+#### 10 Handcrafted Signature Categories (100 3D Icons Total)
+- Social & Dev (10), Vehicles (10), Warning (10), Entertainment (10), Weather (10), Interface (10), Finance (10), Network (10), Content (10), Tools (10).
 
 #### Props Customization API
 Each icon supports deep customization:
@@ -621,27 +634,25 @@ Each icon supports deep customization:
 
 ```tsx
 import {
+  AnimatedCatalogIcon,
+  ICON_1000_CATALOG,
   IconRocket,
   IconShieldCheck,
   IconGamepad,
-  IconLightningBolt,
-  IconCustomizerModal,
 } from 'doni-ui';
 
 export function IconDemo() {
+  const sampleIcon = ICON_1000_CATALOG[0]; // First icon from the 1,000 catalog
+
   return (
     <div className="flex gap-4">
-      {/* Hover-activated with neon glow */}
+      {/* 1,000 Catalog Icon with kinetic spring physics */}
+      <AnimatedCatalogIcon iconItem={sampleIcon} size={32} withGlow trigger="hover" />
+
+      {/* Signature Handcrafted Icons */}
       <IconRocket size={32} withGlow trigger="hover" />
-
-      {/* Continuous pulsating loop */}
       <IconShieldCheck size={32} color="#10b981" trigger="continuous" />
-
-      {/* Glassmorphic tile shape */}
       <IconGamepad size={28} bgShape="glass" color="#8b5cf6" />
-
-      {/* Custom hex color with 2.5px stroke */}
-      <IconLightningBolt size={32} strokeWidth={2.5} color="#eab308" withGlow />
     </div>
   );
 }
@@ -674,7 +685,7 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
-| **AnimatedIcon / Suite** | Special / Icons | 100 Handcrafted animated icons across 10 categories (Social, Vehicles, Warning, Entertainment, Weather, Interface, Finance, Network, Content, Tools) |
+| **AnimatedIcon / Suite (1,000+)** | Special / Icons | Over 1,100 vector animated icons (1,000-icon Catalog across 20 domains + 100 handcrafted 3D icons) |
 | **IconCustomizerModal** | Special / Studio | Interactive live customization studio for dynamic size, stroke, color, neon glow, and trigger modes |
 | **AnimatedIconDock** | Navigation | Multi-category floating dock supporting any collection of animated icons |
 | **SocialIconDock** | Navigation | Floating glassmorphic dock holding animated social media icons with spring hover |

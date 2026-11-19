@@ -18,17 +18,7 @@ export interface IconCustomProps extends Omit<HTMLMotionProps<'div'>, 'children'
 export interface IconItemDef {
   id: string;
   name: string;
-  category:
-    | 'social'
-    | 'vehicles'
-    | 'warning'
-    | 'entertainment'
-    | 'weather'
-    | 'interface'
-    | 'business'
-    | 'communication'
-    | 'content'
-    | 'tools';
+  category: string;
   exportName: string;
   desc: string;
   component: React.FC<IconCustomProps>;
