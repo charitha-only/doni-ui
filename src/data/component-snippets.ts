@@ -382,4 +382,43 @@ import { Sparkles } from 'lucide-react';`,
   <img src="preview.jpg" alt="Preview" className="rounded-xl" />
 </Lens>`,
   },
+  orbitingCircles: {
+    id: 'orbitingCircles',
+    name: 'Orbiting Circles',
+    description: 'Concentric rotating planetary orbits for tech stacks and partner icons.',
+    category: 'Special',
+    importCode: `import { OrbitingCircles } from 'doni-ui';`,
+    usageCode: `<div className="relative flex h-[350px] w-full items-center justify-center">
+  <span className="font-bold">Hub</span>
+  <OrbitingCircles radius={80} duration={20}>
+    <Sparkles className="w-4 h-4" />
+  </OrbitingCircles>
+  <OrbitingCircles radius={130} duration={25} reverse>
+    <Zap className="w-4 h-4" />
+  </OrbitingCircles>
+</div>`,
+  },
+  retroGrid: {
+    id: 'retroGrid',
+    name: 'Retro 3D Grid',
+    description: '3D perspective cyber grid rolling infinitely into the horizon.',
+    category: 'Layout',
+    importCode: `import { RetroGrid } from 'doni-ui';`,
+    usageCode: `<div className="relative h-[300px] w-full overflow-hidden rounded-xl border">
+  <RetroGrid angle={65} cellSize={60} />
+  <div className="relative z-10 flex h-full items-center justify-center font-bold">
+    Cyberpunk Horizon
+  </div>
+</div>`,
+  },
+  confettiButton: {
+    id: 'confettiButton',
+    name: 'Confetti Button',
+    description: 'Celebration trigger button with hardware-accelerated canvas confetti burst.',
+    category: 'Buttons',
+    importCode: `import { ConfettiButton } from 'doni-ui';`,
+    usageCode: `<ConfettiButton variant="glow">
+  Celebrate 🎉
+</ConfettiButton>`,
+  },
 };

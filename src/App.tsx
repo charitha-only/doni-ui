@@ -83,6 +83,9 @@ import { NumberTicker } from './components/ui/number-ticker';
 import { LampContainer } from './components/ui/lamp';
 import { InteractiveHoverButton } from './components/ui/interactive-hover-button';
 import { Lens } from './components/ui/lens';
+import { OrbitingCircles } from './components/ui/orbiting-circles';
+import { RetroGrid } from './components/ui/retro-grid';
+import { ConfettiButton } from './components/ui/confetti-button';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -203,7 +206,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.7
+                  v0.0.8
                 </span>
               </div>
             </div>
@@ -275,7 +278,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.7 — Lamp Hero Glow, Interactive Hover Button &amp; Zoom Lens
+              ✨ Doni UI v0.0.8 — Orbiting Circles, Retro 3D Grid &amp; Confetti Button
             </Badge>
           </motion.div>
 
@@ -457,7 +460,7 @@ export function App() {
             </div>
             <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
               <div className="text-3xl sm:text-4xl font-black text-foreground">
-                <NumberTicker value={35} suffix="+" />
+                <NumberTicker value={40} suffix="+" />
               </div>
               <div className="text-xs text-muted-foreground font-semibold mt-1">Animated Components</div>
             </div>
@@ -618,9 +621,9 @@ export function App() {
               tabs={[
                 { id: 'card3d', label: '3D Tilt, Lens & Matrix' },
                 { id: 'cosmic', label: 'Sparkles & Cosmic' },
-                { id: 'showstopper', label: 'Keycaps & Bento' },
+                { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
                 { id: 'spotlight', label: 'Spotlight & Lamp' },
-                { id: 'buttons', label: 'Buttons & Magnetic' },
+                { id: 'buttons', label: 'Buttons & Confetti' },
                 { id: 'inputs', label: 'Forms & Slider' },
                 { id: 'display', label: 'Avatar & Dropdown' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
@@ -1028,6 +1031,89 @@ export function App() {
                   />
                 </BentoGrid>
               </div>
+
+              {/* Orbiting Circles & Retro Horizon Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                {/* Orbiting Circles Showcase */}
+                <Card className="relative overflow-hidden p-6 flex flex-col justify-between min-h-[380px]">
+                  <div className="flex items-center justify-between mb-4 z-10">
+                    <div>
+                      <Badge variant="glow">Planetary Orbits</Badge>
+                      <h3 className="text-xl font-bold mt-1">Concentric Orbiting Circles</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Planetary orbits rotating smoothly with counter-rotation upright lock.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="orbitingCircles" />
+                  </div>
+
+                  <div className="relative flex h-[240px] w-full items-center justify-center overflow-hidden">
+                    <div className="flex items-center justify-center size-12 rounded-full bg-primary text-primary-foreground font-black text-xs shadow-glow z-10">
+                      DONI
+                    </div>
+                    {/* Inner orbit */}
+                    <OrbitingCircles radius={60} duration={15} iconSize={28}>
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    </OrbitingCircles>
+                    <OrbitingCircles radius={60} duration={15} delay={7.5} iconSize={28}>
+                      <Zap className="w-3.5 h-3.5 text-amber-500" />
+                    </OrbitingCircles>
+                    {/* Outer orbit */}
+                    <OrbitingCircles radius={105} duration={22} reverse iconSize={32}>
+                      <Shield className="w-4 h-4 text-emerald-500" />
+                    </OrbitingCircles>
+                    <OrbitingCircles radius={105} duration={22} delay={11} reverse iconSize={32}>
+                      <Cpu className="w-4 h-4 text-cyan-500" />
+                    </OrbitingCircles>
+                  </div>
+
+                  <div className="mt-4 flex justify-between items-center z-10">
+                    <span className="text-xs text-muted-foreground font-mono">
+                      &lt;OrbitingCircles radius=&#123;105&#125; /&gt;
+                    </span>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('orbitingCircles')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Orbit Code
+                    </Button>
+                  </div>
+                </Card>
+
+                {/* Retro 3D Horizon Grid Showcase */}
+                <Card className="relative overflow-hidden p-6 flex flex-col justify-between min-h-[380px]">
+                  <div className="flex items-center justify-between mb-4 z-10">
+                    <div>
+                      <Badge variant="neon">Synthwave 3D</Badge>
+                      <h3 className="text-xl font-bold mt-1">Retro Horizon Grid</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        3D perspective plane scrolling infinitely towards the horizon.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="retroGrid" />
+                  </div>
+
+                  <div className="relative flex h-[240px] w-full items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-background/50">
+                    <RetroGrid angle={65} cellSize={50} opacity={0.6} />
+                    <div className="relative z-10 flex flex-col items-center gap-1 text-center">
+                      <span className="text-3xl font-black tracking-widest text-foreground bg-clip-text">
+                        RETRO HORIZON
+                      </span>
+                      <span className="text-xs text-muted-foreground font-mono">
+                        120 FPS Infinite Perspective
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex justify-between items-center z-10">
+                    <span className="text-xs text-muted-foreground font-mono">
+                      &lt;RetroGrid angle=&#123;65&#125; /&gt;
+                    </span>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('retroGrid')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Grid Code
+                    </Button>
+                  </div>
+                </Card>
+              </div>
             </motion.div>
           )}
 
@@ -1185,6 +1271,9 @@ export function App() {
                       Flame Beam
                     </FlameButton>
                     <InteractiveHoverButton text="Interactive Hover" />
+                    <ConfettiButton variant="glow" particleCount={50}>
+                      🎉 Confetti Burst
+                    </ConfettiButton>
                     <Button variant="glass">Glassmorphism</Button>
                     <Button variant="outline">Outline</Button>
                     <Button variant="secondary">Secondary</Button>
@@ -1567,7 +1656,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.7</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.8</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

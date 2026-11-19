@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.7-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.7)
+[![Version](https://img.shields.io/badge/Release-v0.0.8-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.8)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,9 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add orbiting-circles
+npx doni-ui add retro-grid
+npx doni-ui add confetti-button
 npx doni-ui add lamp
 npx doni-ui add interactive-hover-button
 npx doni-ui add lens
@@ -419,6 +422,66 @@ export function ZoomableGraphic() {
 
 ---
 
+### 18. 🪐 Concentric Orbiting Circles
+Concentric planetary orbits with automatic counter-rotation upright icon locking:
+
+```tsx
+import { OrbitingCircles } from 'doni-ui';
+import { Sparkles, Zap } from 'lucide-react';
+
+export function TechOrbit() {
+  return (
+    <div className="relative flex h-[350px] w-full items-center justify-center">
+      <OrbitingCircles radius={60} duration={15}>
+        <Sparkles className="w-4 h-4 text-primary" />
+      </OrbitingCircles>
+      <OrbitingCircles radius={110} duration={22} reverse>
+        <Zap className="w-4 h-4 text-amber-500" />
+      </OrbitingCircles>
+    </div>
+  );
+}
+```
+
+---
+
+### 19. 🕹️ Retro 3D Horizon Grid
+Cyberpunk and synthwave perspective plane scrolling infinitely towards the horizon:
+
+```tsx
+import { RetroGrid } from 'doni-ui';
+
+export function CyberHero() {
+  return (
+    <div className="relative h-[300px] w-full overflow-hidden rounded-xl border">
+      <RetroGrid angle={65} cellSize={50} />
+      <div className="relative z-10 flex h-full items-center justify-center font-bold">
+        Retro Horizon
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+### 20. 🎉 Canvas Confetti Celebration Button
+Zero-dependency hardware-accelerated canvas particle confetti explosion button:
+
+```tsx
+import { ConfettiButton } from 'doni-ui';
+
+export function Celebration() {
+  return (
+    <ConfettiButton variant="glow" particleCount={50}>
+      🎉 Celebrate Launch
+    </ConfettiButton>
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -444,6 +507,9 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **OrbitingCircles** | Special | Concentric planetary orbits with counter-rotation upright lock |
+| **RetroGrid** | Layout | 3D perspective cyber grid rolling infinitely into the horizon |
+| **ConfettiButton** | Buttons | Celebration trigger button with hardware canvas confetti burst |
 | **LampContainer** | Special | Conic glowing neon lamp beam illuminating hero headlines |
 | **InteractiveHoverButton** | Buttons | Expanding circular fill with sliding typography and chevron |
 | **Lens** | Special | Interactive cursor-tracking zoom lens with 2.0x magnification |
@@ -485,7 +551,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.7**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.8**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

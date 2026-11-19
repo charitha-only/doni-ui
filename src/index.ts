@@ -39,6 +39,9 @@ export * from './components/ui/number-ticker';
 export * from './components/ui/lamp';
 export * from './components/ui/interactive-hover-button';
 export * from './components/ui/lens';
+export * from './components/ui/orbiting-circles';
+export * from './components/ui/retro-grid';
+export * from './components/ui/confetti-button';
 
 // Theme Engine Exports
 export * from './theme/theme-context';
