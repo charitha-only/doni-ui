@@ -483,4 +483,16 @@ import { Sparkles } from 'lucide-react';`,
   </div>
 </TracingBeam>`,
   },
+  animatedIcons: {
+    id: 'animatedIcons',
+    name: 'Animated Social Icons',
+    description: '10 Spring-animated micro-interaction social media icons with neon glow.',
+    category: 'Display',
+    importCode: `import { AnimatedGithub, AnimatedTwitter, AnimatedYoutube, SocialIconDock } from 'doni-ui';`,
+    usageCode: `<SocialIconDock />
+{/* Or individually: */}
+<AnimatedGithub />
+<AnimatedTwitter />
+<AnimatedYoutube />`,
+  },
 };

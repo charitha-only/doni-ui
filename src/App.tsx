@@ -91,6 +91,19 @@ import { ExpandableCard } from './components/ui/expandable-card';
 import { GlareCard } from './components/ui/glare-card';
 import { DirectionAwareHover } from './components/ui/direction-aware-hover';
 import { TracingBeam } from './components/ui/tracing-beam';
+import {
+  SocialIconDock,
+  AnimatedGithub,
+  AnimatedTwitter,
+  AnimatedYoutube,
+  AnimatedLinkedin,
+  AnimatedInstagram,
+  AnimatedDiscord,
+  AnimatedTelegram,
+  AnimatedTiktok,
+  AnimatedFacebook,
+  AnimatedDribbble,
+} from './components/ui/animated-social-icons';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -647,6 +660,7 @@ export function App() {
             {!gallerySearch && (
               <Tabs
                 tabs={[
+                  { id: 'icons', label: 'Animated Icons (10)' },
                   { id: 'card3d', label: '3D Tilt, Lens & Morph' },
                   { id: 'cosmic', label: 'Wavy & Cosmic' },
                   { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
@@ -712,6 +726,90 @@ export function App() {
             </motion.div>
           ) : (
             <>
+
+          {/* ANIMATED SOCIAL ICONS SECTION */}
+          {activeTab === 'icons' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-8"
+            >
+              {/* Header card with glassmorphic dock */}
+              <Card className="p-8 relative overflow-hidden bg-gradient-to-b from-card via-card to-background border-border/80">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                  <div>
+                    <Badge variant="glow" className="gap-1 mb-2">
+                      <Sparkles className="w-3 h-3" /> Micro-Interactions
+                    </Badge>
+                    <h3 className="text-2xl font-black tracking-tight">Animated Social Media Icons</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      10 hand-crafted spring-animated SVG icons with brand-colored glowing blooms and micro-physics.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="animatedIcons" />
+                </div>
+
+                {/* Floating Glassmorphic Social Dock */}
+                <div className="py-6 flex flex-col items-center justify-center gap-3">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono font-semibold">
+                    Interactive Social Dock
+                  </p>
+                  <SocialIconDock iconSize={26} />
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-border/50 flex flex-wrap justify-between items-center gap-2">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    import &#123; SocialIconDock, AnimatedGithub, ... &#125; from 'doni-ui';
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('animatedIcons')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Icons Code
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Individual 10 Animated Icons Showcase Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                {[
+                  { id: 'github', name: 'GitHub', icon: <AnimatedGithub size={32} />, desc: 'Wiggle & tail stroke' },
+                  { id: 'twitter', name: 'X / Twitter', icon: <AnimatedTwitter size={32} />, desc: '3D Y-axis flip' },
+                  { id: 'youtube', name: 'YouTube', icon: <AnimatedYoutube size={32} />, desc: 'Play pulse & glow' },
+                  { id: 'linkedin', name: 'LinkedIn', icon: <AnimatedLinkedin size={32} />, desc: 'Letter bounce & dot pop' },
+                  { id: 'instagram', name: 'Instagram', icon: <AnimatedInstagram size={32} />, desc: 'Aperture shutter spin' },
+                  { id: 'discord', name: 'Discord', icon: <AnimatedDiscord size={32} />, desc: 'Controller wiggle' },
+                  { id: 'telegram', name: 'Telegram', icon: <AnimatedTelegram size={32} />, desc: 'Paper plane flight' },
+                  { id: 'tiktok', name: 'TikTok', icon: <AnimatedTiktok size={32} />, desc: 'Chromatic aberration glitch' },
+                  { id: 'facebook', name: 'Facebook', icon: <AnimatedFacebook size={32} />, desc: '3D "f" pop' },
+                  { id: 'dribbble', name: 'Dribbble', icon: <AnimatedDribbble size={32} />, desc: 'Basketball spinning seams' },
+                ].map((item) => (
+                  <Card key={item.id} className="p-5 flex flex-col items-center justify-between text-center hover:border-primary/50 transition-all group">
+                    <div className="my-2">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm mt-2">{item.name}</h4>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{item.desc}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-3 w-full text-xs h-7 opacity-80 group-hover:opacity-100"
+                      onClick={() => {
+                        copyToClipboard(
+                          `import { Animated${item.name.replace(/[^a-zA-Z]/g, '')} } from 'doni-ui';\n\n<Animated${item.name.replace(/[^a-zA-Z]/g, '')} size={28} />`,
+                          `${item.name} Icon Code`
+                        );
+                      }}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copy
+                    </Button>
+                  </Card>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* 0. 3D TILT & EVERVAULT SECTION */}
           {activeTab === 'card3d' && (
@@ -1923,15 +2021,18 @@ export function App() {
 
     {/* Footer */}
     <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-primary" />
-          <span className="font-bold text-base">Doni UI Library v0.1.0</span>
+          <span className="font-bold text-base">Doni UI Library v0.1.1</span>
           <span className="text-xs text-muted-foreground">
-                — Built with love by Charitha
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+            — Built with love by Charitha
+          </span>
+        </div>
+
+        <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
+
+        <p className="text-xs text-muted-foreground flex items-center gap-1">
               Live on{' '}
               <a
                 href="https://charitha-only.github.io/doni-ui/"

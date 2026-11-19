@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.1.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.0)
+[![Version](https://img.shields.io/badge/Release-v0.1.1-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -587,6 +587,48 @@ export function ArticleWithTracer() {
 
 ---
 
+### 26. 🌐 Animated Social Media Icons Suite (10 Icons)
+Handcrafted SVG icons with spring physics, neon brand glows, and micro-interactions:
+- **GitHub**: Wiggle & tail stroke animation
+- **X / Twitter**: 3D Y-axis neon spin
+- **YouTube**: Play button scale, pulse & glow
+- **LinkedIn**: Letter bounce & dot pop
+- **Instagram**: Aperture shutter spin & rainbow glow
+- **Discord**: Controller wiggle & eye blink
+- **Telegram**: Paper plane flight & banking
+- **TikTok**: Cyan & red chromatic aberration glitch shift
+- **Facebook**: 3D 'f' pop & spring rotation
+- **Dribbble**: Basketball spinning seams & bounce
+
+```tsx
+import {
+  SocialIconDock,
+  AnimatedGithub,
+  AnimatedTwitter,
+  AnimatedYoutube,
+  AnimatedInstagram,
+} from 'doni-ui';
+
+export function SocialLinks() {
+  return (
+    <>
+      {/* Ready-to-use Glassmorphic Dock */}
+      <SocialIconDock />
+
+      {/* Or individual animated icons */}
+      <div className="flex gap-3">
+        <AnimatedGithub size={32} />
+        <AnimatedTwitter size={32} />
+        <AnimatedYoutube size={32} />
+        <AnimatedInstagram size={32} />
+      </div>
+    </>
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -612,6 +654,8 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **AnimatedSocialIcon / Suite** | Special / Icons | 10 Handcrafted animated social icons with brand glows, spins, and spring reactions |
+| **SocialIconDock** | Navigation | Floating glassmorphic dock holding animated social media icons with spring hover |
 | **GlareCard** | Cards | 3D spectral rainbow foil reflection card that glints with pointer tilt |
 | **DirectionAwareHover** | Cards | Smooth overlay sliding in from exact entry vector of cursor |
 | **TracingBeam** | Layout | Continuous vertical SVG beam with glowing spring tracer head |
@@ -661,7 +705,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.1.0** (Milestone).  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.1.1**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---
