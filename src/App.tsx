@@ -24,6 +24,7 @@ import {
   Eye,
   Type,
   BookOpen,
+  Keyboard,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -128,7 +129,8 @@ import { Timeline } from './components/ui/timeline';
 import { BadgeDelta } from './components/ui/badge-delta';
 import { AspectRatio } from './components/ui/aspect-ratio';
 import { PinnedThemeBar } from './components/ui/pinned-theme-bar';
-import { playUiSound } from './lib/sound-effects';
+import { ShortcutsDialog } from './components/ui/shortcuts-dialog';
+import { playUiSound, toggleSound } from './lib/sound-effects';
 
 export function App() {
   const {
@@ -152,6 +154,7 @@ export function App() {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
   const [gallerySearch, setGallerySearch] = useState('');
 
@@ -164,17 +167,76 @@ export function App() {
   const [sampleColor, setSampleColor] = useState('#8b5cf6');
   const [samplePage, setSamplePage] = useState(2);
 
-  // Keyboard shortcut ⌘K or Ctrl+K to open search command palette
+  // Global Keyboard Shortcuts Engine (v0.7.0)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      const target = e.target as HTMLElement | null;
+      const tagName = target?.tagName?.toLowerCase();
+      const isInput = tagName === 'input' || tagName === 'textarea' || target?.isContentEditable;
+
+      // ⌘K or Ctrl+K for Command Palette
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setCommandPaletteOpen((prev) => !prev);
+        playUiSound('click');
+        return;
+      }
+
+      // Skip single-key shortcuts when typing inside form fields
+      if (isInput) return;
+
+      // ? or Shift + / for Shortcuts Cheat-Sheet Overlay
+      if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+        e.preventDefault();
+        setShortcutsOpen((prev) => !prev);
+        playUiSound('chime');
+        return;
+      }
+
+      // Escape to close open overlays
+      if (e.key === 'Escape') {
+        setShortcutsOpen(false);
+        setCommandPaletteOpen(false);
+        return;
+      }
+
+      // Navigation Hotkeys: H, D, C, I, V, A
+      const key = e.key.toLowerCase();
+      if (key === 'h') {
+        setCurrentPage('home');
+        playUiSound('tab');
+      } else if (key === 'd') {
+        setCurrentPage('docs');
+        playUiSound('tab');
+      } else if (key === 'c') {
+        setCurrentPage('components');
+        playUiSound('tab');
+      } else if (key === 'i') {
+        setCurrentPage('icons');
+        playUiSound('tab');
+      } else if (key === 'v') {
+        setCurrentPage('versions');
+        playUiSound('tab');
+      } else if (key === 'a') {
+        setCurrentPage('about');
+        playUiSound('tab');
+      } else if (key === 'm') {
+        toggleMode();
+        playUiSound('pop');
+      } else if (key === 's') {
+        toggleSound();
+      } else if (['1', '2', '3', '4', '5', '6', '7'].includes(e.key)) {
+        const idx = parseInt(e.key, 10) - 1;
+        if (COLOR_PRESETS[idx]) {
+          setPreset(COLOR_PRESETS[idx].id);
+          playUiSound('chime');
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [toggleMode, setPreset]);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -239,6 +301,20 @@ export function App() {
           }}
         />
 
+        {/* Global Keyboard Shortcuts Cheat-Sheet Overlay (?) */}
+        <ShortcutsDialog
+          open={shortcutsOpen}
+          onClose={() => setShortcutsOpen(false)}
+          onNavigate={(page) => setCurrentPage(page as any)}
+          onToggleMode={toggleMode}
+          onToggleSound={toggleSound}
+          onSelectPreset={(pId) => setPreset(pId)}
+          onOpenCommandPalette={() => {
+            setShortcutsOpen(false);
+            setCommandPaletteOpen(true);
+          }}
+        />
+
         {/* Navigation Bar */}
         <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -258,7 +334,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.6.0
+                  v0.7.0
                 </span>
               </div>
             </div>
@@ -306,6 +382,27 @@ export function App() {
                   ⌘K
                 </kbd>
               </button>
+
+              {/* Keyboard Shortcuts Trigger Button */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShortcutsOpen(true);
+                      playUiSound('chime');
+                    }}
+                    className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    title="Keyboard Shortcuts Cheat-Sheet (?)"
+                  >
+                    <Keyboard className="w-3.5 h-3.5 text-primary" />
+                    <kbd className="px-1 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
+                      ?
+                    </kbd>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>Keyboard Shortcuts (?)</TooltipContent>
+              </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -385,7 +482,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.6.0 — Web Audio Micro-Sound Engine &amp; Synthetic UI Audio
+                  ✨ Doni UI v0.7.0 — Global Keyboard Shortcuts &amp; 3D Keycap Cheat-Sheet
                 </Badge>
               </motion.div>
 
@@ -2674,7 +2771,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.6.0</span>
+            <span className="font-bold text-base">Doni UI Library v0.7.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>

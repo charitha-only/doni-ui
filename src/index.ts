@@ -30,6 +30,8 @@ export * from './components/ui/stat-card';
 export * from './components/ui/timeline';
 export * from './components/ui/badge-delta';
 export * from './components/ui/aspect-ratio';
+export * from './components/ui/pinned-theme-bar';
+export * from './components/ui/shortcuts-dialog';
 
 // Showstopper & Animated Components
 export * from './components/ui/tubelight-navbar';

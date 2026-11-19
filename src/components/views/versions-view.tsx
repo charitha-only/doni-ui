@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.7.0',
+      title: 'Global Keyboard Shortcuts Navigation Engine & 3D Keycap Cheat-Sheet Overlay',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Global Keyboard Navigation: Instant hotkeys (H, D, C, I, V, A) for single-keystroke switching across Home, Docs, Components, Icons, Versions, and About pages.',
+        '3D Keycap Shortcuts Cheat-Sheet (?): Pressing Shift + / or clicking the keyboard button opens a glassmorphic overlay rendered with interactive 3D Keycaps.',
+        'Quick Theme & Audio Triggers: Keys 1 through 7 switch between the 7 preset theme palettes, M toggles dark/light mode, and S toggles UI sound synthesis.',
+        'Smart Input Guard: Automatically disables hotkey interference when focused in search boxes, code inputs, and text fields.',
+        'Exportable ShortcutsDialog: Accessible modal component with Esc dismissal and mechanical audio feedback.',
+      ],
+      componentsAdded: [
+        'ShortcutsDialog',
+        'GlobalKeyboardEngine',
+        'KeycapCheatsheet',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.7.0',
+    },
+    {
       version: 'v0.6.0',
       title: 'Web Audio Micro-Sound Effects Engine: Zero-Byte Procedural Sound Synthesis for Modern UI',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Zero-Byte Web Audio API Synthesis: Native procedural audio synthesis using browser oscillators — 0 external audio files (.mp3/.wav), 0 network overhead, and zero latency.',
