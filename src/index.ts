@@ -14,6 +14,23 @@ export * from './components/ui/slider';
 export * from './components/ui/dropdown-menu';
 export * from './components/ui/skeleton';
 
+// Production Data & Application Components (v0.4.0)
+export * from './components/ui/data-table';
+export * from './components/ui/file-upload';
+export * from './components/ui/stepper';
+export * from './components/ui/drawer';
+export * from './components/ui/breadcrumbs';
+export * from './components/ui/carousel';
+export * from './components/ui/color-picker';
+export * from './components/ui/toggle-group';
+export * from './components/ui/pagination';
+export * from './components/ui/rating';
+export * from './components/ui/progress';
+export * from './components/ui/stat-card';
+export * from './components/ui/timeline';
+export * from './components/ui/badge-delta';
+export * from './components/ui/aspect-ratio';
+
 // Showstopper & Animated Components
 export * from './components/ui/tubelight-navbar';
 export * from './components/ui/spotlight-card';

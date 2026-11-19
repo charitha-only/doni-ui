@@ -104,12 +104,29 @@ import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
 import { COLOR_PRESETS } from './theme/themes';
-import { transitions } from './lib/utils';
+import { transitions, cn } from './lib/utils';
 import { COMPONENT_SNIPPETS } from './data/component-snippets';
 import { DocsView } from './components/views/docs-view';
 import { IconsView } from './components/views/icons-view';
 import { VersionsView } from './components/views/versions-view';
 import { AboutView } from './components/views/about-view';
+
+// Production Data & Application Components (v0.4.0)
+import { DataTable } from './components/ui/data-table';
+import { FileUpload } from './components/ui/file-upload';
+import { Stepper } from './components/ui/stepper';
+import { Drawer } from './components/ui/drawer';
+import { Breadcrumbs } from './components/ui/breadcrumbs';
+import { Carousel } from './components/ui/carousel';
+import { ColorPicker } from './components/ui/color-picker';
+import { ToggleGroup } from './components/ui/toggle-group';
+import { Pagination } from './components/ui/pagination';
+import { Rating } from './components/ui/rating';
+import { Progress } from './components/ui/progress';
+import { StatCard } from './components/ui/stat-card';
+import { Timeline } from './components/ui/timeline';
+import { BadgeDelta } from './components/ui/badge-delta';
+import { AspectRatio } from './components/ui/aspect-ratio';
 
 export function App() {
   const {
@@ -128,13 +145,22 @@ export function App() {
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'icons' | 'versions' | 'about'>('home');
-  const [activeTab, setActiveTab] = useState('card3d');
+  const [activeTab, setActiveTab] = useState('dataApp');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
   const [gallerySearch, setGallerySearch] = useState('');
+
+  // Production Components (v0.4.0) Demo States
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [stepperCurrent, setStepperCurrent] = useState(1);
+  const [sampleRating, setSampleRating] = useState(4);
+  const [sampleProgress, setSampleProgress] = useState(68);
+  const [sampleToggle, setSampleToggle] = useState('grid');
+  const [sampleColor, setSampleColor] = useState('#8b5cf6');
+  const [samplePage, setSamplePage] = useState(2);
 
   // Keyboard shortcut ⌘K or Ctrl+K to open search command palette
   useEffect(() => {
@@ -229,7 +255,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.3.0
+                  v0.4.0
                 </span>
               </div>
             </div>
@@ -344,7 +370,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.3.0 — 1,000+ Spring Animated Icons Suite &amp; Live Customizer Studio
+                  ✨ Doni UI v0.4.0 — 55+ Production Components &amp; 1,000+ Animated Icons Suite
                 </Badge>
               </motion.div>
 
@@ -388,7 +414,7 @@ export function App() {
                   className="h-12 px-7 text-sm font-bold shadow-glow"
                 >
                   <Boxes className="w-4 h-4 mr-2" />
-                  Explore 45+ Components
+                  Explore 55+ Components
                 </Button>
 
                 <Button
@@ -665,7 +691,7 @@ export function App() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setCurrentPage('components')}>
-                Explore All 45+ Components →
+                Explore All 55+ Components →
               </Button>
               <Button variant="glow" size="sm" onClick={() => setCurrentPage('icons')}>
                 View 1,000+ Animated Icons &amp; Studio →
@@ -787,6 +813,8 @@ export function App() {
             {!gallerySearch && (
               <Tabs
                 tabs={[
+                  { id: 'dataApp', label: 'Data & App (New)' },
+                  { id: 'widgets', label: 'Widgets & KPIs (New)' },
                   { id: 'card3d', label: '3D Tilt, Glare & Morph' },
                   { id: 'cosmic', label: 'Wavy & Cosmic' },
                   { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
@@ -852,6 +880,467 @@ export function App() {
             </motion.div>
           ) : (
             <>
+
+          {/* ========================================================================= */}
+          {/* TAB 1: DATA & PRODUCTION APPLICATIONS (NEW IN v0.4.0)                     */}
+          {/* ========================================================================= */}
+          {activeTab === 'dataApp' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-8"
+            >
+              {/* 1. DATA TABLE SHOWCASE */}
+              <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="glow">Data Display</Badge>
+                      <Badge variant="outline" className="text-[10px]">v0.4.0 New</Badge>
+                    </div>
+                    <h3 className="text-xl font-bold tracking-tight">Data Table with Sorting, Search &amp; Selection</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      High-performance data table with animated sorting indicators, search filtering, row selection checkboxes, and pagination.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="dataTable" />
+                </div>
+
+                <DataTable
+                  data={[
+                    { id: '1', name: 'Charitha', role: 'Lead Architect', status: 'Active', commits: 142, rating: '5.0' },
+                    { id: '2', name: 'Naveen Perera', role: 'Frontend Engineer', status: 'Active', commits: 89, rating: '4.8' },
+                    { id: '3', name: 'Kavindu Silva', role: 'Motion Designer', status: 'In Review', commits: 64, rating: '4.9' },
+                    { id: '4', name: 'Dilshan Fernando', role: 'DevOps Specialist', status: 'Offline', commits: 38, rating: '4.6' },
+                    { id: '5', name: 'Amaya Wickrama', role: 'UI/UX Researcher', status: 'Active', commits: 112, rating: '5.0' },
+                    { id: '6', name: 'Sahan Jayawardena', role: 'Backend Engineer', status: 'Active', commits: 95, rating: '4.7' },
+                  ]}
+                  columns={[
+                    { key: 'name', header: 'Developer', sortable: true },
+                    { key: 'role', header: 'Role', sortable: true },
+                    {
+                      key: 'status',
+                      header: 'Status',
+                      sortable: true,
+                      render: (val: string) => (
+                        <span
+                          className={cn(
+                            'px-2 py-0.5 rounded-full text-[10px] font-bold font-mono border',
+                            val === 'Active' && 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+                            val === 'In Review' && 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                            val === 'Offline' && 'bg-muted text-muted-foreground border-border/80'
+                          )}
+                        >
+                          {val}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'commits',
+                      header: 'Weekly Commits',
+                      sortable: true,
+                      render: (val: number) => (
+                        <span className="font-mono font-bold text-primary">{val} commits</span>
+                      ),
+                    },
+                  ]}
+                  pageSize={4}
+                  selectable
+                />
+              </Card>
+
+              {/* 2-Column: File Upload & Stepper */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                {/* File Upload Dropzone */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Forms</Badge>
+                      <h3 className="font-bold text-lg">File Upload Dropzone</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Drag &amp; drop zone with spring animation, file type validation, and preview.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="fileUpload" />
+                  </div>
+
+                  <FileUpload
+                    maxFiles={3}
+                    maxSizeMb={5}
+                    onFilesSelected={(files) => {
+                      toast({
+                        title: 'Files Selected!',
+                        description: `${files.length} file(s) ready to upload`,
+                        type: 'success',
+                      });
+                    }}
+                  />
+                </Card>
+
+                {/* Multi-Step Stepper */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Navigation</Badge>
+                      <h3 className="font-bold text-lg">Multi-Step Stepper</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Interactive wizard stepper with active step glow and animated progress beam.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="stepper" />
+                  </div>
+
+                  <Stepper
+                    steps={[
+                      { title: 'Project Info', description: 'Basic setup' },
+                      { title: 'Components', description: 'Pick UI blocks' },
+                      { title: 'Deployment', description: 'Ship live' },
+                    ]}
+                    currentStep={stepperCurrent}
+                    onStepClick={(idx) => setStepperCurrent(idx)}
+                  />
+
+                  <div className="flex justify-between items-center pt-4 border-t border-border/50">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={stepperCurrent === 0}
+                      onClick={() => setStepperCurrent((p) => Math.max(0, p - 1))}
+                    >
+                      ← Previous Step
+                    </Button>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      Step {stepperCurrent + 1} of 3
+                    </span>
+                    <Button
+                      variant="glow"
+                      size="sm"
+                      disabled={stepperCurrent === 2}
+                      onClick={() => setStepperCurrent((p) => Math.min(2, p + 1))}
+                    >
+                      Next Step →
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+
+              {/* 2-Column: Drawer & Breadcrumbs */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                {/* Drawer (Sheet) */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Feedback</Badge>
+                      <h3 className="font-bold text-lg">Drawer (Sheet Modal)</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Bottom and side drawer with gesture pull, spring entrance, and backdrop blur.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="drawer" />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Button variant="glow" onClick={() => setIsDrawerOpen(true)}>
+                      Open Bottom Drawer Sheet
+                    </Button>
+                    <span className="text-xs text-muted-foreground">
+                      Click to test spring sheet entrance
+                    </span>
+                  </div>
+
+                  <Drawer
+                    isOpen={isDrawerOpen}
+                    onClose={() => setIsDrawerOpen(false)}
+                    position="bottom"
+                    title="Quick Configuration Sheet"
+                    description="Configure your project settings directly inside this responsive drawer."
+                  >
+                    <div className="space-y-4 max-w-lg mx-auto py-2">
+                      <div className="p-4 rounded-2xl bg-muted/40 border border-border/60">
+                        <h4 className="font-bold text-sm">Theme Settings</h4>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Drawers in Doni UI seamlessly adapt to your dynamic any-color engine and border radius settings.
+                        </p>
+                      </div>
+                      <Button variant="glow" className="w-full" onClick={() => setIsDrawerOpen(false)}>
+                        Close Sheet
+                      </Button>
+                    </div>
+                  </Drawer>
+                </Card>
+
+                {/* Breadcrumbs */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Navigation</Badge>
+                      <h3 className="font-bold text-lg">Breadcrumbs Navigation</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Responsive hierarchy trail with chevron separators and home indicator.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="breadcrumbs" />
+                  </div>
+
+                  <div className="space-y-3 p-4 rounded-2xl bg-muted/30 border border-border/60">
+                    <Breadcrumbs
+                      items={[
+                        { label: 'Components', href: '#' },
+                        { label: 'Data & App', href: '#' },
+                        { label: 'Data Table' },
+                      ]}
+                      onItemClick={(item) => {
+                        toast({
+                          title: 'Navigating',
+                          description: `Clicked on ${item.label}`,
+                          type: 'success',
+                        });
+                      }}
+                    />
+                  </div>
+                </Card>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 2: WIDGETS & KPIS (NEW IN v0.4.0)                                     */}
+          {/* ========================================================================= */}
+          {activeTab === 'widgets' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-8"
+            >
+              {/* 1. Stat Cards Grid */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Badge variant="glow" className="mb-1">Data Display</Badge>
+                    <h3 className="text-xl font-bold tracking-tight">Metric &amp; KPI Stat Cards</h3>
+                  </div>
+                  <CodeDialog snippetId="statCard" />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <StatCard
+                    title="Total Platform Revenue"
+                    value="$148,250"
+                    change={22.4}
+                    changePeriod="vs last quarter"
+                    icon={<Zap className="w-5 h-5" />}
+                  />
+                  <StatCard
+                    title="Active Developers"
+                    value="12,840"
+                    change={14.8}
+                    changePeriod="vs last month"
+                    icon={<Sparkles className="w-5 h-5" />}
+                  />
+                  <StatCard
+                    title="Zero-Lag Framerate"
+                    value="120 FPS"
+                    change={0.4}
+                    changePeriod="steady performance"
+                    icon={<Gauge className="w-5 h-5" />}
+                  />
+                </div>
+              </div>
+
+              {/* 2-Column: Carousel & Timeline */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                {/* Animated Carousel */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Display</Badge>
+                      <h3 className="font-bold text-lg">Animated Carousel</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Touch-friendly slider with spring gestures, autoplay, and dots.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="carousel" />
+                  </div>
+
+                  <Carousel
+                    autoPlay
+                    interval={3500}
+                    slides={[
+                      {
+                        id: 1,
+                        content: (
+                          <div className="p-8 text-center space-y-2">
+                            <span className="text-4xl">🚀</span>
+                            <h4 className="font-extrabold text-lg">0ms Runtime Style Lag</h4>
+                            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                              Pure atomic Tailwind CSS classes and native variables eliminate runtime Emotion overhead.
+                            </p>
+                          </div>
+                        ),
+                      },
+                      {
+                        id: 2,
+                        content: (
+                          <div className="p-8 text-center space-y-2">
+                            <span className="text-4xl">✨</span>
+                            <h4 className="font-extrabold text-lg">1,000+ Spring Animated Icons</h4>
+                            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                              Curated vector icons across 20 categories with live Studio customizer.
+                            </p>
+                          </div>
+                        ),
+                      },
+                      {
+                        id: 3,
+                        content: (
+                          <div className="p-8 text-center space-y-2">
+                            <span className="text-4xl">🎨</span>
+                            <h4 className="font-extrabold text-lg">Any-Hex Dynamic Color Engine</h4>
+                            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                              Inject any color code into the live root theme variables instantly.
+                            </p>
+                          </div>
+                        ),
+                      },
+                    ]}
+                  />
+                </Card>
+
+                {/* Event Timeline */}
+                <Card className="p-6 bg-card/70 border-border/80 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Badge variant="glow" className="mb-1">Data Display</Badge>
+                      <h3 className="font-bold text-lg">Vertical Event Timeline</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Event chronology with animated glowing nodes and status indicators.
+                      </p>
+                    </div>
+                    <CodeDialog snippetId="timeline" />
+                  </div>
+
+                  <Timeline
+                    events={[
+                      {
+                        date: 'November 20, 2026',
+                        title: 'Doni UI v0.4.0 — 15 New Production Components',
+                        description: 'Added DataTable, FileUpload, Stepper, Drawer, Carousel, ColorPicker, Rating, and more.',
+                        status: 'active',
+                        tag: 'Latest',
+                      },
+                      {
+                        date: 'November 19, 2026',
+                        title: 'Doni UI v0.3.0 — 1,000+ Animated Icons Suite',
+                        description: 'Launched the complete 1,000+ vector animated icons catalog across 20 domains.',
+                        status: 'completed',
+                        tag: 'Milestone',
+                      },
+                      {
+                        date: 'November 19, 2026',
+                        title: 'Doni UI v0.2.0 — Live Customizer Studio',
+                        description: 'Integrated real-time one-by-one icon studio with dynamic code exporter.',
+                        status: 'completed',
+                        tag: 'Studio',
+                      },
+                    ]}
+                  />
+                </Card>
+              </div>
+
+              {/* 3-Column: Rating & Progress, ColorPicker & ToggleGroup, BadgeDelta & Pagination */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                {/* Rating & Progress */}
+                <Card className="p-5 bg-card/70 border-border/80 space-y-4">
+                  <div>
+                    <h4 className="font-bold text-sm">Star Rating &amp; Progress</h4>
+                    <p className="text-xs text-muted-foreground">Interactive feedback components</p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Rating value={sampleRating} onChange={setSampleRating} withGlow />
+                      <span className="font-mono text-xs font-bold text-amber-400">{sampleRating}.0 / 5</span>
+                    </div>
+
+                    <div className="space-y-2 pt-2 border-t border-border/50">
+                      <Progress value={sampleProgress} showValue withGlow variant="primary" />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full text-[11px] h-6 text-muted-foreground hover:text-foreground"
+                        onClick={() => setSampleProgress((p) => (p >= 100 ? 25 : p + 25))}
+                      >
+                        Click to Step Progress ({sampleProgress}%)
+                      </Button>
+                      <Progress value={85} withGlow variant="emerald" />
+                      <Progress value={45} withGlow variant="gradient" />
+                      <Progress indeterminate withGlow variant="amber" />
+                    </div>
+                  </div>
+                </Card>
+
+                {/* ColorPicker & ToggleGroup */}
+                <Card className="p-5 bg-card/70 border-border/80 space-y-4">
+                  <div>
+                    <h4 className="font-bold text-sm">Color Picker &amp; Toggle Group</h4>
+                    <p className="text-xs text-muted-foreground">Interactive form selectors</p>
+                  </div>
+
+                  <div className="space-y-3 flex flex-col items-center">
+                    <ToggleGroup
+                      items={[
+                        { value: 'grid', label: 'Grid' },
+                        { value: 'list', label: 'List' },
+                        { value: 'compact', label: 'Compact' },
+                      ]}
+                      value={sampleToggle}
+                      onChange={setSampleToggle}
+                      variant="glow"
+                    />
+
+                    <ColorPicker
+                      color={sampleColor}
+                      onChange={setSampleColor}
+                      className="w-full"
+                    />
+                  </div>
+                </Card>
+
+                {/* BadgeDelta, Pagination & AspectRatio */}
+                <Card className="p-5 bg-card/70 border-border/80 space-y-4">
+                  <div>
+                    <h4 className="font-bold text-sm">Badge Delta &amp; Pagination</h4>
+                    <p className="text-xs text-muted-foreground">Financial pills and navigation</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      <BadgeDelta deltaType="increase">+24.5%</BadgeDelta>
+                      <BadgeDelta deltaType="moderateIncrease">+8.2%</BadgeDelta>
+                      <BadgeDelta deltaType="decrease">-3.4%</BadgeDelta>
+                      <BadgeDelta deltaType="unchanged">0.0%</BadgeDelta>
+                    </div>
+
+                    <div className="pt-2 border-t border-border/50">
+                      <Pagination
+                        currentPage={samplePage}
+                        totalPages={5}
+                        onPageChange={setSamplePage}
+                      />
+                    </div>
+
+                    <div className="pt-2 border-t border-border/50">
+                      <AspectRatio ratio={16 / 9} className="bg-muted/40 border border-border/60 flex items-center justify-center text-[11px] text-muted-foreground font-mono">
+                        <span>16:9 Aspect Ratio Container</span>
+                      </AspectRatio>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </motion.div>
+          )}
 
           {/* ANIMATED SOCIAL ICONS SECTION */}
           {activeTab === 'icons' && (
@@ -2167,7 +2656,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.1.2</span>
+            <span className="font-bold text-base">Doni UI Library v0.4.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
@@ -2201,7 +2690,7 @@ export function App() {
               onClick={() => setCurrentPage('icons')}
               className="hover:text-primary transition-colors cursor-pointer"
             >
-              Icons (30)
+              Icons (1,000+)
             </button>
             <button
               type="button"

@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.3.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.3.0)
+[![Version](https://img.shields.io/badge/Release-v0.4.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.4.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,21 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add data-table
+npx doni-ui add file-upload
+npx doni-ui add stepper
+npx doni-ui add drawer
+npx doni-ui add carousel
+npx doni-ui add color-picker
+npx doni-ui add toggle-group
+npx doni-ui add rating
+npx doni-ui add progress
+npx doni-ui add stat-card
+npx doni-ui add timeline
+npx doni-ui add badge-delta
+npx doni-ui add breadcrumbs
+npx doni-ui add pagination
+npx doni-ui add aspect-ratio
 npx doni-ui add glare-card
 npx doni-ui add direction-aware-hover
 npx doni-ui add tracing-beam
@@ -685,6 +700,21 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **DataTable** | Data Display | Dynamic sortable, searchable, selectable data table with pagination |
+| **FileUpload** | Forms | Drag-and-drop file upload zone with spring physics and file preview |
+| **Stepper** | Navigation | Multi-step wizard with animated progress beam and step checkmarks |
+| **Drawer** | Feedback | Fluid bottom/side sheet modal with gesture pull and spring entrance |
+| **Breadcrumbs** | Navigation | Responsive navigation hierarchy trail with chevron separators |
+| **Carousel** | Display | Touch-friendly slider with spring gestures, autoplay, and dots |
+| **ColorPicker** | Forms | Interactive hex/RGB color picker with swatches and 1-click copy |
+| **ToggleGroup** | Forms | Single & multi-select toggle button group with sliding background |
+| **Pagination** | Navigation | Standalone responsive pagination bar with first, last, and ellipsis |
+| **Rating** | Forms | 5-star interactive rating with hover preview and neon glow |
+| **Progress** | Feedback | Animated progress bar with glowing leading beam and gradient modes |
+| **StatCard** | Data Display | KPI metric card with positive/negative trend pill and hover bloom |
+| **Timeline** | Data Display | Vertical event timeline with glowing animated milestone nodes |
+| **BadgeDelta** | Data Display | Financial / metric delta badge with positive/negative pill indicator |
+| **AspectRatio** | Layout | Responsive media container maintaining strict aspect ratios |
 | **AnimatedIcon / Suite (1,000+)** | Special / Icons | Over 1,100 vector animated icons (1,000-icon Catalog across 20 domains + 100 handcrafted 3D icons) |
 | **IconCustomizerModal** | Special / Studio | Interactive live customization studio for dynamic size, stroke, color, neon glow, and trigger modes |
 | **AnimatedIconDock** | Navigation | Multi-category floating dock supporting any collection of animated icons |

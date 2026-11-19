@@ -545,4 +545,180 @@ import { Sparkles } from 'lucide-react';`,
   iconSize={24} 
 />`,
   },
+  dataTable: {
+    id: 'data-table',
+    name: 'Data Table',
+    description: 'Dynamic sortable, searchable, and paginated data table with selection checkboxes and status badges.',
+    category: 'Data Display',
+    importCode: `import { DataTable } from 'doni-ui';`,
+    usageCode: `<DataTable
+  data={[
+    { id: '1', name: 'Charitha', role: 'Lead Architect', status: 'Active' },
+    { id: '2', name: 'Naveen', role: 'Frontend Engineer', status: 'Active' },
+  ]}
+  columns={[
+    { key: 'name', header: 'Name', sortable: true },
+    { key: 'role', header: 'Role', sortable: true },
+    { key: 'status', header: 'Status' },
+  ]}
+  pageSize={5}
+  selectable
+/>`,
+  },
+  fileUpload: {
+    id: 'file-upload',
+    name: 'File Upload Dropzone',
+    description: 'Interactive drag-and-drop file upload zone with spring bounce and progress indicator.',
+    category: 'Forms',
+    importCode: `import { FileUpload } from 'doni-ui';`,
+    usageCode: `<FileUpload
+  maxSizeMb={10}
+  maxFiles={5}
+  onFilesSelected={(files) => console.log(files)}
+/>`,
+  },
+  stepper: {
+    id: 'stepper',
+    name: 'Multi-Step Stepper',
+    description: 'Multi-step wizard with animated progress line, active step glow, and completed checkmarks.',
+    category: 'Navigation',
+    importCode: `import { Stepper } from 'doni-ui';`,
+    usageCode: `<Stepper
+  steps={[
+    { title: 'Account', description: 'Create account' },
+    { title: 'Profile', description: 'Personal details' },
+    { title: 'Review', description: 'Verify info' },
+  ]}
+  currentStep={1}
+/>`,
+  },
+  drawer: {
+    id: 'drawer',
+    name: 'Drawer (Sheet)',
+    description: 'Smooth bottom/side drawer sheet with gesture pull, spring entrance, and backdrop blur.',
+    category: 'Feedback',
+    importCode: `import { Drawer } from 'doni-ui';`,
+    usageCode: `<Drawer
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  position="bottom"
+  title="Edit Profile"
+>
+  <p>Drawer content goes here...</p>
+</Drawer>`,
+  },
+  breadcrumbs: {
+    id: 'breadcrumbs',
+    name: 'Breadcrumbs',
+    description: 'Responsive navigation breadcrumb trail with animated chevron separators and home icon.',
+    category: 'Navigation',
+    importCode: `import { Breadcrumbs } from 'doni-ui';`,
+    usageCode: `<Breadcrumbs
+  items={[
+    { label: 'Components', href: '/components' },
+    { label: 'Data Display', href: '/components/data' },
+    { label: 'Data Table' },
+  ]}
+/>`,
+  },
+  carousel: {
+    id: 'carousel',
+    name: 'Animated Carousel',
+    description: 'Hardware-accelerated touch-friendly slider with spring gestures, autoplay, and dots.',
+    category: 'Display',
+    importCode: `import { Carousel } from 'doni-ui';`,
+    usageCode: `<Carousel
+  slides={[
+    { id: 1, content: <div>Slide 1</div> },
+    { id: 2, content: <div>Slide 2</div> },
+  ]}
+  autoPlay
+/>`,
+  },
+  colorPicker: {
+    id: 'color-picker',
+    name: 'Color Picker',
+    description: 'Interactive color picker with preset palette swatches and 1-click clipboard copy.',
+    category: 'Forms',
+    importCode: `import { ColorPicker } from 'doni-ui';`,
+    usageCode: `<ColorPicker
+  color="#8b5cf6"
+  onChange={(hex) => console.log(hex)}
+/>`,
+  },
+  toggleGroup: {
+    id: 'toggle-group',
+    name: 'Toggle Group',
+    description: 'Single and multi-select toggle button group with sliding active background indicator.',
+    category: 'Forms',
+    importCode: `import { ToggleGroup } from 'doni-ui';`,
+    usageCode: `<ToggleGroup
+  items={[
+    { value: 'grid', label: 'Grid' },
+    { value: 'list', label: 'List' },
+  ]}
+  value="grid"
+  onChange={(val) => console.log(val)}
+/>`,
+  },
+  rating: {
+    id: 'rating',
+    name: 'Star Rating',
+    description: 'Interactive 5-star rating with hover preview, bounce animation, and neon bloom.',
+    category: 'Forms',
+    importCode: `import { Rating } from 'doni-ui';`,
+    usageCode: `<Rating value={4} onChange={(val) => console.log(val)} withGlow />`,
+  },
+  progress: {
+    id: 'progress',
+    name: 'Progress Bar',
+    description: 'Animated progress bar with glowing leading beam and gradient variants.',
+    category: 'Feedback',
+    importCode: `import { Progress } from 'doni-ui';`,
+    usageCode: `<Progress value={68} variant="primary" showValue withGlow />`,
+  },
+  statCard: {
+    id: 'stat-card',
+    name: 'Stat / Metric Card',
+    description: 'Analytics KPI card with trend pill badge, spring hover lift, and ambient glow.',
+    category: 'Data Display',
+    importCode: `import { StatCard } from 'doni-ui';`,
+    usageCode: `<StatCard
+  title="Total Active Users"
+  value="142,850"
+  change={18.4}
+  changePeriod="vs last month"
+/>`,
+  },
+  timeline: {
+    id: 'timeline',
+    name: 'Event Timeline',
+    description: 'Vertical event timeline with glowing animated nodes and connecting line beam.',
+    category: 'Data Display',
+    importCode: `import { Timeline } from 'doni-ui';`,
+    usageCode: `<Timeline
+  events={[
+    { date: 'Nov 20, 2026', title: 'v0.4.0 Released', status: 'completed' },
+    { date: 'Nov 19, 2026', title: 'v0.3.0 1,000 Icons', status: 'completed' },
+  ]}
+/>`,
+  },
+  badgeDelta: {
+    id: 'badge-delta',
+    name: 'Badge Delta',
+    description: 'Financial / metric delta badge with positive/negative pill indicator.',
+    category: 'Data Display',
+    importCode: `import { BadgeDelta } from 'doni-ui';`,
+    usageCode: `<BadgeDelta deltaType="increase">+24.5%</BadgeDelta>`,
+  },
+  aspectRatio: {
+    id: 'aspect-ratio',
+    name: 'Aspect Ratio',
+    description: 'Responsive media container maintaining strict aspect ratios (16:9, 4:3, 1:1, 21:9).',
+    category: 'Layout',
+    importCode: `import { AspectRatio } from 'doni-ui';`,
+    usageCode: `<AspectRatio ratio={16 / 9}>
+  <img src="/preview.jpg" alt="Preview" className="rounded-2xl" />
+</AspectRatio>`,
+  },
 };
