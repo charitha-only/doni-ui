@@ -77,6 +77,9 @@ import { Marquee } from './components/ui/marquee';
 import { EvervaultCard } from './components/ui/evervault-card';
 import { SparklesCore } from './components/ui/sparkles';
 import { GridBackground } from './components/ui/grid-background';
+import { Magnetic } from './components/ui/magnetic';
+import { ShimmerText } from './components/ui/shimmer-text';
+import { NumberTicker } from './components/ui/number-ticker';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -197,7 +200,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.5
+                  v0.0.6
                 </span>
               </div>
             </div>
@@ -269,7 +272,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.5 — Evervault Matrix, Canvas Sparkles &amp; Audio Keycaps
+              ✨ Doni UI v0.0.6 — Magnetic Cursor, Number Ticker, Shimmer &amp; Evervault
             </Badge>
           </motion.div>
 
@@ -416,6 +419,34 @@ export function App() {
             <p className="text-sm text-muted-foreground mt-1">
               Unlike traditional heavy UI libraries, Doni UI eliminates runtime bottlenecks.
             </p>
+          </div>
+
+          {/* Animated KPI Stats Bar with NumberTicker */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
+              <div className="text-3xl sm:text-4xl font-black text-primary">
+                <NumberTicker value={0} suffix="ms" />
+              </div>
+              <div className="text-xs text-muted-foreground font-semibold mt-1">Runtime Style Lag</div>
+            </div>
+            <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
+              <div className="text-3xl sm:text-4xl font-black text-foreground">
+                <NumberTicker value={120} suffix=" FPS" />
+              </div>
+              <div className="text-xs text-muted-foreground font-semibold mt-1">Hardware Framerate</div>
+            </div>
+            <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
+              <div className="text-3xl sm:text-4xl font-black text-primary">
+                <NumberTicker value={100} suffix="%" />
+              </div>
+              <div className="text-xs text-muted-foreground font-semibold mt-1">Tree-Shakeable</div>
+            </div>
+            <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
+              <div className="text-3xl sm:text-4xl font-black text-foreground">
+                <NumberTicker value={35} suffix="+" />
+              </div>
+              <div className="text-xs text-muted-foreground font-semibold mt-1">Animated Components</div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1083,6 +1114,61 @@ export function App() {
                   </div>
                 </CardFooter>
               </Card>
+
+              {/* Magnetic Cursor & Shimmer Text Showcase */}
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <Badge variant="glow" className="gap-1">
+                      <Sparkles className="w-3 h-3" /> Magnetic Pull &amp; Shimmer
+                    </Badge>
+                    <h3 className="text-xl font-bold mt-1">Magnetic Cursor Physics &amp; Shimmer Text</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Hover near the button — it magnetically tracks and snaps back to your cursor with spring dynamics!
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <CodeDialog snippetId="magnetic" />
+                    <CodeDialog
+                      snippetId="shimmerText"
+                      trigger={
+                        <Button variant="outline" size="sm" className="h-8 text-xs">
+                          Shimmer Code
+                        </Button>
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center justify-around gap-8 py-8 bg-muted/20 rounded-2xl border border-border/60">
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="text-xs font-semibold text-muted-foreground">Hover near this button</span>
+                    <Magnetic range={100} strength={0.4}>
+                      <Button variant="glow" size="lg" className="shadow-glow">
+                        <Zap className="w-4 h-4 mr-2" />
+                        Magnetic Spring Pull
+                      </Button>
+                    </Magnetic>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="text-xs font-semibold text-muted-foreground">Apple / Linear Light Shimmer</span>
+                    <ShimmerText className="text-2xl sm:text-3xl font-black">
+                      ⚡ Doni UI Ultra Performance
+                    </ShimmerText>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;Magnetic&gt;&lt;Button /&gt;&lt;/Magnetic&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('magnetic')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Magnetic Code
+                  </Button>
+                </div>
+              </Card>
             </motion.div>
           )}
 
@@ -1373,7 +1459,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.5</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.6</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

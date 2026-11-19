@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.5-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.5)
+[![Version](https://img.shields.io/badge/Release-v0.0.6-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,9 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add magnetic
+npx doni-ui add shimmer-text
+npx doni-ui add number-ticker
 npx doni-ui add evervault-card
 npx doni-ui add sparkles
 npx doni-ui add grid-background
@@ -313,6 +316,57 @@ export function ParticleHero() {
 
 ---
 
+### 12. 🧲 Magnetic Cursor Pull
+Elements smoothly track pointer proximity and snap back with fluid spring physics:
+
+```tsx
+import { Magnetic, Button } from 'doni-ui';
+
+export function MagneticCTA() {
+  return (
+    <Magnetic range={90} strength={0.4}>
+      <Button variant="glow">Magnetic Button</Button>
+    </Magnetic>
+  );
+}
+```
+
+---
+
+### 13. 🌈 Apple & Linear Shimmer Text
+Animated light reflection sliding smoothly across typographical gradients:
+
+```tsx
+import { ShimmerText } from 'doni-ui';
+
+export function ShimmerHeadline() {
+  return (
+    <ShimmerText className="text-4xl font-extrabold">
+      Lightning Fast Experience
+    </ShimmerText>
+  );
+}
+```
+
+---
+
+### 14. ⏱️ Spring-Interpolated Number Ticker
+Real-time animated counter ticking up with spring physics when scrolled into view:
+
+```tsx
+import { NumberTicker } from 'doni-ui';
+
+export function StatsDisplay() {
+  return (
+    <div className="text-4xl font-bold">
+      <NumberTicker value={99.9} decimalPlaces={1} suffix="%" />
+    </div>
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -338,6 +392,9 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **Magnetic** | Special | Spring physics pointer attraction and snap-back |
+| **ShimmerText** | Typography | Apple & Linear animated light reflection sliding across text |
+| **NumberTicker** | Data Display | Smooth spring-interpolated counter ticker for stats and metrics |
 | **EvervaultCard** | Cards | Real-time pointer cryptographic character mask with holographic glow |
 | **SparklesCore** | Special | Hardware-accelerated 60 FPS canvas particle physics |
 | **GridBackground** | Layout | Radial-masked geometric dot matrix and linear grid pattern |
@@ -373,7 +430,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.5**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.6**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

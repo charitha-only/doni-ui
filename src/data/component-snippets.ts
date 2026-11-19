@@ -324,4 +324,32 @@ import { Sparkles } from 'lucide-react';`,
   </DropdownMenuContent>
 </DropdownMenu>`,
   },
+  magnetic: {
+    id: 'magnetic',
+    name: 'Magnetic Cursor Pull',
+    description: 'Spring physics cursor attraction wrapper for buttons and avatars.',
+    category: 'Special',
+    importCode: `import { Magnetic, Button } from 'doni-ui';`,
+    usageCode: `<Magnetic range={90} strength={0.4}>
+  <Button variant="glow">Magnetic Button</Button>
+</Magnetic>`,
+  },
+  shimmerText: {
+    id: 'shimmerText',
+    name: 'Shimmer Text',
+    description: 'Apple and Linear-style animated light streak reflection across typography.',
+    category: 'Typography',
+    importCode: `import { ShimmerText } from 'doni-ui';`,
+    usageCode: `<ShimmerText className="text-3xl font-extrabold">
+  Lightning-Fast Interface
+</ShimmerText>`,
+  },
+  numberTicker: {
+    id: 'numberTicker',
+    name: 'Number Ticker',
+    description: 'Smooth spring-interpolated counter ticker for dashboard metrics.',
+    category: 'Data Display',
+    importCode: `import { NumberTicker } from 'doni-ui';`,
+    usageCode: `<NumberTicker value={99.9} decimalPlaces={1} suffix="%" />`,
+  },
 };

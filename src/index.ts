@@ -33,6 +33,9 @@ export * from './components/ui/text-reveal';
 export * from './components/ui/evervault-card';
 export * from './components/ui/grid-background';
 export * from './components/ui/sparkles';
+export * from './components/ui/magnetic';
+export * from './components/ui/shimmer-text';
+export * from './components/ui/number-ticker';
 
 // Theme Engine Exports
 export * from './theme/theme-context';
