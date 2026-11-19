@@ -42,6 +42,8 @@ export * from './components/ui/lens';
 export * from './components/ui/orbiting-circles';
 export * from './components/ui/retro-grid';
 export * from './components/ui/confetti-button';
+export * from './components/ui/wavy-background';
+export * from './components/ui/expandable-card';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

@@ -421,4 +421,32 @@ import { Sparkles } from 'lucide-react';`,
   Celebrate 🎉
 </ConfettiButton>`,
   },
+  wavyBackground: {
+    id: 'wavyBackground',
+    name: 'Wavy Background',
+    description: 'Fluid animated sine wave lines rendered on high-performance Canvas.',
+    category: 'Layout',
+    importCode: `import { WavyBackground } from 'doni-ui';`,
+    usageCode: `<WavyBackground className="max-w-4xl mx-auto pb-40">
+  <p className="text-4xl font-bold text-center">Hero Headline</p>
+</WavyBackground>`,
+  },
+  expandableCard: {
+    id: 'expandableCard',
+    name: 'Expandable Morphing Card',
+    description: 'Shared layout morphing dialog modal with backdrop blur and escape key dismiss.',
+    category: 'Cards',
+    importCode: `import { ExpandableCard } from 'doni-ui';`,
+    usageCode: `<ExpandableCard
+  items={[
+    {
+      id: 'item-1',
+      title: 'Zero Runtime CSS',
+      description: 'Native CSS variables',
+      content: 'Detailed description of features and capabilities...',
+      ctaText: 'Explore',
+    },
+  ]}
+/>`,
+  },
 };

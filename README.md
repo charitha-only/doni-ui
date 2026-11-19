@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.8-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.8)
+[![Version](https://img.shields.io/badge/Release-v0.0.9-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.9)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,8 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add wavy-background
+npx doni-ui add expandable-card
 npx doni-ui add orbiting-circles
 npx doni-ui add retro-grid
 npx doni-ui add confetti-button
@@ -482,6 +484,50 @@ export function Celebration() {
 
 ---
 
+### 21. 🌊 Wavy Sine Waves Background
+Fluid animated sine wave lines on high-performance Canvas reactive to theme colors:
+
+```tsx
+import { WavyBackground } from 'doni-ui';
+
+export function WaveHero() {
+  return (
+    <WavyBackground waveWidth={35} blur={10}>
+      <h1 className="text-5xl font-black text-center">
+        Fluid 60 FPS Compositor
+      </h1>
+    </WavyBackground>
+  );
+}
+```
+
+---
+
+### 22. 🎴 Morphing Expandable Card Dialog
+Shared-layout morphing card that seamlessly expands into a modal dialog with backdrop blur:
+
+```tsx
+import { ExpandableCard } from 'doni-ui';
+
+export function FeatureCards() {
+  return (
+    <ExpandableCard
+      items={[
+        {
+          id: 'card-1',
+          title: 'Zero Runtime Styling',
+          description: 'Native CSS custom properties',
+          content: 'Full explanation and interactive demo content...',
+          ctaText: 'Explore',
+        },
+      ]}
+    />
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -507,6 +553,8 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **WavyBackground** | Layout | Fluid animated sine wave lines on high-performance Canvas |
+| **ExpandableCard** | Cards | Shared-layout morphing card that expands into modal dialog |
 | **OrbitingCircles** | Special | Concentric planetary orbits with counter-rotation upright lock |
 | **RetroGrid** | Layout | 3D perspective cyber grid rolling infinitely into the horizon |
 | **ConfettiButton** | Buttons | Celebration trigger button with hardware canvas confetti burst |
@@ -551,7 +599,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.8**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.9**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

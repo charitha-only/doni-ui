@@ -86,6 +86,8 @@ import { Lens } from './components/ui/lens';
 import { OrbitingCircles } from './components/ui/orbiting-circles';
 import { RetroGrid } from './components/ui/retro-grid';
 import { ConfettiButton } from './components/ui/confetti-button';
+import { WavyBackground } from './components/ui/wavy-background';
+import { ExpandableCard } from './components/ui/expandable-card';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -115,6 +117,7 @@ export function App() {
   const [sliderValue, setSliderValue] = useState([65]);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
+  const [gallerySearch, setGallerySearch] = useState('');
 
   // Keyboard shortcut ⌘K or Ctrl+K to open search command palette
   useEffect(() => {
@@ -206,7 +209,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.8
+                  v0.0.9
                 </span>
               </div>
             </div>
@@ -278,7 +281,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.8 — Orbiting Circles, Retro 3D Grid &amp; Confetti Button
+              ✨ Doni UI v0.0.9 — Wavy Sine Waves, Morphing Expandable Cards &amp; Live Filter
             </Badge>
           </motion.div>
 
@@ -609,29 +612,103 @@ export function App() {
 
         {/* COMPONENT PLAYGROUND & SHOWCASE */}
         <section id="playground" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <div>
-              <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
-              <p className="text-muted-foreground mt-1">
-                Every component includes 1-click code copying and CLI commands.
-              </p>
+          <div className="flex flex-col gap-5 mb-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Explore 40+ spring-animated, lightweight components with 1-click code copying and CLI commands.
+                </p>
+              </div>
+
+              <div className="relative w-full md:w-80">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Instant filter 40+ components..."
+                  value={gallerySearch}
+                  onChange={(e) => setGallerySearch(e.target.value)}
+                  className="pl-10 h-10 bg-card/70 rounded-xl border-border/80"
+                />
+                {gallerySearch && (
+                  <button
+                    type="button"
+                    onClick={() => setGallerySearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-primary hover:underline cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
             </div>
 
-            <Tabs
-              tabs={[
-                { id: 'card3d', label: '3D Tilt, Lens & Matrix' },
-                { id: 'cosmic', label: 'Sparkles & Cosmic' },
-                { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
-                { id: 'spotlight', label: 'Spotlight & Lamp' },
-                { id: 'buttons', label: 'Buttons & Confetti' },
-                { id: 'inputs', label: 'Forms & Slider' },
-                { id: 'display', label: 'Avatar & Dropdown' },
-                { id: 'feedback', label: 'Dialog & Accordion' },
-              ]}
-              activeTab={activeTab}
-              onChange={setActiveTab}
-            />
+            {!gallerySearch && (
+              <Tabs
+                tabs={[
+                  { id: 'card3d', label: '3D Tilt, Lens & Morph' },
+                  { id: 'cosmic', label: 'Wavy & Cosmic' },
+                  { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
+                  { id: 'spotlight', label: 'Spotlight & Lamp' },
+                  { id: 'buttons', label: 'Buttons & Confetti' },
+                  { id: 'inputs', label: 'Forms & Slider' },
+                  { id: 'display', label: 'Avatar & Dropdown' },
+                  { id: 'feedback', label: 'Dialog & Accordion' },
+                ]}
+                activeTab={activeTab}
+                onChange={setActiveTab}
+              />
+            )}
           </div>
+
+          {gallerySearch ? (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transitions.smoothEase}
+              className="space-y-4"
+            >
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>
+                  Filtering components matching "<strong className="text-foreground">{gallerySearch}</strong>"
+                </span>
+                <Button variant="ghost" size="sm" onClick={() => setGallerySearch('')}>
+                  Reset Filter
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Object.values(COMPONENT_SNIPPETS)
+                  .filter(
+                    (c) =>
+                      c.name.toLowerCase().includes(gallerySearch.toLowerCase()) ||
+                      c.description.toLowerCase().includes(gallerySearch.toLowerCase()) ||
+                      c.category.toLowerCase().includes(gallerySearch.toLowerCase()) ||
+                      c.id.toLowerCase().includes(gallerySearch.toLowerCase())
+                  )
+                  .map((c) => (
+                    <Card key={c.id} className="p-5 flex flex-col justify-between hover:border-primary/50 transition-colors">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge variant="glow">{c.category}</Badge>
+                          <CodeDialog snippetId={c.id} />
+                        </div>
+                        <h3 className="font-bold text-lg">{c.name}</h3>
+                        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                          {c.description}
+                        </p>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between">
+                        <span className="text-xs font-mono text-primary font-semibold">npx doni-ui add {c.id}</span>
+                        <Button variant="glow" size="sm" onClick={() => copySnippet(c.id)}>
+                          <Copy className="w-3.5 h-3.5 mr-1" />
+                          Copy
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+              </div>
+            </motion.div>
+          ) : (
+            <>
 
           {/* 0. 3D TILT & EVERVAULT SECTION */}
           {activeTab === 'card3d' && (
@@ -775,6 +852,51 @@ export function App() {
                   </Button>
                 </div>
               </Card>
+
+              {/* Shared Layout Morphing Expandable Card */}
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <Badge variant="glow">Shared Layout Physics</Badge>
+                    <h3 className="text-xl font-bold mt-1">Morphing Expandable Cards</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Click any card to smoothly morph into an expanded modal dialog with backdrop blur and escape key dismiss.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="expandableCard" />
+                </div>
+
+                <ExpandableCard
+                  items={[
+                    {
+                      id: 'perf-1',
+                      title: '0ms Runtime CSS Evaluation',
+                      description: 'Native CSS variables with 0ms evaluation lag',
+                      content: 'Doni UI compiles styles to atomic CSS custom properties. Unlike Emotion or styled-components, there is zero JavaScript parsing delay on user interactions.',
+                      ctaText: 'Explore Docs',
+                      icon: <Zap className="w-4 h-4" />,
+                    },
+                    {
+                      id: 'tree-2',
+                      title: '100% Tree-Shakeable Bundles',
+                      description: 'Drop unused code automatically',
+                      content: 'Configured with "sideEffects": false. When you import only the Button, bundlers discard the rest of the library (~3KB bundle footprint).',
+                      ctaText: 'View Bundle Size',
+                      icon: <Shield className="w-4 h-4" />,
+                    },
+                  ]}
+                />
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;ExpandableCard items=&#123;[...]&#125; /&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('expandableCard')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Expandable Code
+                  </Button>
+                </div>
+              </Card>
             </motion.div>
           )}
 
@@ -786,6 +908,36 @@ export function App() {
               transition={transitions.smoothEase}
               className="space-y-6"
             >
+              {/* Canvas Wavy Sine Wave Lines Background */}
+              <Card className="relative overflow-hidden p-6 border-border/80 min-h-[300px] flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-4 z-10">
+                  <div>
+                    <Badge variant="glow">Canvas Sine Waves</Badge>
+                    <h3 className="text-xl font-bold mt-1">Wavy Sine Wave Lines</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      60 FPS hardware-accelerated waving canvas sine lines reactive to active theme colors.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="wavyBackground" />
+                </div>
+
+                <div className="relative h-48 w-full rounded-xl overflow-hidden border border-border/60 bg-card my-2 flex items-center justify-center">
+                  <WavyBackground waveWidth={35} blur={10} speed="fast" className="flex flex-col items-center gap-2">
+                    <span className="text-2xl sm:text-3xl font-black tracking-tight text-foreground drop-shadow-md">
+                      FLUID WAVE COMPOSITOR
+                    </span>
+                    <Badge variant="neon">60 FPS Hardware Acceleration</Badge>
+                  </WavyBackground>
+                </div>
+
+                <div className="flex justify-between items-center z-10 mt-2">
+                  <span className="text-xs text-muted-foreground font-mono">&lt;WavyBackground /&gt;</span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('wavyBackground')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Wavy Code
+                  </Button>
+                </div>
+              </Card>
               {/* Sparkles Particle Engine with Grid Background */}
               <Card className="relative overflow-hidden p-6 border-border/80 min-h-[300px] flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-4 z-10">
@@ -1649,15 +1801,17 @@ export function App() {
               </Card>
             </motion.div>
           )}
-        </section>
+        </>
+      )}
+    </section>
 
-        {/* Footer */}
-        <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.8</span>
-              <span className="text-xs text-muted-foreground">
+    {/* Footer */}
+    <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-primary" />
+          <span className="font-bold text-base">Doni UI Library v0.0.9</span>
+          <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>
             </div>
