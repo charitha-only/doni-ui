@@ -77,6 +77,9 @@ export * from './data/icons-catalog-1000';
 export * from './theme/theme-context';
 export * from './theme/themes';
 
+// Full Page Templates (v0.9.0)
+export * from './components/views/templates-view';
+
 // Utilities & Audio Engine (v0.6.0)
 export * from './lib/utils';
 export * from './lib/sound-effects';

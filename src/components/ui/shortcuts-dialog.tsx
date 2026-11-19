@@ -89,6 +89,7 @@ export const ShortcutsDialog: React.FC<ShortcutsDialogProps> = ({
                     { key: 'H', label: 'Home Page', action: () => onNavigate?.('home') },
                     { key: 'D', label: 'Documentation', action: () => onNavigate?.('docs') },
                     { key: 'C', label: 'Components (55+)', action: () => onNavigate?.('components') },
+                    { key: 'T', label: 'Page Templates', action: () => onNavigate?.('templates') },
                     { key: 'I', label: 'Animated Icons (1,000+)', action: () => onNavigate?.('icons') },
                     { key: 'V', label: 'Version History', action: () => onNavigate?.('versions') },
                     { key: 'A', label: 'About & Philosophy', action: () => onNavigate?.('about') },

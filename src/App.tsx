@@ -109,6 +109,7 @@ import { transitions, cn } from './lib/utils';
 import { COMPONENT_SNIPPETS } from './data/component-snippets';
 import { DocsView } from './components/views/docs-view';
 import { IconsView } from './components/views/icons-view';
+import { TemplatesView } from './components/views/templates-view';
 import { VersionsView } from './components/views/versions-view';
 import { AboutView } from './components/views/about-view';
 
@@ -149,7 +150,7 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'icons' | 'versions' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'templates' | 'icons' | 'versions' | 'about'>('home');
   const [activeTab, setActiveTab] = useState('dataApp');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
@@ -211,6 +212,9 @@ export function App() {
         playUiSound('tab');
       } else if (key === 'c') {
         setCurrentPage('components');
+        playUiSound('tab');
+      } else if (key === 't') {
+        setCurrentPage('templates');
         playUiSound('tab');
       } else if (key === 'i') {
         setCurrentPage('icons');
@@ -335,7 +339,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.8.0
+                  v0.9.0
                 </span>
               </div>
             </div>
@@ -346,6 +350,7 @@ export function App() {
                 { id: 'home', label: 'Home' },
                 { id: 'docs', label: 'Documentation' },
                 { id: 'components', label: 'Components' },
+                { id: 'templates', label: 'Templates' },
                 { id: 'icons', label: 'Icons (1,000+)' },
                 { id: 'versions', label: 'Versions' },
                 { id: 'about', label: 'About' },
@@ -483,7 +488,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.8.0 — Interactive Props Sandbox &amp; Live Reactive Playground
+                  ✨ Doni UI v0.9.0 — Pre-built Production Page Templates Hub &amp; Live Sandbox
                 </Badge>
               </motion.div>
 
@@ -2757,7 +2762,12 @@ export function App() {
     )}
 
     {/* ========================================================================= */}
-    {/* 4. VIEW: ICONS PAGE                                                       */}
+    {/* 4. VIEW: TEMPLATES PAGE (v0.9.0)                                          */}
+    {/* ========================================================================= */}
+    {currentPage === 'templates' && <TemplatesView />}
+
+    {/* ========================================================================= */}
+    {/* 5. VIEW: ICONS PAGE                                                       */}
     {/* ========================================================================= */}
     {currentPage === 'icons' && <IconsView />}
 
@@ -2777,7 +2787,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.8.0</span>
+            <span className="font-bold text-base">Doni UI Library v0.9.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
@@ -2805,6 +2815,13 @@ export function App() {
               className="hover:text-primary transition-colors cursor-pointer"
             >
               Components
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('templates')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Templates
             </button>
             <button
               type="button"

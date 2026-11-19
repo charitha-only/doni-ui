@@ -24,10 +24,31 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.9.0',
+      title: 'Pre-built Production Page Templates Hub & Interactive Blocks Suite',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Pre-built Production Page Templates: 4 full-scale page templates designed for immediate production drop-in: Hyper-SaaS NextGen Landing, Autonomous AI Agent Platform, Senior Engineer Bento Portfolio, and Cloud Metrics Dashboard.',
+        'Interactive Live Preview Stage: Full-screen modal to test the rendered templates with responsive layouts and spring micro-interactions.',
+        '1-Click Complete Template Code Copying: Instant clean React + Tailwind TSX code ready for Next.js 14/15 or Vite projects.',
+        'Dedicated Templates Navigation Tab: Added persistent top-level navigation tab and hotkey T for instant access.',
+      ],
+      componentsAdded: [
+        'TemplatesView',
+        'SaaSLandingTemplate',
+        'AiPlatformTemplate',
+        'BentoPortfolioTemplate',
+        'AnalyticsDashboardTemplate',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.9.0',
+    },
+    {
       version: 'v0.8.0',
       title: 'Interactive Component Props Sandbox & Live Reactive JSX Playground',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Interactive Props Sandbox: Live component tweaker allowing real-time switching of variants (glow, default, outline, secondary), sizes (sm, md, lg), and spring animations.',
