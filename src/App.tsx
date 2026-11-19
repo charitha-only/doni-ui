@@ -127,6 +127,7 @@ import { StatCard } from './components/ui/stat-card';
 import { Timeline } from './components/ui/timeline';
 import { BadgeDelta } from './components/ui/badge-delta';
 import { AspectRatio } from './components/ui/aspect-ratio';
+import { PinnedThemeBar } from './components/ui/pinned-theme-bar';
 
 export function App() {
   const {
@@ -355,6 +356,9 @@ export function App() {
             </button>
           ))}
         </div>
+
+        {/* Pinned Global Theme Studio Bar (Sticky across ALL tabs & pages) */}
+        <PinnedThemeBar />
 
         {/* ========================================================================= */}
         {/* 1. VIEW: HOME PAGE                                                        */}

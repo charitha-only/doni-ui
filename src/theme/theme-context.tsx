@@ -23,7 +23,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mode, setMode] = useState<ThemeMode>('dark');
   const [activePreset, setActivePresetState] = useState<ColorPreset>(COLOR_PRESETS[0]);
-  const [customHex, setCustomHexState] = useState<string>('#8b5cf6');
+  const [customHex, setCustomHexState] = useState<string>('#06b6d4');
   const [isCustom, setIsCustom] = useState<boolean>(false);
   const [radius, setRadius] = useState<RadiusOption>('0.75rem');
 
