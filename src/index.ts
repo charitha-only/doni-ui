@@ -75,5 +75,6 @@ export * from './data/icons-catalog-1000';
 export * from './theme/theme-context';
 export * from './theme/themes';
 
-// Utilities
+// Utilities & Audio Engine (v0.6.0)
 export * from './lib/utils';
+export * from './lib/sound-effects';

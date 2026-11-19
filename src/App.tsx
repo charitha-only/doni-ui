@@ -128,6 +128,7 @@ import { Timeline } from './components/ui/timeline';
 import { BadgeDelta } from './components/ui/badge-delta';
 import { AspectRatio } from './components/ui/aspect-ratio';
 import { PinnedThemeBar } from './components/ui/pinned-theme-bar';
+import { playUiSound } from './lib/sound-effects';
 
 export function App() {
   const {
@@ -178,6 +179,7 @@ export function App() {
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCode(label);
+    playUiSound('success');
     toast({
       title: 'Copied to clipboard!',
       description: `${label} copied successfully.`,
@@ -256,7 +258,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.5.0
+                  v0.6.0
                 </span>
               </div>
             </div>
@@ -274,7 +276,10 @@ export function App() {
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setCurrentPage(item.id as any)}
+                  onClick={() => {
+                    setCurrentPage(item.id as any);
+                    playUiSound('tab');
+                  }}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     currentPage === item.id
                       ? 'bg-primary text-primary-foreground shadow-sm font-bold'
@@ -289,7 +294,10 @@ export function App() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => setCommandPaletteOpen(true)}
+                onClick={() => {
+                  setCommandPaletteOpen(true);
+                  playUiSound('click');
+                }}
                 className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground transition-colors cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5 text-primary" />
@@ -304,7 +312,10 @@ export function App() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={toggleMode}
+                    onClick={() => {
+                      toggleMode();
+                      playUiSound('pop');
+                    }}
                     className="rounded-full"
                   >
                     {mode === 'dark' ? (
@@ -374,7 +385,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.5.0 — OpenGraph Social Cards &amp; Pinned Dynamic Color Bar
+                  ✨ Doni UI v0.6.0 — Web Audio Micro-Sound Engine &amp; Synthetic UI Audio
                 </Badge>
               </motion.div>
 
@@ -829,7 +840,10 @@ export function App() {
                   { id: 'feedback', label: 'Dialog & Accordion' },
                 ]}
                 activeTab={activeTab}
-                onChange={setActiveTab}
+                onChange={(tabId) => {
+                  setActiveTab(tabId);
+                  playUiSound('tab');
+                }}
               />
             )}
           </div>
@@ -2660,7 +2674,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.5.0</span>
+            <span className="font-bold text-base">Doni UI Library v0.6.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>

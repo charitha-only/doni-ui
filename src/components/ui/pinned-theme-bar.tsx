@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Palette, Check } from 'lucide-react';
+import { Palette, Check, Volume2, VolumeX } from 'lucide-react';
 import { useTheme, RadiusOption } from '@/theme/theme-context';
 import { COLOR_PRESETS } from '@/theme/themes';
 import { cn, transitions } from '@/lib/utils';
 import { Badge } from './badge';
+import { playUiSound, isSoundEnabled, toggleSound } from '@/lib/sound-effects';
 
 export const PinnedThemeBar: React.FC = () => {
   const {
@@ -16,6 +17,13 @@ export const PinnedThemeBar: React.FC = () => {
     radius,
     setRadius,
   } = useTheme();
+
+  const [soundOn, setSoundOn] = useState<boolean>(() => isSoundEnabled());
+
+  const handleToggleSound = () => {
+    const next = toggleSound();
+    setSoundOn(next);
+  };
 
   return (
     <div className="sticky top-16 z-35 w-full border-b border-border/60 bg-background/85 backdrop-blur-2xl shadow-xs transition-all duration-300">
@@ -48,7 +56,10 @@ export const PinnedThemeBar: React.FC = () => {
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.94 }}
                   transition={transitions.springBouncy}
-                  onClick={() => setPreset(p.id)}
+                  onClick={() => {
+                    setPreset(p.id);
+                    playUiSound('chime');
+                  }}
                   className={cn(
                     'group relative flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-all text-left cursor-pointer shrink-0 select-none text-xs font-semibold',
                     isSelected
@@ -105,7 +116,10 @@ export const PinnedThemeBar: React.FC = () => {
                 <button
                   key={r}
                   type="button"
-                  onClick={() => setRadius(r)}
+                  onClick={() => {
+                    setRadius(r);
+                    playUiSound('switch');
+                  }}
                   className={cn(
                     'px-1.5 py-0.5 rounded-lg text-[10px] font-mono font-semibold transition-all cursor-pointer',
                     radius === r
@@ -117,6 +131,33 @@ export const PinnedThemeBar: React.FC = () => {
                 </button>
               ))}
             </div>
+
+            {/* UI Audio SFX Toggle */}
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={handleToggleSound}
+              className={cn(
+                'flex items-center gap-1 px-2 py-1 rounded-xl border text-xs font-semibold transition-all cursor-pointer',
+                soundOn
+                  ? 'bg-primary/10 border-primary/30 text-primary shadow-glow'
+                  : 'bg-muted/40 border-border/70 text-muted-foreground hover:text-foreground'
+              )}
+              title={soundOn ? 'UI Audio Synthesis: ON (Click to mute)' : 'UI Audio Synthesis: MUTED (Click to enable)'}
+            >
+              {soundOn ? (
+                <>
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline text-[10px] font-mono">SFX</span>
+                </>
+              ) : (
+                <>
+                  <VolumeX className="w-3.5 h-3.5 opacity-60" />
+                  <span className="hidden sm:inline text-[10px] font-mono opacity-60">MUTED</span>
+                </>
+              )}
+            </motion.button>
           </div>
         </div>
       </div>

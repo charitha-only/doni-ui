@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.6.0',
+      title: 'Web Audio Micro-Sound Effects Engine: Zero-Byte Procedural Sound Synthesis for Modern UI',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Zero-Byte Web Audio API Synthesis: Native procedural audio synthesis using browser oscillators — 0 external audio files (.mp3/.wav), 0 network overhead, and zero latency.',
+        '6 Tactile Sound Profiles: Mechanical clicks, bubbly UI pops, harmonic theme chimes, tactile switches, tab blips, and 2-tone euphoric success chords.',
+        'Global Audio SFX Controller: 1-click audio toggle button integrated directly into the pinned theme bar with localStorage persistence.',
+        'Interactive Sound Integration: Real-time tactile feedback on theme color swatches, radius sliders, nav tabs, dark/light mode toggle, and code snippet copying.',
+        'Exportable Audio Engine: Fully tree-shakeable `playUiSound`, `toggleSound`, and `isSoundEnabled` utilities exported for any React app.',
+      ],
+      componentsAdded: [
+        'WebAudioSynth',
+        'SoundEffectsEngine',
+        'SoundToggleButton',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.6.0',
+    },
+    {
       version: 'v0.5.0',
       title: 'OpenGraph Social Sharing Engine, Branded Vector Card, Pinned Theme Engine & Cyber Cyan Default',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'OpenGraph & Twitter Card SEO Engine: Rich meta tags, preview images, high-contrast title and description for professional link sharing across WhatsApp, Twitter/X, Discord, Slack, and LinkedIn.',
