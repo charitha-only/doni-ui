@@ -643,10 +643,407 @@ export const AnimatedSparkleStar: React.FC<AnimatedIconBaseProps> = ({
 };
 
 // ============================================================================
-// 4. UNIFIED ANIMATED ICON DISPATCHER
+// 4. WEATHER & NATURE ANIMATED ICONS
 // ============================================================================
 
-export type IconCategory = 'social' | 'vehicles' | 'warning' | 'entertainment';
+// 4.1 Animated Sun
+export const AnimatedSun: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-amber-400 hover:border-amber-400/40 hover:bg-amber-400/10',
+        withGlow && isHovered && 'shadow-[0_0_26px_rgba(251,191,36,0.5)]',
+        className
+      )}
+      {...props}
+    >
+      <motion.svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={{ repeat: Infinity, duration: 6, ease: 'linear' }}
+      >
+        <circle cx="12" cy="12" r="4" fill="currentColor" />
+        <path d="M12 2v2" />
+        <path d="M12 20v2" />
+        <path d="m4.93 4.93 1.41 1.41" />
+        <path d="m17.66 17.66 1.41 1.41" />
+        <path d="M2 12h2" />
+        <path d="M20 12h2" />
+        <path d="m6.34 17.66-1.41 1.41" />
+        <path d="m19.07 4.93-1.41 1.41" />
+      </motion.svg>
+    </motion.div>
+  );
+};
+
+// 4.2 Animated Moon & Stars
+export const AnimatedMoonStars: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15, rotate: [0, -10, 10, 0] }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-indigo-400 hover:border-indigo-400/40 hover:bg-indigo-400/10',
+        withGlow && isHovered && 'shadow-[0_0_24px_rgba(129,140,248,0.5)]',
+        className
+      )}
+      {...props}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        {isHovered && (
+          <motion.path
+            d="M19 3v4M17 5h4"
+            stroke="#818cf8"
+            strokeWidth="2"
+            initial={{ scale: 0 }}
+            animate={{ scale: [0.8, 1.2, 0.8] }}
+            transition={{ repeat: Infinity, duration: 0.6 }}
+          />
+        )}
+      </svg>
+    </motion.div>
+  );
+};
+
+// 4.3 Animated Cloud Rain
+export const AnimatedCloudRain: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15, y: -2 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-sky-400 hover:border-sky-400/40 hover:bg-sky-400/10',
+        withGlow && isHovered && 'shadow-[0_0_22px_rgba(56,189,248,0.45)]',
+        className
+      )}
+      {...props}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+        <motion.path
+          d="M16 14v6"
+          stroke="#38bdf8"
+          strokeWidth="2"
+          animate={isHovered ? { y: [0, 4, 0], opacity: [0.3, 1, 0.3] } : {}}
+          transition={{ repeat: Infinity, duration: 0.5, delay: 0.1 }}
+        />
+        <motion.path
+          d="M8 14v6"
+          stroke="#38bdf8"
+          strokeWidth="2"
+          animate={isHovered ? { y: [0, 4, 0], opacity: [0.3, 1, 0.3] } : {}}
+          transition={{ repeat: Infinity, duration: 0.5 }}
+        />
+        <motion.path
+          d="M12 16v6"
+          stroke="#38bdf8"
+          strokeWidth="2"
+          animate={isHovered ? { y: [0, 4, 0], opacity: [0.3, 1, 0.3] } : {}}
+          transition={{ repeat: Infinity, duration: 0.5, delay: 0.25 }}
+        />
+      </svg>
+    </motion.div>
+  );
+};
+
+// 4.4 Animated Snowflake
+export const AnimatedSnowflake: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-cyan-300 hover:border-cyan-300/40 hover:bg-cyan-300/10',
+        withGlow && isHovered && 'shadow-[0_0_24px_rgba(103,232,249,0.5)]',
+        className
+      )}
+      {...props}
+    >
+      <motion.svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+      >
+        <path d="M2 12h20" />
+        <path d="M12 2v20" />
+        <path d="m20 16-4-4 4-4" />
+        <path d="m4 8 4 4-4 4" />
+        <path d="m16 4-4 4-4-4" />
+        <path d="m8 20 4-4 4 4" />
+      </motion.svg>
+    </motion.div>
+  );
+};
+
+// ============================================================================
+// 5. INTERFACE & CONTROLS ANIMATED ICONS
+// ============================================================================
+
+// 5.1 Animated Search
+export const AnimatedSearch: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15, rotate: [0, -12, 12, 0] }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-primary hover:border-primary/40 hover:bg-primary/10',
+        withGlow && isHovered && 'shadow-[0_0_22px_rgba(var(--primary),0.4)]',
+        className
+      )}
+      {...props}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+        {isHovered && (
+          <motion.circle
+            cx="11"
+            cy="11"
+            r="3"
+            fill="currentColor"
+            initial={{ scale: 0 }}
+            animate={{ scale: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 0.6 }}
+          />
+        )}
+      </svg>
+    </motion.div>
+  );
+};
+
+// 5.2 Animated Trash Bin
+export const AnimatedTrash: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-red-500 hover:border-red-500/40 hover:bg-red-500/10',
+        withGlow && isHovered && 'shadow-[0_0_24px_rgba(239,68,68,0.45)]',
+        className
+      )}
+      {...props}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <motion.path
+          d="M3 6h18"
+          animate={isHovered ? { y: -2, rotate: -8 } : { y: 0, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 12 }}
+        />
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        <line x1="10" x2="10" y1="11" y2="17" />
+        <line x1="14" x2="14" y1="11" y2="17" />
+      </svg>
+    </motion.div>
+  );
+};
+
+// 5.3 Animated Settings Gear
+export const AnimatedSettingsGear: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-teal-400 hover:border-teal-400/40 hover:bg-teal-400/10',
+        withGlow && isHovered && 'shadow-[0_0_22px_rgba(45,212,191,0.45)]',
+        className
+      )}
+      {...props}
+    >
+      <motion.svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={isHovered ? { rotate: 180 } : { rotate: 0 }}
+        transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+      >
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+        <circle cx="12" cy="12" r="3" />
+      </motion.svg>
+    </motion.div>
+  );
+};
+
+// 5.4 Animated Heart
+export const AnimatedHeart: React.FC<AnimatedIconBaseProps> = ({
+  size = 28,
+  className,
+  withGlow = true,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.25 }}
+      whileTap={{ scale: 0.8 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 10 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={cn(
+        'relative inline-flex items-center justify-center rounded-xl p-2.5 cursor-pointer bg-card/80 border border-border/80 text-foreground transition-all duration-300 hover:text-pink-500 hover:border-pink-500/40 hover:bg-pink-500/10',
+        withGlow && isHovered && 'shadow-[0_0_26px_rgba(236,72,153,0.5)]',
+        className
+      )}
+      {...props}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill={isHovered ? 'currentColor' : 'none'}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+    </motion.div>
+  );
+};
+
+// ============================================================================
+// 6. UNIFIED ANIMATED ICON DISPATCHER
+// ============================================================================
+
+export type IconCategory =
+  | 'social'
+  | 'vehicles'
+  | 'warning'
+  | 'entertainment'
+  | 'weather'
+  | 'interface';
 
 export type AnyAnimatedIconName =
   | SocialIconName
@@ -661,7 +1058,15 @@ export type AnyAnimatedIconName =
   | 'gamepad'
   | 'headphones'
   | 'film'
-  | 'sparkle-star';
+  | 'sparkle-star'
+  | 'sun'
+  | 'moon-stars'
+  | 'cloud-rain'
+  | 'snowflake'
+  | 'search'
+  | 'trash'
+  | 'settings-gear'
+  | 'heart';
 
 export interface AnimatedIconProps extends AnimatedIconBaseProps {
   name: AnyAnimatedIconName;
@@ -720,6 +1125,26 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ name, ...props }) =>
       return <AnimatedFilm {...props} />;
     case 'sparkle-star':
       return <AnimatedSparkleStar {...props} />;
+
+    // Weather & Nature
+    case 'sun':
+      return <AnimatedSun {...props} />;
+    case 'moon-stars':
+      return <AnimatedMoonStars {...props} />;
+    case 'cloud-rain':
+      return <AnimatedCloudRain {...props} />;
+    case 'snowflake':
+      return <AnimatedSnowflake {...props} />;
+
+    // Interface & Controls
+    case 'search':
+      return <AnimatedSearch {...props} />;
+    case 'trash':
+      return <AnimatedTrash {...props} />;
+    case 'settings-gear':
+      return <AnimatedSettingsGear {...props} />;
+    case 'heart':
+      return <AnimatedHeart {...props} />;
 
     default:
       return null;

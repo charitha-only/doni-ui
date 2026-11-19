@@ -36,6 +36,14 @@ import {
   AnimatedHeadphones,
   AnimatedFilm,
   AnimatedSparkleStar,
+  AnimatedSun,
+  AnimatedMoonStars,
+  AnimatedCloudRain,
+  AnimatedSnowflake,
+  AnimatedSearch,
+  AnimatedTrash,
+  AnimatedSettingsGear,
+  AnimatedHeart,
   SocialIconDock,
   AnimatedIconDock,
 } from '../ui/animated-icons';
@@ -43,7 +51,7 @@ import {
 interface IconMeta {
   id: string;
   name: string;
-  category: 'social' | 'vehicles' | 'warning' | 'entertainment';
+  category: 'social' | 'vehicles' | 'warning' | 'entertainment' | 'weather' | 'interface';
   component: React.ReactNode;
   exportName: string;
   effect: string;
@@ -252,6 +260,74 @@ export const IconsView: React.FC = () => {
       effect: '180° Twinkle star rotation & golden aura',
       component: <AnimatedSparkleStar size={iconSize} withGlow={withGlow} />,
     },
+
+    // Weather & Nature
+    {
+      id: 'sun',
+      name: 'Sun Radiance',
+      category: 'weather',
+      exportName: 'AnimatedSun',
+      effect: 'Rotating solar corona & golden flare bloom',
+      component: <AnimatedSun size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'moon-stars',
+      name: 'Crescent Moon',
+      category: 'weather',
+      exportName: 'AnimatedMoonStars',
+      effect: 'Gentle floating rock & star twinkle animation',
+      component: <AnimatedMoonStars size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'cloud-rain',
+      name: 'Rain Cloud',
+      category: 'weather',
+      exportName: 'AnimatedCloudRain',
+      effect: 'Drifting cloud & falling rain droplet particles',
+      component: <AnimatedCloudRain size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'snowflake',
+      name: 'Ice Snowflake',
+      category: 'weather',
+      exportName: 'AnimatedSnowflake',
+      effect: '360° Rotating crystal & frost cyan aura',
+      component: <AnimatedSnowflake size={iconSize} withGlow={withGlow} />,
+    },
+
+    // Interface & Controls
+    {
+      id: 'search',
+      name: 'Focal Search',
+      category: 'interface',
+      exportName: 'AnimatedSearch',
+      effect: 'Lens angle wiggle & pulsing center focal laser',
+      component: <AnimatedSearch size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'trash',
+      name: 'Recycle Trash',
+      category: 'interface',
+      exportName: 'AnimatedTrash',
+      effect: 'Spring flip lid opening & deletion shake',
+      component: <AnimatedTrash size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'settings-gear',
+      name: 'Settings Cog',
+      category: 'interface',
+      exportName: 'AnimatedSettingsGear',
+      effect: 'Mechanical gear cog rotation & teal bloom',
+      component: <AnimatedSettingsGear size={iconSize} withGlow={withGlow} />,
+    },
+    {
+      id: 'heart',
+      name: 'Like Heart',
+      category: 'interface',
+      exportName: 'AnimatedHeart',
+      effect: 'Popping spring scale-up & fill bounce burst',
+      component: <AnimatedHeart size={iconSize} withGlow={withGlow} />,
+    },
   ];
 
   const filteredIcons = icons.filter((item) => {
@@ -274,13 +350,13 @@ export const IconsView: React.FC = () => {
       {/* Header */}
       <div className="text-center space-y-3">
         <Badge variant="glow" withPulse className="px-3 py-1 text-xs">
-          ✨ Component Icons Suite (22 Animated Icons)
+          ✨ Component Icons Suite (30 Animated Icons)
         </Badge>
         <h1 className="text-4xl sm:text-5xl font-black tracking-tight">
           Animated <span className="text-primary">Component Icons</span>
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
-          Micro-interaction vector icons built as pure React components. Hover or tap to trigger spring animations, neon glows, and tactile responses.
+          Micro-interaction vector icons built as pure React components across 6 categories. Hover or tap to trigger spring animations, neon glows, and tactile responses.
         </p>
       </div>
 
@@ -362,6 +438,8 @@ export const IconsView: React.FC = () => {
               { id: 'vehicles', label: 'Vehicles & Transport (4)' },
               { id: 'warning', label: 'Warning & Status (4)' },
               { id: 'entertainment', label: 'Entertainment & Media (4)' },
+              { id: 'weather', label: 'Weather & Nature (4)' },
+              { id: 'interface', label: 'Interface & Controls (4)' },
             ].map((cat) => (
               <button
                 key={cat.id}

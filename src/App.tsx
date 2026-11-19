@@ -341,7 +341,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.1.2 — 22 Animated Component Icons &amp; Multi-Page Documentation
+              ✨ Doni UI v0.1.2 — 30 Animated Component Icons &amp; Multi-Page Documentation
             </Badge>
           </motion.div>
 
@@ -403,7 +403,7 @@ export function App() {
               onClick={() => setCurrentPage('icons')}
             >
               <Sparkles className="w-4 h-4 mr-2 text-primary" />
-              Animated Icons (22)
+              Animated Icons (30)
             </Button>
 
             <Button
@@ -726,9 +726,9 @@ export function App() {
             <Card className="p-6 flex flex-col justify-between bg-card/70 border-border/80">
               <div>
                 <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions</Badge>
-                <h3 className="font-bold text-lg">22 Animated Icons</h3>
+                <h3 className="font-bold text-lg">30 Animated Icons</h3>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Pure SVG spring physics for social, vehicles, warnings, and entertainment.
+                  Pure SVG spring physics for social, vehicles, warnings, entertainment, weather, and interface.
                 </p>
                 <div className="mt-4 flex gap-2 justify-center">
                   <AnimatedGithub size={28} />
@@ -2221,7 +2221,7 @@ export function App() {
               onClick={() => setCurrentPage('icons')}
               className="hover:text-primary transition-colors cursor-pointer"
             >
-              Icons (22)
+              Icons (30)
             </button>
             <button
               type="button"

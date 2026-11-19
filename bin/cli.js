@@ -71,6 +71,20 @@ if (command === 'add') {
   const destFile = path.join(destDir, componentFileName);
   fs.copyFileSync(srcFile, destFile);
 
+  const DEPENDENCY_MAP = {
+    'animated-icons': ['animated-social-icons.tsx'],
+  };
+
+  const deps = DEPENDENCY_MAP[target.replace('.tsx', '')] || [];
+  for (const dep of deps) {
+    const depSrc = path.join(COMPONENTS_DIR, dep);
+    const depDest = path.join(destDir, dep);
+    if (fs.existsSync(depSrc)) {
+      fs.copyFileSync(depSrc, depDest);
+      console.log(`   📦 Included required dependency: ${dep}`);
+    }
+  }
+
   console.log(`✅ Success! Component "${target}" has been added to:`);
   console.log(`   ${path.relative(process.cwd(), destFile)}`);
   console.log(`\nYou can now import it in your code:`);

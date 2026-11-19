@@ -587,7 +587,7 @@ export function ArticleWithTracer() {
 
 ---
 
-### 26. 🌐 Animated Component Icons Suite (22 Icons across 4 Categories)
+### 26. 🌐 Animated Component Icons Suite (30 Icons across 6 Categories)
 Handcrafted SVG vector components with Framer Motion spring physics, neon brand glows, and micro-interactions:
 
 1. **Social Media Icons (10)**:
@@ -619,6 +619,18 @@ Handcrafted SVG vector components with Framer Motion spring physics, neon brand 
    - `AnimatedHeadphones`: Dynamic audio equalizer wave bars bouncing inside
    - `AnimatedFilm`: Cinema film reel spool step rotation & projector glow
    - `AnimatedSparkleStar`: 180° Twinkle star rotation & golden aura
+
+5. **Weather & Nature Icons (4)**:
+   - `AnimatedSun`: Rotating 8-ray solar corona & golden flare bloom
+   - `AnimatedMoonStars`: Crescent moon with gentle floating rock & twinkle stars
+   - `AnimatedCloudRain`: Drifting cloud with falling water raindrop particles
+   - `AnimatedSnowflake`: 6-axis crystal snowflake with 360° spin & ice frost aura
+
+6. **Interface & Controls Icons (4)**:
+   - `AnimatedSearch`: Magnifying glass with lens tilt & center focal laser
+   - `AnimatedTrash`: Recycle bin with spring flip lid opening & deletion shake
+   - `AnimatedSettingsGear`: Mechanical gear cog rotation & teal bloom
+   - `AnimatedHeart`: Twitter/Instagram popping spring scale-up & heart burst
 
 ```tsx
 import {
@@ -678,7 +690,7 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
-| **AnimatedIcon / Suite** | Special / Icons | 22 Handcrafted animated icons across 4 categories (Social, Vehicles, Warning, Entertainment) |
+| **AnimatedIcon / Suite** | Special / Icons | 30 Handcrafted animated icons across 6 categories (Social, Vehicles, Warning, Entertainment, Weather, Interface) |
 | **AnimatedIconDock** | Navigation | Multi-category floating dock supporting any collection of animated icons |
 | **SocialIconDock** | Navigation | Floating glassmorphic dock holding animated social media icons with spring hover |
 | **GlareCard** | Cards | 3D spectral rainbow foil reflection card that glints with pointer tilt |
