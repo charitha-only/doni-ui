@@ -88,6 +88,9 @@ import { RetroGrid } from './components/ui/retro-grid';
 import { ConfettiButton } from './components/ui/confetti-button';
 import { WavyBackground } from './components/ui/wavy-background';
 import { ExpandableCard } from './components/ui/expandable-card';
+import { GlareCard } from './components/ui/glare-card';
+import { DirectionAwareHover } from './components/ui/direction-aware-hover';
+import { TracingBeam } from './components/ui/tracing-beam';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -209,7 +212,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.9
+                  v0.1.0
                 </span>
               </div>
             </div>
@@ -281,7 +284,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.9 — Wavy Sine Waves, Morphing Expandable Cards &amp; Live Filter
+              ✨ Doni UI v0.1.0 Milestone — Holographic Glare Card, Direction-Aware Hover &amp; Tracing Beam
             </Badge>
           </motion.div>
 
@@ -463,7 +466,7 @@ export function App() {
             </div>
             <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
               <div className="text-3xl sm:text-4xl font-black text-foreground">
-                <NumberTicker value={40} suffix="+" />
+                <NumberTicker value={45} suffix="+" />
               </div>
               <div className="text-xs text-muted-foreground font-semibold mt-1">Animated Components</div>
             </div>
@@ -897,6 +900,67 @@ export function App() {
                   </Button>
                 </div>
               </Card>
+
+              {/* Holographic Glare Card & Direction-Aware Hover */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                {/* Holographic Rainbow Glare Card */}
+                <div className="flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="glow" className="gap-1">
+                      <Sparkles className="w-3 h-3" /> Spectral Foil Glare
+                    </Badge>
+                    <CodeDialog snippetId="glareCard" />
+                  </div>
+                  <div className="h-64 sm:h-72 w-full">
+                    <GlareCard className="p-6 flex flex-col justify-between">
+                      <div>
+                        <Badge variant="neon">Trading Card Holo</Badge>
+                        <h4 className="text-xl font-bold mt-2">Holographic Glare Card</h4>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Move your pointer across this card to watch dynamic rainbow foil and light glare reflect in 3D depth.
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center text-xs font-mono text-primary font-bold">
+                        <span>DONI FOIL #001</span>
+                        <span>120 FPS SHINE</span>
+                      </div>
+                    </GlareCard>
+                  </div>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground font-mono">&lt;GlareCard /&gt;</span>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('glareCard')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Glare Code
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Direction-Aware Hover Card */}
+                <div className="flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="neon" className="gap-1">
+                      <Compass className="w-3 h-3" /> Directional Vector
+                    </Badge>
+                    <CodeDialog snippetId="directionAwareHover" />
+                  </div>
+                  <div className="h-64 sm:h-72 w-full">
+                    <DirectionAwareHover className="h-full w-full">
+                      <Badge variant="glow" className="w-fit mb-2">Smart Vector</Badge>
+                      <h4 className="text-lg font-bold text-foreground">Direction-Aware Slide</h4>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Notice how the overlay tracks the exact angle of your cursor entry (top, right, bottom, left).
+                      </p>
+                    </DirectionAwareHover>
+                  </div>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground font-mono">&lt;DirectionAwareHover /&gt;</span>
+                    <Button variant="glow" size="sm" onClick={() => copySnippet('directionAwareHover')}>
+                      <Copy className="w-3.5 h-3.5 mr-1.5" />
+                      Copy Vector Code
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -1386,6 +1450,58 @@ export function App() {
                   </Button>
                 </div>
               </div>
+
+              {/* Tracing Beam Scroll Timeline Showcase */}
+              <div className="pt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <Badge variant="glow">Continuous SVG Tracer</Badge>
+                    <h3 className="text-xl font-bold mt-1">Scroll Tracing Beam</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      SVG beam dynamically tracks container scroll position with a spring-guided glowing tracer head.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="tracingBeam" />
+                </div>
+
+                <div className="p-8 rounded-2xl border border-border/80 bg-card overflow-hidden">
+                  <TracingBeam>
+                    <div className="space-y-8 pl-4">
+                      <div>
+                        <Badge variant="neon">Phase 1</Badge>
+                        <h4 className="text-xl font-bold mt-2">Zero-Lag Microsecond Engine</h4>
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          Tailwind atomic CSS custom properties evaluate in 0ms without runtime parser locks.
+                        </p>
+                      </div>
+                      <div>
+                        <Badge variant="glow">Phase 2</Badge>
+                        <h4 className="text-xl font-bold mt-2">120 FPS Compositor Springs</h4>
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          All animations utilize Framer Motion hardware transforms run directly on GPU threads.
+                        </p>
+                      </div>
+                      <div>
+                        <Badge variant="secondary">Phase 3</Badge>
+                        <h4 className="text-xl font-bold mt-2">Dynamic Any-Hex Palette</h4>
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          Real-time CSS variable mutations calculate high-contrast foregrounds on the fly.
+                        </p>
+                      </div>
+                    </div>
+                  </TracingBeam>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;TracingBeam&gt;...&lt;/TracingBeam&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('tracingBeam')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Tracing Code
+                  </Button>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -1810,7 +1926,7 @@ export function App() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-primary" />
-          <span className="font-bold text-base">Doni UI Library v0.0.9</span>
+          <span className="font-bold text-base">Doni UI Library v0.1.0</span>
           <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

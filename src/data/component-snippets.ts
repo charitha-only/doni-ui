@@ -449,4 +449,38 @@ import { Sparkles } from 'lucide-react';`,
   ]}
 />`,
   },
+  glareCard: {
+    id: 'glareCard',
+    name: 'Holographic Glare Card',
+    description: '3D rainbow spectral foil reflection card that glints with pointer tilt.',
+    category: 'Cards',
+    importCode: `import { GlareCard } from 'doni-ui';`,
+    usageCode: `<GlareCard className="p-6 flex flex-col justify-between">
+  <span className="font-bold text-xl">Holographic Card</span>
+  <p className="text-xs text-muted-foreground">Tilt mouse to shine</p>
+</GlareCard>`,
+  },
+  directionAwareHover: {
+    id: 'directionAwareHover',
+    name: 'Direction-Aware Hover',
+    description: 'Smooth overlay sliding in from the exact entry direction of cursor.',
+    category: 'Cards',
+    importCode: `import { DirectionAwareHover } from 'doni-ui';`,
+    usageCode: `<DirectionAwareHover imageUrl="cover.jpg">
+  <h4 className="font-bold text-lg">Directional Slide</h4>
+</DirectionAwareHover>`,
+  },
+  tracingBeam: {
+    id: 'tracingBeam',
+    name: 'Scroll Tracing Beam',
+    description: 'Continuous vertical SVG beam with glowing tracer tracking scroll position.',
+    category: 'Layout',
+    importCode: `import { TracingBeam } from 'doni-ui';`,
+    usageCode: `<TracingBeam>
+  <div className="space-y-12">
+    <h2>Article Title</h2>
+    <p>Scroll down to see the beam trace...</p>
+  </div>
+</TracingBeam>`,
+  },
 };

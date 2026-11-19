@@ -44,6 +44,9 @@ export * from './components/ui/retro-grid';
 export * from './components/ui/confetti-button';
 export * from './components/ui/wavy-background';
 export * from './components/ui/expandable-card';
+export * from './components/ui/glare-card';
+export * from './components/ui/direction-aware-hover';
+export * from './components/ui/tracing-beam';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

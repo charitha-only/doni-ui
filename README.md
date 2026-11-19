@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.0.9-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.0.9)
+[![Version](https://img.shields.io/badge/Release-v0.1.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -51,6 +51,9 @@ You can copy components directly into your project using the Doni UI CLI:
 npx doni-ui init
 
 # Add any component with zero dependencies
+npx doni-ui add glare-card
+npx doni-ui add direction-aware-hover
+npx doni-ui add tracing-beam
 npx doni-ui add wavy-background
 npx doni-ui add expandable-card
 npx doni-ui add orbiting-circles
@@ -528,6 +531,62 @@ export function FeatureCards() {
 
 ---
 
+### 23. ✨ Holographic Rainbow Glare Card
+3D spectral rainbow foil reflection card that glints dynamically with cursor tilt:
+
+```tsx
+import { GlareCard } from 'doni-ui';
+
+export function ShinyCard() {
+  return (
+    <GlareCard className="p-6">
+      <h3 className="text-xl font-bold">Holographic Card</h3>
+      <p className="text-xs text-muted-foreground">Tilt to see rainbow glare</p>
+    </GlareCard>
+  );
+}
+```
+
+---
+
+### 24. 🎯 Direction-Aware Hover Card
+Smooth content overlay sliding in from the exact entry vector of the user's cursor:
+
+```tsx
+import { DirectionAwareHover } from 'doni-ui';
+
+export function SmartVectorCard() {
+  return (
+    <DirectionAwareHover imageUrl="cover.jpg">
+      <h4 className="font-bold">Smart Vector Overlay</h4>
+      <p className="text-xs">Follows mouse entry angle</p>
+    </DirectionAwareHover>
+  );
+}
+```
+
+---
+
+### 25. 〰️ Scroll Tracing Beam
+Continuous vertical SVG beam with glowing tracer head tracking container scroll position:
+
+```tsx
+import { TracingBeam } from 'doni-ui';
+
+export function ArticleWithTracer() {
+  return (
+    <TracingBeam>
+      <div className="space-y-12">
+        <h2>Article Title</h2>
+        <p>Scroll down to watch the tracer beam follow your progress...</p>
+      </div>
+    </TracingBeam>
+  );
+}
+```
+
+---
+
 ## 🎨 Instant Dynamic Any-Color Engine
 
 Doni UI is built on a dynamic CSS variable system. You can switch to any preset or supply **ANY hex color** dynamically:
@@ -553,6 +612,9 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
+| **GlareCard** | Cards | 3D spectral rainbow foil reflection card that glints with pointer tilt |
+| **DirectionAwareHover** | Cards | Smooth overlay sliding in from exact entry vector of cursor |
+| **TracingBeam** | Layout | Continuous vertical SVG beam with glowing spring tracer head |
 | **WavyBackground** | Layout | Fluid animated sine wave lines on high-performance Canvas |
 | **ExpandableCard** | Cards | Shared-layout morphing card that expands into modal dialog |
 | **OrbitingCircles** | Special | Concentric planetary orbits with counter-rotation upright lock |
@@ -599,7 +661,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.0.9**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.1.0** (Milestone).  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---
