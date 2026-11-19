@@ -1189,3 +1189,7 @@ export const AnimatedIconDock: React.FC<AnimatedIconDockProps> = ({
     </div>
   );
 };
+
+// Export full 100 animated icons suite and live customizer studio
+export * from './animated-icons-suite';
+export * from './icon-customizer-modal';

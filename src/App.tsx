@@ -13,21 +13,17 @@ import {
   Gauge,
   Feather,
   Cpu,
-  Home,
   Compass,
   Boxes,
   User,
   Shield,
   Layers,
   Search,
-  Terminal,
   Stars,
   Radio,
   Eye,
   Type,
   BookOpen,
-  GitBranch,
-  Info,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -62,7 +58,6 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from './components/ui/dropdown-menu';
-import { TubelightNavbar } from './components/ui/tubelight-navbar';
 import { SpotlightCard } from './components/ui/spotlight-card';
 import { FlameButton } from './components/ui/flame-button';
 import { Keycap } from './components/ui/keycap';
@@ -70,7 +65,6 @@ import { BorderBeam } from './components/ui/border-beam';
 import { BentoGrid, BentoGridItem } from './components/ui/bento-grid';
 import { Meteors } from './components/ui/meteors';
 import { Ripple } from './components/ui/ripple';
-import { FloatingDock } from './components/ui/floating-dock';
 import { CommandPalette } from './components/ui/command-palette';
 import { FlipWords } from './components/ui/flip-words';
 import { CardContainer, CardItem } from './components/ui/card-3d';
@@ -235,7 +229,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.1.2
+                  v0.2.0
                 </span>
               </div>
             </div>
@@ -246,7 +240,7 @@ export function App() {
                 { id: 'home', label: 'Home' },
                 { id: 'docs', label: 'Documentation' },
                 { id: 'components', label: 'Components' },
-                { id: 'icons', label: 'Icons' },
+                { id: 'icons', label: 'Icons (100+)' },
                 { id: 'versions', label: 'Versions' },
                 { id: 'about', label: 'About' },
               ].map((item) => (
@@ -311,20 +305,29 @@ export function App() {
           </div>
         </header>
 
-        {/* Floating Tubelight Island Navbar */}
-        <div className="relative z-30 flex justify-center pt-6 px-4">
-          <TubelightNavbar
-            items={[
-              { id: 'home', label: 'Home', icon: <Home className="w-3.5 h-3.5" /> },
-              { id: 'docs', label: 'Documentation', icon: <BookOpen className="w-3.5 h-3.5" /> },
-              { id: 'components', label: 'Components', icon: <Boxes className="w-3.5 h-3.5" /> },
-              { id: 'icons', label: 'Icons', icon: <Sparkles className="w-3.5 h-3.5" /> },
-              { id: 'versions', label: 'Versions', icon: <GitBranch className="w-3.5 h-3.5" /> },
-              { id: 'about', label: 'About', icon: <Info className="w-3.5 h-3.5" /> },
-            ]}
-            activeId={currentPage}
-            onSelect={(id: string) => setCurrentPage(id as any)}
-          />
+        {/* Mobile Navigation Pills Bar (visible on < lg screens) */}
+        <div className="lg:hidden flex items-center justify-center p-2 bg-muted/30 border-b border-border/40 overflow-x-auto gap-1">
+          {[
+            { id: 'home', label: 'Home' },
+            { id: 'docs', label: 'Docs' },
+            { id: 'components', label: 'Components' },
+            { id: 'icons', label: 'Icons (100)' },
+            { id: 'versions', label: 'Versions' },
+            { id: 'about', label: 'About' },
+          ].map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setCurrentPage(item.id as any)}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                currentPage === item.id
+                  ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
 
         {/* ========================================================================= */}
@@ -333,146 +336,123 @@ export function App() {
         {currentPage === 'home' && (
           <>
             {/* Hero Section with 3D Flip Words */}
-        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={transitions.springGentle}
-            className="flex justify-center"
-          >
-            <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.1.2 — 30 Animated Component Icons &amp; Multi-Page Documentation
-            </Badge>
-          </motion.div>
+            <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={transitions.springGentle}
+                className="flex justify-center"
+              >
+                <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
+                  ✨ Doni UI v0.2.0 — 100+ Spring Animated Icons Suite &amp; Live Customizer Studio
+                </Badge>
+              </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...transitions.springGentle, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.2]"
-          >
-            Build interfaces that are{' '}
-            <FlipWords
-              words={['ultra-fast.', '3D-animated.', 'super-light.', '100% themeable.']}
-              duration={2400}
-            />
-          </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...transitions.springGentle, delay: 0.1 }}
+                className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.2]"
+              >
+                Build interfaces that are{' '}
+                <FlipWords
+                  words={['ultra-fast.', '3D-animated.', 'super-light.', '100% themeable.']}
+                  duration={2400}
+                />
+              </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...transitions.springGentle, delay: 0.2 }}
-            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-          >
-            Engineered with <strong>zero runtime CSS overhead</strong>, <strong>100% tree-shaking</strong>, 
-            GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
-          </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...transitions.springGentle, delay: 0.2 }}
+                className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              >
+                Engineered with <strong>zero runtime CSS overhead</strong>, <strong>100% tree-shaking</strong>, 
+                GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
+              </motion.p>
 
-          {/* Quick CTA Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...transitions.springGentle, delay: 0.3 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-4"
-          >
-            <FlameButton
-              onClick={() => {
-                triggerConfetti();
-                toast({
-                  title: 'Ignited with Doni UI! 🔥',
-                  description: 'Zero runtime style lag. 120 FPS smooth.',
-                  type: 'success',
-                });
-              }}
-            >
-              <Flame className="w-4 h-4 text-primary fill-primary mr-1" />
-              Flame Button Demo
-            </FlameButton>
+              {/* Clean, Prominent Hero Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...transitions.springGentle, delay: 0.3 }}
+                className="mt-10 flex flex-wrap items-center justify-center gap-4"
+              >
+                <Button
+                  variant="glow"
+                  size="lg"
+                  onClick={() => {
+                    triggerConfetti();
+                    setCurrentPage('components');
+                  }}
+                  className="h-12 px-7 text-sm font-bold shadow-glow"
+                >
+                  <Boxes className="w-4 h-4 mr-2" />
+                  Explore 45+ Components
+                </Button>
 
-            <InteractiveHoverButton
-              text="Explore 40+ Components"
-              onClick={() => {
-                triggerConfetti();
-                setCurrentPage('components');
-              }}
-            />
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setCurrentPage('icons')}
+                  className="h-12 px-6 text-sm font-semibold border-primary/30 hover:border-primary/60 bg-card/60"
+                >
+                  <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                  Browse 100+ Icons &amp; Studio
+                </Button>
 
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setCurrentPage('icons')}
-            >
-              <Sparkles className="w-4 h-4 mr-2 text-primary" />
-              Animated Icons (30)
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setCurrentPage('docs')}
-            >
-              <BookOpen className="w-4 h-4 mr-2 text-primary" />
-              Documentation
-            </Button>
-          </motion.div>
-
-          {/* Package Manager Install Tabs: npm, yarn, pnpm, bun */}
-          <div className="mt-10 max-w-lg mx-auto">
-            <div className="flex items-center justify-between bg-muted/60 p-1.5 rounded-xl border border-border">
-              <div className="flex items-center gap-1">
-                {(['npm', 'yarn', 'pnpm', 'bun'] as const).map((pm) => (
-                  <button
-                    key={pm}
-                    type="button"
-                    onClick={() => setPackageManager(pm)}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                      packageManager === pm
-                        ? 'bg-background text-foreground shadow-sm font-bold border border-border'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {pm}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-2 pl-3">
-                <code className="text-xs font-mono font-bold text-primary">
-                  {getInstallCommand()}
-                </code>
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={() => copyToClipboard(getInstallCommand(), getInstallCommand())}
+                  size="lg"
+                  onClick={() => setCurrentPage('docs')}
+                  className="h-12 px-5 text-sm"
                 >
-                  {copiedCode === getInstallCommand() ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
-                  ) : (
-                    <Copy className="w-3.5 h-3.5" />
-                  )}
+                  <BookOpen className="w-4 h-4 mr-2 text-muted-foreground" />
+                  Documentation
                 </Button>
+              </motion.div>
+
+              {/* Package Manager Install Bar */}
+              <div className="mt-10 max-w-lg mx-auto">
+                <div className="flex items-center justify-between bg-card/60 p-1.5 rounded-xl border border-border shadow-sm">
+                  <div className="flex items-center gap-1">
+                    {(['npm', 'yarn', 'pnpm', 'bun'] as const).map((pm) => (
+                      <button
+                        key={pm}
+                        type="button"
+                        onClick={() => setPackageManager(pm)}
+                        className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                          packageManager === pm
+                            ? 'bg-background text-foreground shadow-sm font-bold border border-border'
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        {pm}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 pl-3">
+                    <code className="text-xs font-mono font-bold text-primary">
+                      {getInstallCommand()}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => copyToClipboard(getInstallCommand(), getInstallCommand())}
+                    >
+                      {copiedCode === getInstallCommand() ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        {/* macOS Floating Dock Showcase */}
-        <div className="py-6 flex flex-col items-center justify-center gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Interactive Magnification Floating Dock
-          </p>
-          <FloatingDock
-            items={[
-              { title: 'Home', icon: <Home />, onClick: () => toast({ title: 'Navigated to Home', type: 'info' }) },
-              { title: 'Components', icon: <Boxes />, onClick: () => setCommandPaletteOpen(true) },
-              { title: 'Theme Engine', icon: <Palette />, onClick: () => toast({ title: 'Dynamic Colors Active', type: 'success' }) },
-              { title: 'Terminal CLI', icon: <Terminal />, onClick: () => copyToClipboard('npx doni-ui init', 'CLI Command') },
-              { title: 'Explore', icon: <Compass />, onClick: () => triggerConfetti() },
-            ]}
-          />
-        </div>
-
-        {/* Infinite Feature Marquee */}
+            {/* Infinite Feature Marquee */}
         <div className="py-6 border-y border-border/40 bg-muted/20">
           <Marquee speed={25}>
             {[
@@ -529,9 +509,9 @@ export function App() {
             </div>
             <div className="p-4 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm text-center">
               <div className="text-3xl sm:text-4xl font-black text-foreground">
-                <NumberTicker value={45} suffix="+" />
+                <NumberTicker value={145} suffix="+" />
               </div>
-              <div className="text-xs text-muted-foreground font-semibold mt-1">Animated Components</div>
+              <div className="text-xs text-muted-foreground font-semibold mt-1">Components &amp; Icons</div>
             </div>
           </div>
 
@@ -681,14 +661,14 @@ export function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Featured Showstoppers</h2>
-              <p className="text-sm text-muted-foreground">A quick taste of our physics-driven components</p>
+              <p className="text-sm text-muted-foreground">A quick taste of our physics-driven components & animated icons</p>
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setCurrentPage('components')}>
-                Explore All 40+ Components →
+                Explore All 45+ Components →
               </Button>
               <Button variant="glow" size="sm" onClick={() => setCurrentPage('icons')}>
-                View 22 Animated Icons →
+                View 100+ Animated Icons & Studio →
               </Button>
             </div>
           </div>
@@ -725,10 +705,10 @@ export function App() {
 
             <Card className="p-6 flex flex-col justify-between bg-card/70 border-border/80">
               <div>
-                <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions</Badge>
-                <h3 className="font-bold text-lg">30 Animated Icons</h3>
+                <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions & Studio</Badge>
+                <h3 className="font-bold text-lg">100+ Animated Icons</h3>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Pure SVG spring physics for social, vehicles, warnings, entertainment, weather, and interface.
+                  Pure SVG spring physics across 10 categories with interactive live Studio, customizable size, stroke, colors & trigger loops.
                 </p>
                 <div className="mt-4 flex gap-2 justify-center">
                   <AnimatedGithub size={28} />
@@ -738,7 +718,7 @@ export function App() {
                 </div>
               </div>
               <Button variant="glow" size="sm" className="w-fit mx-auto mt-4" onClick={() => setCurrentPage('icons')}>
-                Browse All Icons
+                Open Icon Studio & Icons
               </Button>
             </Card>
           </div>

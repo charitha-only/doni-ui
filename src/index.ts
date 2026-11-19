@@ -49,6 +49,8 @@ export * from './components/ui/direction-aware-hover';
 export * from './components/ui/tracing-beam';
 export * from './components/ui/animated-social-icons';
 export * from './components/ui/animated-icons';
+export * from './components/ui/animated-icons-suite';
+export * from './components/ui/icon-customizer-modal';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

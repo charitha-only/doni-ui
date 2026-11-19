@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.1.2-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.2)
+[![Version](https://img.shields.io/badge/Release-v0.2.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.2.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -587,78 +587,62 @@ export function ArticleWithTracer() {
 
 ---
 
-### 26. 🌐 Animated Component Icons Suite (30 Icons across 6 Categories)
-Handcrafted SVG vector components with Framer Motion spring physics, neon brand glows, and micro-interactions:
+### 26. 🌐 100+ Handcrafted Animated Icons Suite & Live Customizer Studio
+A massive collection of **100 handcrafted SVG vector animated icons** across **10 distinct categories** (10 icons per category). Built with Framer Motion spring physics, neon brand glows, interactive micro-interactions, and fully customizable via props or the visual Live Studio.
 
-1. **Social Media Icons (10)**:
-   - `AnimatedGithub`: Octocat ear wiggle, tail stroke & brand shadow
-   - `AnimatedTwitter`: 3D Y-axis neon spin & hover scale
-   - `AnimatedYoutube`: Glowing play button pulse & neon bloom
-   - `AnimatedLinkedin`: "in" letter bounce & dot pop spring physics
-   - `AnimatedInstagram`: Aperture shutter spin & rainbow glow
-   - `AnimatedDiscord`: Controller wiggle & eye blink
-   - `AnimatedTelegram`: Paper plane takeoff & flight banking
-   - `AnimatedTiktok`: Cyan & magenta chromatic aberration glitch shift
-   - `AnimatedFacebook`: 3D 'f' pop & spring rotation
-   - `AnimatedDribbble`: Basketball spinning seams & squash bounce
+#### 10 Icon Categories (100 Icons Total)
+1. **Social & Dev (10)**: `IconGithub`, `IconTwitter`, `IconYoutube`, `IconLinkedin`, `IconInstagram`, `IconDiscord`, `IconTelegram`, `IconTiktok`, `IconFacebook`, `IconDribbble`.
+2. **Vehicles & Transport (10)**: `IconRocket`, `IconPlane`, `IconCar`, `IconBicycle`, `IconTrain`, `IconShip`, `IconHelicopter`, `IconTruck`, `IconDrone`, `IconScooter`.
+3. **Warning & Security (10)**: `IconAlertTriangle`, `IconShieldCheck`, `IconFlameDanger`, `IconBellRing`, `IconLockKey`, `IconFingerprint`, `IconEyeScanner`, `IconBugFix`, `IconShieldAlert`, `IconCpuChip`.
+4. **Entertainment & Gaming (10)**: `IconGamepad`, `IconHeadphones`, `IconFilmReel`, `IconSparkleStar`, `IconTrophy`, `IconDice`, `IconCamera`, `IconMusicNote`, `IconClapperboard`, `IconTvMonitor`.
+5. **Weather & Nature (10)**: `IconSun`, `IconMoonStars`, `IconCloudRain`, `IconSnowflake`, `IconLightningBolt`, `IconWindBreeze`, `IconPlanetSaturn`, `IconCompassRose`, `IconMountainPeak`, `IconLeafEco`.
+6. **Interface & Controls (10)**: `IconSearchLens`, `IconTrashCan`, `IconSettingsCog`, `IconHeartLike`, `IconBookmarkPin`, `IconShareNodes`, `IconDownloadArrow`, `IconUploadArrow`, `IconRefreshSync`, `IconPowerSwitch`.
+7. **Business & Finance (10)**: `IconCreditCard`, `IconWalletMoney`, `IconShoppingCart`, `IconShoppingBag`, `IconBankVault`, `IconBarChart`, `IconTrendingUp`, `IconDollarCoin`, `IconReceiptBill`, `IconBriefcase`.
+8. **Communication & Network (10)**: `IconMessageChat`, `IconMailEnvelope`, `IconPhoneCall`, `IconVideoCamera`, `IconSendPlane`, `IconAtSign`, `IconGlobeWeb`, `IconUserProfile`, `IconUsersGroup`, `IconThumbsUp`.
+9. **Content & Creative (10)**: `IconFileText`, `IconFolderOpen`, `IconEditPencil`, `IconCopyClipboard`, `IconScissorsCut`, `IconPaperclipAttach`, `IconSaveDisk`, `IconCodeBrackets`, `IconImagePic`, `IconPaletteColor`.
+10. **Tools & Productivity (10)**: `IconLightbulbIdea`, `IconBatteryCharging`, `IconWifiSignal`, `IconCalendarDate`, `IconClockTimer`, `IconGaugeMeter`, `IconMagnetPhysics`, `IconAtomScience`, `IconWrenchTool`, `IconAwardBadge`.
 
-2. **Vehicles & Transport Icons (4)**:
-   - `AnimatedRocket`: Thruster flame flicker & liftoff elevation
-   - `AnimatedPlane`: Aerodynamic banking tilt & flight glide
-   - `AnimatedCar`: Suspension bounce & spinning wheel rims
-   - `AnimatedBicycle`: Dual spinning wheel spokes & forward pedal glide
+#### Props Customization API
+Each icon supports deep customization:
 
-3. **Warning & Status Icons (4)**:
-   - `AnimatedAlertTriangle`: Hazard vibration shake & pulsing exclamation mark
-   - `AnimatedShieldCheck`: Checkmark SVG path drawing & emerald verified glow
-   - `AnimatedFlameDanger`: Dancing multi-layer flame tongues & heat bloom
-   - `AnimatedBellRing`: Pendulum bell swing & radiating notification sound ring
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `size` | `number` | `24` | Icon dimension in pixels |
+| `strokeWidth` | `number` | `2` | SVG stroke thickness (1 to 3) |
+| `color` | `string` | `'currentColor'` | Default primary stroke/fill color or hex code |
+| `hoverColor` | `string` | `undefined` | Dynamic color when hovering or active |
+| `withGlow` | `boolean` | `false` | Enable soft neon bloom aura behind the icon |
+| `glowColor` | `string` | `undefined` | Custom glow color (defaults to icon color or primary) |
+| `trigger` | `'hover' \| 'continuous' \| 'click'` | `'hover'` | Spring animation trigger mode |
+| `bgShape` | `'none' \| 'square' \| 'circle' \| 'glass'` | `'none'` | Surrounding container tile style |
+| `className` | `string` | `''` | Tailwind utility classes |
 
-4. **Entertainment & Media Icons (4)**:
-   - `AnimatedGamepad`: Tactile button clicks & neon violet glow
-   - `AnimatedHeadphones`: Dynamic audio equalizer wave bars bouncing inside
-   - `AnimatedFilm`: Cinema film reel spool step rotation & projector glow
-   - `AnimatedSparkleStar`: 180° Twinkle star rotation & golden aura
-
-5. **Weather & Nature Icons (4)**:
-   - `AnimatedSun`: Rotating 8-ray solar corona & golden flare bloom
-   - `AnimatedMoonStars`: Crescent moon with gentle floating rock & twinkle stars
-   - `AnimatedCloudRain`: Drifting cloud with falling water raindrop particles
-   - `AnimatedSnowflake`: 6-axis crystal snowflake with 360° spin & ice frost aura
-
-6. **Interface & Controls Icons (4)**:
-   - `AnimatedSearch`: Magnifying glass with lens tilt & center focal laser
-   - `AnimatedTrash`: Recycle bin with spring flip lid opening & deletion shake
-   - `AnimatedSettingsGear`: Mechanical gear cog rotation & teal bloom
-   - `AnimatedHeart`: Twitter/Instagram popping spring scale-up & heart burst
+#### Usage Example
 
 ```tsx
 import {
-  AnimatedIconDock,
-  SocialIconDock,
-  AnimatedRocket,
-  AnimatedShieldCheck,
-  AnimatedGamepad,
-  AnimatedHeadphones,
-  AnimatedGithub,
+  IconRocket,
+  IconShieldCheck,
+  IconGamepad,
+  IconLightningBolt,
+  IconCustomizerModal,
 } from 'doni-ui';
 
 export function IconDemo() {
   return (
-    <>
-      {/* Ready-to-use Glassmorphic Docks */}
-      <SocialIconDock iconSize={24} />
-      <AnimatedIconDock icons={['rocket', 'shield-check', 'gamepad', 'headphones', 'sparkle-star']} iconSize={24} />
+    <div className="flex gap-4">
+      {/* Hover-activated with neon glow */}
+      <IconRocket size={32} withGlow trigger="hover" />
 
-      {/* Or individual component icons */}
-      <div className="flex gap-4">
-        <AnimatedRocket size={32} withGlow />
-        <AnimatedShieldCheck size={32} withGlow />
-        <AnimatedGamepad size={32} withGlow />
-        <AnimatedHeadphones size={32} withGlow />
-        <AnimatedGithub size={32} withGlow />
-      </div>
-    </>
+      {/* Continuous pulsating loop */}
+      <IconShieldCheck size={32} color="#10b981" trigger="continuous" />
+
+      {/* Glassmorphic tile shape */}
+      <IconGamepad size={28} bgShape="glass" color="#8b5cf6" />
+
+      {/* Custom hex color with 2.5px stroke */}
+      <IconLightningBolt size={32} strokeWidth={2.5} color="#eab308" withGlow />
+    </div>
   );
 }
 ```
@@ -690,7 +674,8 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
-| **AnimatedIcon / Suite** | Special / Icons | 30 Handcrafted animated icons across 6 categories (Social, Vehicles, Warning, Entertainment, Weather, Interface) |
+| **AnimatedIcon / Suite** | Special / Icons | 100 Handcrafted animated icons across 10 categories (Social, Vehicles, Warning, Entertainment, Weather, Interface, Finance, Network, Content, Tools) |
+| **IconCustomizerModal** | Special / Studio | Interactive live customization studio for dynamic size, stroke, color, neon glow, and trigger modes |
 | **AnimatedIconDock** | Navigation | Multi-category floating dock supporting any collection of animated icons |
 | **SocialIconDock** | Navigation | Floating glassmorphic dock holding animated social media icons with spring hover |
 | **GlareCard** | Cards | 3D spectral rainbow foil reflection card that glints with pointer tilt |
