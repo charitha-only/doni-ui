@@ -24,10 +24,29 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.5.0',
+      title: 'OpenGraph Social Sharing Engine, Branded Vector Card, Pinned Theme Engine & Cyber Cyan Default',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'OpenGraph & Twitter Card SEO Engine: Rich meta tags, preview images, high-contrast title and description for professional link sharing across WhatsApp, Twitter/X, Discord, Slack, and LinkedIn.',
+        'Branded Vector Social Banner (og-image.svg): Crisp 1200x630 vector preview card featuring Doni UI brand glow, Cyber Cyan radial beam, stats badges, and modern grid background.',
+        'Pinned Theme Studio & Color Engine: High-end glassmorphic control bar pinned persistently across every single tab and page (Home, Docs, Components, Icons, Versions, About) with custom hex picker, preset swatches, and live border-radius selector.',
+        'Cyber Cyan (#06b6d4) Default Theme: Replaced violet with the world\'s #1 highest-attraction, modern high-contrast neon cyan primary theme for dark mode UI.',
+      ],
+      componentsAdded: [
+        'PinnedThemeBar',
+        'SocialShareCard',
+        'OpenGraphMeta',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.5.0',
+    },
+    {
       version: 'v0.4.0',
       title: '15 High-Demand Production Core Components: Data Table, File Upload, Stepper, Drawer, Widgets & KPIs',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Added 15 new enterprise-grade, production-ready React UI components: Data Table, File Upload Dropzone, Multi-Step Stepper, Drawer (Sheet Modal), Breadcrumbs, Animated Carousel, Color Picker, Toggle Group, Standalone Pagination, Star Rating, Animated Progress, Metric Stat Cards, Vertical Timeline, Badge Delta, and Aspect Ratio.',
