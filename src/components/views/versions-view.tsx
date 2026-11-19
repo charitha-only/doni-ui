@@ -24,10 +24,31 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.9.1',
+      title: 'Categorized Documentation Suite, Step-by-Step Developer Manual & Search Filter',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Categorized Documentation Suite: Re-engineered docs into 9 structured developer categories (Getting Started, Frameworks, CLI, Any-Color Engine, Audio Engine, Keyboard Navigation, Components Guide, Animated Icons, Templates Hub, FAQ).',
+        'Sidebar Quick Navigation: Dedicated sticky sidebar with badges, item counts, and smooth section transitions.',
+        'Real-Time Documentation Search: Live search filter to lookup any topic, hook, component, or CLI command in milliseconds.',
+        'Step-by-Step Progression: Added breadcrumb navigation and Previous / Next step buttons at the bottom of every topic.',
+        'Framework Integration Guides: Dedicated setup recipes and code examples for Next.js 14/15 App Router, Vite React, and Remix / Astro.',
+      ],
+      componentsAdded: [
+        'DocsViewCategorized',
+        'DocsSidebar',
+        'FrameworkGuides',
+        'StepNavigation',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.9.1',
+    },
+    {
       version: 'v0.9.0',
       title: 'Pre-built Production Page Templates Hub & Interactive Blocks Suite',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Pre-built Production Page Templates: 4 full-scale page templates designed for immediate production drop-in: Hyper-SaaS NextGen Landing, Autonomous AI Agent Platform, Senior Engineer Bento Portfolio, and Cloud Metrics Dashboard.',

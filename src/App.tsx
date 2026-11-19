@@ -339,7 +339,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.9.0
+                  v0.9.1
                 </span>
               </div>
             </div>
@@ -488,7 +488,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.9.0 — Pre-built Production Page Templates Hub &amp; Live Sandbox
+                  ✨ Doni UI v0.9.1 — Categorized Documentation Suite &amp; Step-by-Step Developer Manual
                 </Badge>
               </motion.div>
 
@@ -2787,7 +2787,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.9.0</span>
+            <span className="font-bold text-base">Doni UI Library v0.9.1</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
