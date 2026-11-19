@@ -45,6 +45,7 @@ export const DocsView: React.FC = () => {
   const [selectedPm, setSelectedPm] = useState<'npm' | 'pnpm' | 'yarn' | 'bun'>('npm');
   const [selectedFramework, setSelectedFramework] = useState<'nextjs' | 'vite' | 'remix'>('nextjs');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [mobileTopicsOpen, setMobileTopicsOpen] = useState(false);
 
   const copy = (text: string, _label: string) => {
     navigator.clipboard.writeText(text);
@@ -175,6 +176,7 @@ export const DocsView: React.FC = () => {
   const navigateTo = (catId: string, itemId: string) => {
     setActiveCategory(catId);
     setActiveItem(itemId);
+    setMobileTopicsOpen(false);
     playUiSound('tab');
     window.scrollTo({ top: 120, behavior: 'smooth' });
   };
@@ -214,10 +216,66 @@ export const DocsView: React.FC = () => {
         </div>
       </div>
 
+      {/* Mobile Category / Topic Quick Switcher (visible on < lg screens) */}
+      <div className="lg:hidden w-full bg-card/80 border border-border/80 rounded-2xl p-3 shadow-md space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-primary" />
+            <div className="text-xs">
+              <span className="text-muted-foreground font-medium">Topic: </span>
+              <span className="font-bold text-foreground">
+                {allItemsList.find((x) => x.itemId === activeItem)?.itemTitle || 'Select Topic'}
+              </span>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setMobileTopicsOpen(!mobileTopicsOpen);
+              playUiSound('pop');
+            }}
+            className="text-xs h-7 px-2.5 cursor-pointer"
+          >
+            {mobileTopicsOpen ? 'Hide Menu' : 'Browse Topics'}
+          </Button>
+        </div>
+
+        {/* Collapsible Mobile Topics Menu */}
+        {mobileTopicsOpen && (
+          <div className="pt-2 border-t border-border/60 space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+            {filteredCategories.map((cat) => (
+              <div key={cat.id} className="space-y-1">
+                <span className="text-[11px] font-bold text-primary uppercase tracking-wider block">
+                  {cat.title}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                  {cat.items.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => navigateTo(cat.id, item.id)}
+                      className={cn(
+                        'px-2.5 py-1.5 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer',
+                        activeItem === item.id
+                          ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                          : 'bg-muted/30 text-muted-foreground hover:text-foreground'
+                      )}
+                    >
+                      {item.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* Main Documentation 2-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Categorized Navigation Sidebar */}
-        <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+        {/* Left Column: Categorized Navigation Sidebar (Hidden on mobile, sticky on desktop) */}
+        <aside className="hidden lg:block lg:col-span-4 space-y-6 lg:sticky lg:top-28">
           <div className="p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl shadow-lg space-y-6">
             <div className="flex items-center justify-between pb-3 border-b border-border/60">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">

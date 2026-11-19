@@ -26,11 +26,11 @@ export const PinnedThemeBar: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-16 z-35 w-full border-b border-border/60 bg-background/85 backdrop-blur-2xl shadow-xs transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-        <div className="flex items-center justify-between gap-3">
+    <div className="sticky top-16 z-35 w-full border-b border-border/60 bg-background/90 backdrop-blur-2xl shadow-xs transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-1.5 sm:py-2">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-3">
           {/* Left Title / Badge */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary border border-primary/25 flex items-center justify-center shadow-glow shrink-0">
               <Palette className="w-3.5 h-3.5" />
             </div>
@@ -46,7 +46,7 @@ export const PinnedThemeBar: React.FC = () => {
           </div>
 
           {/* Center: 7 Color Preset Swatches */}
-          <div className="flex items-center gap-1.5 overflow-x-auto py-1 px-1 scrollbar-none max-w-full">
+          <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 px-1 scrollbar-none max-w-[50vw] sm:max-w-none touch-pan-x">
             {COLOR_PRESETS.map((p) => {
               const isSelected = !isCustom && activePreset.id === p.id;
               return (
@@ -61,7 +61,7 @@ export const PinnedThemeBar: React.FC = () => {
                     playUiSound('chime');
                   }}
                   className={cn(
-                    'group relative flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-all text-left cursor-pointer shrink-0 select-none text-xs font-semibold',
+                    'group relative flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-full border transition-all text-left cursor-pointer shrink-0 select-none text-xs font-semibold',
                     isSelected
                       ? 'border-primary bg-primary/15 ring-2 ring-primary/40 text-foreground font-bold shadow-glow'
                       : 'border-border/60 hover:border-border hover:bg-muted/50 text-muted-foreground hover:text-foreground'
@@ -83,9 +83,9 @@ export const PinnedThemeBar: React.FC = () => {
           </div>
 
           {/* Right Controls: Custom Hex & Radius */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Custom Hex Picker */}
-            <div className="flex items-center gap-1.5 bg-card/80 border border-border/80 px-2 py-1 rounded-xl shadow-inner">
+            <div className="flex items-center gap-1 sm:gap-1.5 bg-card/80 border border-border/80 p-1 sm:px-2 sm:py-1 rounded-xl shadow-inner">
               <label className="relative w-5 h-5 rounded-md overflow-hidden cursor-pointer shrink-0 border border-border shadow-xs">
                 <input
                   type="color"
@@ -100,10 +100,10 @@ export const PinnedThemeBar: React.FC = () => {
                 value={customHex}
                 onChange={(e) => setCustomHex(e.target.value)}
                 maxLength={7}
-                className="w-16 bg-transparent font-mono text-[11px] font-bold uppercase text-foreground focus:outline-none text-center"
+                className="hidden md:block w-14 sm:w-16 bg-transparent font-mono text-[11px] font-bold uppercase text-foreground focus:outline-none text-center"
               />
               {isCustom && (
-                <Badge variant="glow" className="text-[9px] px-1 py-0 h-4">
+                <Badge variant="glow" className="hidden sm:inline-flex text-[9px] px-1 py-0 h-4">
                   Custom
                 </Badge>
               )}

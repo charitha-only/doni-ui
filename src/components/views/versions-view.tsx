@@ -24,10 +24,32 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.9.2',
+      title: 'Full Multi-Device Responsive UI/UX Overhaul & Mobile Navigation Engine',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Complete Multi-Device Responsiveness: Adaptive fluidity across Mobile (360px-430px), Tablets (768px-1024px), Laptops, and Ultra-Wide Desktops with zero horizontal page blowout.',
+        'Mobile Navigation Bar with Touch Momentum: Smooth horizontal touch scroll with zero tab clipping, featuring all 7 platform pages with auditory feedback.',
+        'Collapsible Mobile Docs Topic Switcher: Allows mobile users to jump directly to any documentation category without scrolling through endless vertical links.',
+        'Adaptive Pinned Theme Bar: Compact touch-friendly swatches, responsive color picker, and mobile audio SFX controls.',
+        'Fluid Typography & Responsive Hero: Adaptive clamp font sizes, auto-wrapping CTA action buttons, and stackable package manager install card.',
+        'Zero-Wobble Viewport Protection: Added global viewport overflow constraints preventing layout shifts on iOS Safari and Android Chrome.',
+      ],
+      componentsAdded: [
+        'MobileNavEngine',
+        'MobileTopicDrawer',
+        'ResponsiveThemeBar',
+        'AdaptiveHeroGrid',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.9.2',
+    },
+    {
       version: 'v0.9.1',
       title: 'Categorized Documentation Suite, Step-by-Step Developer Manual & Search Filter',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Categorized Documentation Suite: Re-engineered docs into 9 structured developer categories (Getting Started, Frameworks, CLI, Any-Color Engine, Audio Engine, Keyboard Navigation, Components Guide, Animated Icons, Templates Hub, FAQ).',
@@ -108,7 +130,7 @@ export const VersionsView: React.FC = () => {
       version: 'v0.6.0',
       title: 'Web Audio Micro-Sound Effects Engine: Zero-Byte Procedural Sound Synthesis for Modern UI',
       date: 'November 20, 2026',
-      isLatest: false,
+      isLatest: true,
       isMilestone: true,
       highlights: [
         'Zero-Byte Web Audio API Synthesis: Native procedural audio synthesis using browser oscillators — 0 external audio files (.mp3/.wav), 0 network overhead, and zero latency.',
@@ -552,13 +574,12 @@ export const VersionsView: React.FC = () => {
           <div key={rel.version} className="relative group">
             {/* Timeline node */}
             <div
-              className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full border-4 border-background flex items-center justify-center transition-transform group-hover:scale-125 ${
-                rel.isLatest
-                  ? 'bg-primary ring-4 ring-primary/20'
-                  : rel.isMilestone
+              className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full border-4 border-background flex items-center justify-center transition-transform group-hover:scale-125 ${rel.isLatest
+                ? 'bg-primary ring-4 ring-primary/20'
+                : rel.isMilestone
                   ? 'bg-cyan-500'
                   : 'bg-muted-foreground'
-              }`}
+                }`}
             />
 
             <Card className="p-6 bg-card/80 border-border/80 backdrop-blur-sm group-hover:border-primary/50 transition-colors">

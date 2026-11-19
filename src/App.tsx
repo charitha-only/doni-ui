@@ -339,7 +339,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.9.1
+                  v0.9.2
                 </span>
               </div>
             </div>
@@ -373,18 +373,20 @@ export function App() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3">
+              {/* Search Trigger */}
               <button
                 type="button"
                 onClick={() => {
                   setCommandPaletteOpen(true);
                   playUiSound('click');
                 }}
-                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground transition-colors cursor-pointer"
+                title="Search components (⌘K)"
               >
                 <Search className="w-3.5 h-3.5 text-primary" />
-                <span>Search...</span>
-                <kbd className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
+                <span className="hidden sm:inline">Search...</span>
+                <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
                   ⌘K
                 </kbd>
               </button>
@@ -398,11 +400,11 @@ export function App() {
                       setShortcutsOpen(true);
                       playUiSound('chime');
                     }}
-                    className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     title="Keyboard Shortcuts Cheat-Sheet (?)"
                   >
                     <Keyboard className="w-3.5 h-3.5 text-primary" />
-                    <kbd className="px-1 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
+                    <kbd className="hidden sm:inline-block px-1 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
                       ?
                     </kbd>
                   </button>
@@ -410,6 +412,7 @@ export function App() {
                 <TooltipContent>Keyboard Shortcuts (?)</TooltipContent>
               </Tooltip>
 
+              {/* Theme Dark/Light Mode */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -419,12 +422,12 @@ export function App() {
                       toggleMode();
                       playUiSound('pop');
                     }}
-                    className="rounded-full"
+                    className="rounded-full h-8 w-8 sm:h-9 sm:w-9"
                   >
                     {mode === 'dark' ? (
-                      <Sun className="h-5 w-5 text-amber-400" />
+                      <Sun className="h-4 w-4 sm:h-5 sm:w-5 text-amber-400" />
                     ) : (
-                      <Moon className="h-5 w-5 text-indigo-600" />
+                      <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600" />
                     )}
                   </Button>
                 </TooltipTrigger>
@@ -433,11 +436,13 @@ export function App() {
                 </TooltipContent>
               </Tooltip>
 
+              {/* GitHub Link */}
               <a
                 href="https://github.com/charitha-only/doni-ui"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium px-3.5 py-2 rounded-lg border border-border bg-card/60 hover:bg-accent transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium p-2 sm:px-3.5 sm:py-2 rounded-lg border border-border bg-card/60 hover:bg-accent transition-colors"
+                title="View GitHub Repository"
               >
                 <Github className="w-4 h-4" />
                 <span className="hidden sm:inline">GitHub</span>
@@ -446,12 +451,13 @@ export function App() {
           </div>
         </header>
 
-        {/* Mobile Navigation Pills Bar (visible on < lg screens) */}
-        <div className="lg:hidden flex items-center justify-center p-2 bg-muted/30 border-b border-border/40 overflow-x-auto gap-1">
+        {/* Mobile Navigation Bar (visible on < lg screens, touch horizontal swipe without clipping) */}
+        <div className="lg:hidden flex items-center justify-start sm:justify-center px-4 py-2 bg-muted/40 border-b border-border/60 overflow-x-auto scrollbar-none gap-1.5 touch-pan-x">
           {[
             { id: 'home', label: 'Home' },
-            { id: 'docs', label: 'Docs' },
+            { id: 'docs', label: 'Documentation' },
             { id: 'components', label: 'Components' },
+            { id: 'templates', label: 'Templates' },
             { id: 'icons', label: 'Icons (1,000+)' },
             { id: 'versions', label: 'Versions' },
             { id: 'about', label: 'About' },
@@ -459,11 +465,14 @@ export function App() {
             <button
               key={item.id}
               type="button"
-              onClick={() => setCurrentPage(item.id as any)}
-              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
+              onClick={() => {
+                setCurrentPage(item.id as any);
+                playUiSound('tab');
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0 ${
                 currentPage === item.id
                   ? 'bg-primary text-primary-foreground font-bold shadow-xs'
-                  : 'text-muted-foreground hover:bg-muted'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
               }`}
             >
               {item.label}
@@ -487,8 +496,8 @@ export function App() {
                 transition={transitions.springGentle}
                 className="flex justify-center"
               >
-                <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.9.1 — Categorized Documentation Suite &amp; Step-by-Step Developer Manual
+                <Badge variant="glow" withPulse className="mb-4 sm:mb-6 px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs">
+                  ✨ Doni UI — Hyper-Responsive, Ultra-Fast React UI Library
                 </Badge>
               </motion.div>
 
@@ -496,7 +505,7 @@ export function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...transitions.springGentle, delay: 0.1 }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.2]"
+                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.15] break-words"
               >
                 Build interfaces that are{' '}
                 <FlipWords
@@ -509,7 +518,7 @@ export function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...transitions.springGentle, delay: 0.2 }}
-                className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+                className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2"
               >
                 Engineered with <strong>zero runtime CSS overhead</strong>, <strong>100% tree-shaking</strong>, 
                 GPU-accelerated spring physics, and an instant <strong>Dynamic Any-Color Engine</strong>.
@@ -520,7 +529,7 @@ export function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...transitions.springGentle, delay: 0.3 }}
-                className="mt-10 flex flex-wrap items-center justify-center gap-4"
+                className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-md sm:max-w-none mx-auto w-full px-2 sm:px-0"
               >
                 <Button
                   variant="glow"
@@ -529,9 +538,9 @@ export function App() {
                     triggerConfetti();
                     setCurrentPage('components');
                   }}
-                  className="h-12 px-7 text-sm font-bold shadow-glow"
+                  className="h-11 sm:h-12 px-6 sm:px-7 text-xs sm:text-sm font-bold shadow-glow w-full sm:w-auto"
                 >
-                  <Boxes className="w-4 h-4 mr-2" />
+                  <Boxes className="w-4 h-4 mr-2 shrink-0" />
                   Explore 55+ Components
                 </Button>
 
@@ -539,9 +548,9 @@ export function App() {
                   variant="outline"
                   size="lg"
                   onClick={() => setCurrentPage('icons')}
-                  className="h-12 px-6 text-sm font-semibold border-primary/30 hover:border-primary/60 bg-card/60"
+                  className="h-11 sm:h-12 px-5 sm:px-6 text-xs sm:text-sm font-semibold border-primary/30 hover:border-primary/60 bg-card/60 w-full sm:w-auto"
                 >
-                  <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                  <Sparkles className="w-4 h-4 mr-2 text-primary shrink-0" />
                   Browse 1,000+ Icons &amp; Studio
                 </Button>
 
@@ -549,23 +558,23 @@ export function App() {
                   variant="ghost"
                   size="lg"
                   onClick={() => setCurrentPage('docs')}
-                  className="h-12 px-5 text-sm"
+                  className="h-11 sm:h-12 px-4 sm:px-5 text-xs sm:text-sm w-full sm:w-auto"
                 >
-                  <BookOpen className="w-4 h-4 mr-2 text-muted-foreground" />
+                  <BookOpen className="w-4 h-4 mr-2 text-muted-foreground shrink-0" />
                   Documentation
                 </Button>
               </motion.div>
 
-              {/* Package Manager Install Bar */}
-              <div className="mt-10 max-w-lg mx-auto">
-                <div className="flex items-center justify-between bg-card/60 p-1.5 rounded-xl border border-border shadow-sm">
-                  <div className="flex items-center gap-1">
+              {/* Package Manager Install Bar (Responsive on Mobile & Desktop) */}
+              <div className="mt-8 sm:mt-10 max-w-lg mx-auto w-full px-2 sm:px-0">
+                <div className="flex flex-col sm:flex-row items-center justify-between bg-card/70 p-2 sm:p-1.5 rounded-2xl sm:rounded-xl border border-border shadow-sm gap-2 sm:gap-0">
+                  <div className="flex items-center gap-1 w-full sm:w-auto justify-center sm:justify-start">
                     {(['npm', 'yarn', 'pnpm', 'bun'] as const).map((pm) => (
                       <button
                         key={pm}
                         type="button"
                         onClick={() => setPackageManager(pm)}
-                        className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                        className={`flex-1 sm:flex-initial px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                           packageManager === pm
                             ? 'bg-background text-foreground shadow-sm font-bold border border-border'
                             : 'text-muted-foreground hover:text-foreground'
@@ -575,14 +584,14 @@ export function App() {
                       </button>
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 pl-3">
-                    <code className="text-xs font-mono font-bold text-primary">
+                  <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto pl-0 sm:pl-3 border-t sm:border-t-0 border-border/40 pt-1.5 sm:pt-0">
+                    <code className="text-xs font-mono font-bold text-primary truncate max-w-[200px] sm:max-w-none">
                       {getInstallCommand()}
                     </code>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8"
+                      className="h-8 w-8 shrink-0"
                       onClick={() => copyToClipboard(getInstallCommand(), getInstallCommand())}
                     >
                       {copiedCode === getInstallCommand() ? (
@@ -2787,7 +2796,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.9.1</span>
+            <span className="font-bold text-base">Doni UI Library v0.9.2</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
