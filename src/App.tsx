@@ -80,6 +80,9 @@ import { GridBackground } from './components/ui/grid-background';
 import { Magnetic } from './components/ui/magnetic';
 import { ShimmerText } from './components/ui/shimmer-text';
 import { NumberTicker } from './components/ui/number-ticker';
+import { LampContainer } from './components/ui/lamp';
+import { InteractiveHoverButton } from './components/ui/interactive-hover-button';
+import { Lens } from './components/ui/lens';
 import { CodeDialog } from './components/showcase/code-dialog';
 import { useToast } from './components/ui/toast';
 import { useTheme, RadiusOption } from './theme/theme-context';
@@ -200,7 +203,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.0.6
+                  v0.0.7
                 </span>
               </div>
             </div>
@@ -272,7 +275,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.0.6 — Magnetic Cursor, Number Ticker, Shimmer &amp; Evervault
+              ✨ Doni UI v0.0.7 — Lamp Hero Glow, Interactive Hover Button &amp; Zoom Lens
             </Badge>
           </motion.div>
 
@@ -319,6 +322,17 @@ export function App() {
               <Flame className="w-4 h-4 text-primary fill-primary mr-1" />
               Flame Button Demo
             </FlameButton>
+
+            <InteractiveHoverButton
+              text="Explore Components"
+              onClick={() => {
+                triggerConfetti();
+                toast({
+                  title: 'Welcome to Doni UI! 🚀',
+                  type: 'success',
+                });
+              }}
+            />
 
             <Button
               variant="outline"
@@ -602,11 +616,11 @@ export function App() {
 
             <Tabs
               tabs={[
-                { id: 'card3d', label: '3D Tilt & Evervault' },
+                { id: 'card3d', label: '3D Tilt, Lens & Matrix' },
                 { id: 'cosmic', label: 'Sparkles & Cosmic' },
                 { id: 'showstopper', label: 'Keycaps & Bento' },
-                { id: 'spotlight', label: 'Spotlight & Navbar' },
-                { id: 'buttons', label: 'Buttons & Flame' },
+                { id: 'spotlight', label: 'Spotlight & Lamp' },
+                { id: 'buttons', label: 'Buttons & Magnetic' },
                 { id: 'inputs', label: 'Forms & Slider' },
                 { id: 'display', label: 'Avatar & Dropdown' },
                 { id: 'feedback', label: 'Dialog & Accordion' },
@@ -680,6 +694,57 @@ export function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Interactive Zoom Lens */}
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <Badge variant="glow" className="gap-1">
+                      <Search className="w-3 h-3" /> Cursor Magnifier
+                    </Badge>
+                    <h3 className="text-xl font-bold mt-1">Interactive Zoom Lens</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Hover and move your mouse across the card to inspect details with smooth 2.0x magnification.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="lens" />
+                </div>
+
+                <div className="flex justify-center py-4">
+                  <Lens zoomFactor={2} lensSize={160} className="w-full max-w-xl border border-border/80 shadow-lg">
+                    <div className="h-52 w-full bg-gradient-to-tr from-primary/30 via-card to-accent/20 p-6 flex flex-col justify-between rounded-xl">
+                      <div className="flex justify-between items-center">
+                        <span className="font-mono text-xs uppercase tracking-widest text-primary font-bold">
+                          ⚡ DONI UI HARDWARE ENGINE
+                        </span>
+                        <Badge variant="neon">2.0x Magnification</Badge>
+                      </div>
+                      <div className="text-center my-auto">
+                        <h4 className="text-3xl font-black text-foreground tracking-tight">
+                          Inspect Micro-Interactions
+                        </h4>
+                        <p className="text-xs text-muted-foreground mt-1 font-medium">
+                          Framer Motion Spring Physics • 0ms Style Lag • 120 FPS Compositor
+                        </p>
+                      </div>
+                      <div className="flex justify-between text-[11px] text-muted-foreground font-mono">
+                        <span>Lens Radius: 160px</span>
+                        <span>GPU Thread: Active</span>
+                      </div>
+                    </div>
+                  </Lens>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;Lens zoomFactor=&#123;2&#125;&gt;...&lt;/Lens&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('lens')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Lens Code
+                  </Button>
+                </div>
+              </Card>
 
               {/* Staggered Text Reveal & Typography */}
               <Card className="p-6">
@@ -1041,6 +1106,48 @@ export function App() {
                   </div>
                 </SpotlightCard>
               </div>
+
+              {/* Conic Lamp Header Showcase */}
+              <div className="pt-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <Badge variant="glow">Conic Neon Illumination</Badge>
+                    <h3 className="text-xl font-bold mt-1">Lamp Hero Header</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Dual conic light beams emitting downwards with ambient blur bloom and neon lamp bar.
+                    </p>
+                  </div>
+                  <CodeDialog snippetId="lamp" />
+                </div>
+
+                <LampContainer className="border border-border/80">
+                  <motion.h3
+                    initial={{ opacity: 0.5, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.3,
+                      duration: 0.8,
+                      ease: 'easeInOut',
+                    }}
+                    className="bg-gradient-to-br from-foreground to-muted-foreground py-4 bg-clip-text text-center text-3xl sm:text-5xl font-black tracking-tight text-transparent"
+                  >
+                    Build Interfaces at 120 FPS
+                  </motion.h3>
+                  <p className="text-sm text-muted-foreground text-center max-w-md">
+                    Engineered with zero runtime CSS-in-JS lag and spring micro-interactions.
+                  </p>
+                </LampContainer>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    &lt;LampContainer&gt;...&lt;/LampContainer&gt;
+                  </span>
+                  <Button variant="glow" size="sm" onClick={() => copySnippet('lamp')}>
+                    <Copy className="w-3.5 h-3.5 mr-1.5" />
+                    Copy Lamp Code
+                  </Button>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -1077,6 +1184,7 @@ export function App() {
                       <Flame className="w-4 h-4 mr-1 text-primary" />
                       Flame Beam
                     </FlameButton>
+                    <InteractiveHoverButton text="Interactive Hover" />
                     <Button variant="glass">Glassmorphism</Button>
                     <Button variant="outline">Outline</Button>
                     <Button variant="secondary">Secondary</Button>
@@ -1459,7 +1567,7 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="font-bold text-base">Doni UI Library v0.0.6</span>
+              <span className="font-bold text-base">Doni UI Library v0.0.7</span>
               <span className="text-xs text-muted-foreground">
                 — Built with love by Charitha
               </span>

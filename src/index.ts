@@ -36,6 +36,9 @@ export * from './components/ui/sparkles';
 export * from './components/ui/magnetic';
 export * from './components/ui/shimmer-text';
 export * from './components/ui/number-ticker';
+export * from './components/ui/lamp';
+export * from './components/ui/interactive-hover-button';
+export * from './components/ui/lens';
 
 // Theme Engine Exports
 export * from './theme/theme-context';

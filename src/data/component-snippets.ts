@@ -352,4 +352,34 @@ import { Sparkles } from 'lucide-react';`,
     importCode: `import { NumberTicker } from 'doni-ui';`,
     usageCode: `<NumberTicker value={99.9} decimalPlaces={1} suffix="%" />`,
   },
+  lamp: {
+    id: 'lamp',
+    name: 'Lamp Hero Header',
+    description: 'Conic glowing neon lamp beam illuminating hero headlines.',
+    category: 'Special',
+    importCode: `import { LampContainer } from 'doni-ui';`,
+    usageCode: `<LampContainer>
+  <h1 className="text-5xl font-black tracking-tight text-center">
+    Future of Web Interfaces
+  </h1>
+</LampContainer>`,
+  },
+  interactiveHoverButton: {
+    id: 'interactiveHoverButton',
+    name: 'Interactive Hover Button',
+    description: 'Expanding pill button with sliding text and arrow transition.',
+    category: 'Buttons',
+    importCode: `import { InteractiveHoverButton } from 'doni-ui';`,
+    usageCode: `<InteractiveHoverButton text="Get Started" />`,
+  },
+  lens: {
+    id: 'lens',
+    name: 'Interactive Zoom Lens',
+    description: 'Cursor-following magnifying glass lens with dynamic zoom magnification.',
+    category: 'Special',
+    importCode: `import { Lens } from 'doni-ui';`,
+    usageCode: `<Lens zoomFactor={2} lensSize={160}>
+  <img src="preview.jpg" alt="Preview" className="rounded-xl" />
+</Lens>`,
+  },
 };
