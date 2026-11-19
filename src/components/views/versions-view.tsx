@@ -24,10 +24,29 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v0.8.0',
+      title: 'Interactive Component Props Sandbox & Live Reactive JSX Playground',
+      date: 'November 20, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Interactive Props Sandbox: Live component tweaker allowing real-time switching of variants (glow, default, outline, secondary), sizes (sm, md, lg), and spring animations.',
+        'Dynamic JSX Code Generator: Reactive code snippet generator reflecting active props choices with instant 1-click clipboard copying.',
+        'Multi-Component Sandbox Support: Live stage testing for Buttons, Flame Buttons, Badges, Star Rating, Animated Progress, and Confetti Buttons.',
+        'Tactile Audio & Physics Feedback: Synchronized sound synthesis effects on prop adjustments and slider changes.',
+      ],
+      componentsAdded: [
+        'ComponentSandbox',
+        'PropsTweaker',
+        'DynamicJsxGenerator',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v0.8.0',
+    },
+    {
       version: 'v0.7.0',
       title: 'Global Keyboard Shortcuts Navigation Engine & 3D Keycap Cheat-Sheet Overlay',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Global Keyboard Navigation: Instant hotkeys (H, D, C, I, V, A) for single-keystroke switching across Home, Docs, Components, Icons, Versions, and About pages.',

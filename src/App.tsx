@@ -130,6 +130,7 @@ import { BadgeDelta } from './components/ui/badge-delta';
 import { AspectRatio } from './components/ui/aspect-ratio';
 import { PinnedThemeBar } from './components/ui/pinned-theme-bar';
 import { ShortcutsDialog } from './components/ui/shortcuts-dialog';
+import { ComponentSandbox } from './components/showcase/component-sandbox';
 import { playUiSound, toggleSound } from './lib/sound-effects';
 
 export function App() {
@@ -334,7 +335,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.7.0
+                  v0.8.0
                 </span>
               </div>
             </div>
@@ -482,7 +483,7 @@ export function App() {
                 className="flex justify-center"
               >
                 <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-xs">
-                  ✨ Doni UI v0.7.0 — Global Keyboard Shortcuts &amp; 3D Keycap Cheat-Sheet
+                  ✨ Doni UI v0.8.0 — Interactive Props Sandbox &amp; Live Reactive Playground
                 </Badge>
               </motion.div>
 
@@ -792,6 +793,11 @@ export function App() {
               </div>
             </CardContent>
           </Card>
+        </section>
+
+        {/* Interactive Props Sandbox (v0.8.0) */}
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <ComponentSandbox />
         </section>
 
         {/* Featured Showcase on Home */}
@@ -2771,7 +2777,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v0.7.0</span>
+            <span className="font-bold text-base">Doni UI Library v0.8.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
