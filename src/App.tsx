@@ -16,7 +16,6 @@ import {
   Home,
   Compass,
   Boxes,
-  Settings,
   User,
   Shield,
   Layers,
@@ -26,6 +25,9 @@ import {
   Radio,
   Eye,
   Type,
+  BookOpen,
+  GitBranch,
+  Info,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -110,6 +112,10 @@ import { useTheme, RadiusOption } from './theme/theme-context';
 import { COLOR_PRESETS } from './theme/themes';
 import { transitions } from './lib/utils';
 import { COMPONENT_SNIPPETS } from './data/component-snippets';
+import { DocsView } from './components/views/docs-view';
+import { IconsView } from './components/views/icons-view';
+import { VersionsView } from './components/views/versions-view';
+import { AboutView } from './components/views/about-view';
 
 export function App() {
   const {
@@ -127,6 +133,7 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'icons' | 'versions' | 'about'>('home');
   const [activeTab, setActiveTab] = useState('card3d');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
@@ -212,11 +219,14 @@ export function App() {
         {/* Navigation Bar */}
         <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div
+              className="flex items-center gap-3 cursor-pointer"
+              onClick={() => setCurrentPage('home')}
+            >
               <motion.div
                 whileHover={{ rotate: 180, scale: 1.1 }}
                 transition={transitions.springBouncy}
-                className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-primary/40 flex items-center justify-center text-primary-foreground shadow-glow cursor-pointer"
+                className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-primary/40 flex items-center justify-center text-primary-foreground shadow-glow"
               >
                 <Sparkles className="w-5 h-5 fill-current" />
               </motion.div>
@@ -225,10 +235,35 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v0.1.0
+                  v0.1.2
                 </span>
               </div>
             </div>
+
+            {/* Menu Bar: Home / Documentation / Components / Icons / Versions / About */}
+            <nav className="hidden lg:flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/60">
+              {[
+                { id: 'home', label: 'Home' },
+                { id: 'docs', label: 'Documentation' },
+                { id: 'components', label: 'Components' },
+                { id: 'icons', label: 'Icons' },
+                { id: 'versions', label: 'Versions' },
+                { id: 'about', label: 'About' },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setCurrentPage(item.id as any)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    currentPage === item.id
+                      ? 'bg-primary text-primary-foreground shadow-sm font-bold'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
 
             <div className="flex items-center gap-3">
               <button
@@ -237,7 +272,7 @@ export function App() {
                 className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-accent text-xs text-muted-foreground transition-colors cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5 text-primary" />
-                <span>Search components...</span>
+                <span>Search...</span>
                 <kbd className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono border border-border">
                   ⌘K
                 </kbd>
@@ -276,19 +311,28 @@ export function App() {
           </div>
         </header>
 
-        {/* Floating Tubelight Island Navbar Showcase */}
+        {/* Floating Tubelight Island Navbar */}
         <div className="relative z-30 flex justify-center pt-6 px-4">
           <TubelightNavbar
             items={[
               { id: 'home', label: 'Home', icon: <Home className="w-3.5 h-3.5" /> },
+              { id: 'docs', label: 'Documentation', icon: <BookOpen className="w-3.5 h-3.5" /> },
               { id: 'components', label: 'Components', icon: <Boxes className="w-3.5 h-3.5" /> },
-              { id: 'explore', label: 'Explore', icon: <Compass className="w-3.5 h-3.5" /> },
-              { id: 'settings', label: 'Theming', icon: <Settings className="w-3.5 h-3.5" /> },
+              { id: 'icons', label: 'Icons', icon: <Sparkles className="w-3.5 h-3.5" /> },
+              { id: 'versions', label: 'Versions', icon: <GitBranch className="w-3.5 h-3.5" /> },
+              { id: 'about', label: 'About', icon: <Info className="w-3.5 h-3.5" /> },
             ]}
+            activeId={currentPage}
+            onSelect={(id: string) => setCurrentPage(id as any)}
           />
         </div>
 
-        {/* Hero Section with 3D Flip Words */}
+        {/* ========================================================================= */}
+        {/* 1. VIEW: HOME PAGE                                                        */}
+        {/* ========================================================================= */}
+        {currentPage === 'home' && (
+          <>
+            {/* Hero Section with 3D Flip Words */}
         <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -297,7 +341,7 @@ export function App() {
             className="flex justify-center"
           >
             <Badge variant="glow" withPulse className="mb-6 px-4 py-1.5 text-sm">
-              ✨ Doni UI v0.1.0 Milestone — Holographic Glare Card, Direction-Aware Hover &amp; Tracing Beam
+              ✨ Doni UI v0.1.2 — 22 Animated Component Icons &amp; Multi-Page Documentation
             </Badge>
           </motion.div>
 
@@ -346,23 +390,29 @@ export function App() {
             </FlameButton>
 
             <InteractiveHoverButton
-              text="Explore Components"
+              text="Explore 40+ Components"
               onClick={() => {
                 triggerConfetti();
-                toast({
-                  title: 'Welcome to Doni UI! 🚀',
-                  type: 'success',
-                });
+                setCurrentPage('components');
               }}
             />
 
             <Button
               variant="outline"
               size="lg"
-              onClick={() => setCommandPaletteOpen(true)}
+              onClick={() => setCurrentPage('icons')}
             >
-              <Search className="w-4 h-4 mr-2 text-primary" />
-              Press ⌘K to Search
+              <Sparkles className="w-4 h-4 mr-2 text-primary" />
+              Animated Icons (22)
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setCurrentPage('docs')}
+            >
+              <BookOpen className="w-4 h-4 mr-2 text-primary" />
+              Documentation
             </Button>
           </motion.div>
 
@@ -626,7 +676,104 @@ export function App() {
           </Card>
         </section>
 
-        {/* COMPONENT PLAYGROUND & SHOWCASE */}
+        {/* Featured Showcase on Home */}
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">Featured Showstoppers</h2>
+              <p className="text-sm text-muted-foreground">A quick taste of our physics-driven components</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setCurrentPage('components')}>
+                Explore All 40+ Components →
+              </Button>
+              <Button variant="glow" size="sm" onClick={() => setCurrentPage('icons')}>
+                View 22 Animated Icons →
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <CardContainer className="w-full">
+              <div className="bg-card border border-border/80 p-6 rounded-2xl w-full [transform-style:preserve-3d]">
+                <CardItem translateZ="50" className="text-lg font-bold">
+                  3D Perspective Tilt
+                </CardItem>
+                <CardItem as="p" translateZ="60" className="text-xs text-muted-foreground mt-2">
+                  Hover to experience true 3D spatial elevation with spring return physics.
+                </CardItem>
+                <div className="mt-4 flex justify-between items-center">
+                  <CardItem translateZ="40" as={Button} variant="glow" size="sm" onClick={() => setCurrentPage('components')}>
+                    Test in Playground
+                  </CardItem>
+                </div>
+              </div>
+            </CardContainer>
+
+            <GlareCard className="p-6 flex flex-col justify-between">
+              <div>
+                <Badge variant="glow" className="text-[10px] mb-2">Holographic</Badge>
+                <h3 className="font-bold text-lg">Rainbow Foil Glare</h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Tilt pointer across this surface to watch iridescent light reflections dance.
+                </p>
+              </div>
+              <Button variant="outline" size="sm" className="w-fit" onClick={() => setCurrentPage('components')}>
+                View Code
+              </Button>
+            </GlareCard>
+
+            <Card className="p-6 flex flex-col justify-between bg-card/70 border-border/80">
+              <div>
+                <Badge variant="outline" className="text-[10px] mb-2">Micro-Interactions</Badge>
+                <h3 className="font-bold text-lg">22 Animated Icons</h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Pure SVG spring physics for social, vehicles, warnings, and entertainment.
+                </p>
+                <div className="mt-4 flex gap-2 justify-center">
+                  <AnimatedGithub size={28} />
+                  <AnimatedTwitter size={28} />
+                  <AnimatedYoutube size={28} />
+                  <AnimatedInstagram size={28} />
+                </div>
+              </div>
+              <Button variant="glow" size="sm" className="w-fit mx-auto mt-4" onClick={() => setCurrentPage('icons')}>
+                Browse All Icons
+              </Button>
+            </Card>
+          </div>
+
+          {/* Home Bottom CTA Banner */}
+          <div className="mt-12 p-8 rounded-3xl bg-gradient-to-r from-card via-primary/10 to-card border border-primary/30 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div className="space-y-1">
+              <h3 className="text-xl font-bold">Ready to build hyper-fast interfaces?</h3>
+              <p className="text-xs text-muted-foreground">
+                Get started in under 60 seconds with our CLI or browse the complete component directory.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <Button variant="glow" size="lg" onClick={() => setCurrentPage('docs')}>
+                <BookOpen className="w-4 h-4 mr-2" />
+                Read Documentation
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => setCurrentPage('components')}>
+                Browse Components
+              </Button>
+            </div>
+          </div>
+        </section>
+        </>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 2. VIEW: DOCUMENTATION PAGE                                               */}
+      {/* ========================================================================= */}
+      {currentPage === 'docs' && <DocsView />}
+
+      {/* ========================================================================= */}
+      {/* 3. VIEW: COMPONENTS PAGE                                                  */}
+      {/* ========================================================================= */}
+      {currentPage === 'components' && (
         <section id="playground" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col gap-5 mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -660,8 +807,7 @@ export function App() {
             {!gallerySearch && (
               <Tabs
                 tabs={[
-                  { id: 'icons', label: 'Animated Icons (10)' },
-                  { id: 'card3d', label: '3D Tilt, Lens & Morph' },
+                  { id: 'card3d', label: '3D Tilt, Glare & Morph' },
                   { id: 'cosmic', label: 'Wavy & Cosmic' },
                   { id: 'showstopper', label: 'Orbit, Grid & Keycaps' },
                   { id: 'spotlight', label: 'Spotlight & Lamp' },
@@ -2018,42 +2164,108 @@ export function App() {
         </>
       )}
     </section>
+    )}
+
+    {/* ========================================================================= */}
+    {/* 4. VIEW: ICONS PAGE                                                       */}
+    {/* ========================================================================= */}
+    {currentPage === 'icons' && <IconsView />}
+
+    {/* ========================================================================= */}
+    {/* 5. VIEW: VERSIONS PAGE                                                    */}
+    {/* ========================================================================= */}
+    {currentPage === 'versions' && <VersionsView />}
+
+    {/* ========================================================================= */}
+    {/* 6. VIEW: ABOUT PAGE                                                       */}
+    {/* ========================================================================= */}
+    {currentPage === 'about' && <AboutView />}
 
     {/* Footer */}
     <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-primary" />
-          <span className="font-bold text-base">Doni UI Library v0.1.1</span>
-          <span className="text-xs text-muted-foreground">
-            — Built with love by Charitha
-          </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <span className="font-bold text-base">Doni UI Library v0.1.2</span>
+            <span className="text-xs text-muted-foreground">
+              — Built with love by Charitha
+            </span>
+          </div>
+
+          {/* Quick Footer Page Links */}
+          <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-muted-foreground">
+            <button
+              type="button"
+              onClick={() => setCurrentPage('home')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Home
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('docs')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Documentation
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('components')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Components
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('icons')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Icons (22)
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('versions')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Versions
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('about')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              About
+            </button>
+          </nav>
+
+          <p className="text-xs text-muted-foreground flex items-center gap-1">
+            Live on{' '}
+            <a
+              href="https://charitha-only.github.io/doni-ui/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary hover:underline font-semibold"
+            >
+              GitHub Pages
+            </a>
+            {' '}&amp;{' '}
+            <a
+              href="https://github.com/charitha-only/doni-ui"
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary hover:underline font-semibold"
+            >
+              GitHub Repo
+            </a>
+          </p>
         </div>
 
-        <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
-
-        <p className="text-xs text-muted-foreground flex items-center gap-1">
-              Live on{' '}
-              <a
-                href="https://charitha-only.github.io/doni-ui/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline font-semibold"
-              >
-                GitHub Pages
-              </a>
-              {' '}&amp;{' '}
-              <a
-                href="https://github.com/charitha-only/doni-ui"
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline font-semibold"
-              >
-                GitHub Repo
-              </a>
-            </p>
-          </div>
-        </footer>
+        <div className="pt-4 border-t border-border/40 flex justify-center">
+          <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
+        </div>
+      </div>
+    </footer>
       </div>
     </TooltipProvider>
   );

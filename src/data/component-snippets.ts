@@ -487,12 +487,62 @@ import { Sparkles } from 'lucide-react';`,
     id: 'animatedIcons',
     name: 'Animated Social Icons',
     description: '10 Spring-animated micro-interaction social media icons with neon glow.',
-    category: 'Display',
+    category: 'Icons',
     importCode: `import { AnimatedGithub, AnimatedTwitter, AnimatedYoutube, SocialIconDock } from 'doni-ui';`,
     usageCode: `<SocialIconDock />
 {/* Or individually: */}
 <AnimatedGithub />
 <AnimatedTwitter />
 <AnimatedYoutube />`,
+  },
+  animatedVehicles: {
+    id: 'animatedVehicles',
+    name: 'Animated Vehicles & Transport',
+    description: 'Spring physics animated rocket, plane, car, and bicycle icons with liftoff, banking and rolling rims.',
+    category: 'Icons',
+    importCode: `import { AnimatedRocket, AnimatedPlane, AnimatedCar, AnimatedBicycle } from 'doni-ui';`,
+    usageCode: `<div className="flex gap-3">
+  <AnimatedRocket size={32} />
+  <AnimatedPlane size={32} />
+  <AnimatedCar size={32} />
+  <AnimatedBicycle size={32} />
+</div>`,
+  },
+  animatedWarnings: {
+    id: 'animatedWarnings',
+    name: 'Animated Warning & Status Icons',
+    description: 'Animated hazard alert triangle, shield checkmark SVG path drawing, dancing danger flame, and ringing bell.',
+    category: 'Icons',
+    importCode: `import { AnimatedAlertTriangle, AnimatedShieldCheck, AnimatedFlameDanger, AnimatedBellRing } from 'doni-ui';`,
+    usageCode: `<div className="flex gap-3">
+  <AnimatedAlertTriangle size={32} />
+  <AnimatedShieldCheck size={32} />
+  <AnimatedFlameDanger size={32} />
+  <AnimatedBellRing size={32} />
+</div>`,
+  },
+  animatedEntertainment: {
+    id: 'animatedEntertainment',
+    name: 'Animated Entertainment & Media',
+    description: 'Animated gamepad with tactile buttons, headphones with equalizer waves, film reel, and sparkle star.',
+    category: 'Icons',
+    importCode: `import { AnimatedGamepad, AnimatedHeadphones, AnimatedFilm, AnimatedSparkleStar } from 'doni-ui';`,
+    usageCode: `<div className="flex gap-3">
+  <AnimatedGamepad size={32} />
+  <AnimatedHeadphones size={32} />
+  <AnimatedFilm size={32} />
+  <AnimatedSparkleStar size={32} />
+</div>`,
+  },
+  animatedIconDock: {
+    id: 'animatedIconDock',
+    name: 'Animated Icon Dock',
+    description: 'Glassmorphic floating dock bar supporting any animated icon collection with spring hover magnification.',
+    category: 'Icons',
+    importCode: `import { AnimatedIconDock } from 'doni-ui';`,
+    usageCode: `<AnimatedIconDock 
+  icons={['rocket', 'shield-check', 'gamepad', 'headphones', 'sparkle-star', 'github']} 
+  iconSize={24} 
+/>`,
   },
 };

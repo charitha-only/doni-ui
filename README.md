@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v0.1.1-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.1)
+[![Version](https://img.shields.io/badge/Release-v0.1.2-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v0.1.2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />
@@ -587,40 +587,64 @@ export function ArticleWithTracer() {
 
 ---
 
-### 26. 🌐 Animated Social Media Icons Suite (10 Icons)
-Handcrafted SVG icons with spring physics, neon brand glows, and micro-interactions:
-- **GitHub**: Wiggle & tail stroke animation
-- **X / Twitter**: 3D Y-axis neon spin
-- **YouTube**: Play button scale, pulse & glow
-- **LinkedIn**: Letter bounce & dot pop
-- **Instagram**: Aperture shutter spin & rainbow glow
-- **Discord**: Controller wiggle & eye blink
-- **Telegram**: Paper plane flight & banking
-- **TikTok**: Cyan & red chromatic aberration glitch shift
-- **Facebook**: 3D 'f' pop & spring rotation
-- **Dribbble**: Basketball spinning seams & bounce
+### 26. 🌐 Animated Component Icons Suite (22 Icons across 4 Categories)
+Handcrafted SVG vector components with Framer Motion spring physics, neon brand glows, and micro-interactions:
+
+1. **Social Media Icons (10)**:
+   - `AnimatedGithub`: Octocat ear wiggle, tail stroke & brand shadow
+   - `AnimatedTwitter`: 3D Y-axis neon spin & hover scale
+   - `AnimatedYoutube`: Glowing play button pulse & neon bloom
+   - `AnimatedLinkedin`: "in" letter bounce & dot pop spring physics
+   - `AnimatedInstagram`: Aperture shutter spin & rainbow glow
+   - `AnimatedDiscord`: Controller wiggle & eye blink
+   - `AnimatedTelegram`: Paper plane takeoff & flight banking
+   - `AnimatedTiktok`: Cyan & magenta chromatic aberration glitch shift
+   - `AnimatedFacebook`: 3D 'f' pop & spring rotation
+   - `AnimatedDribbble`: Basketball spinning seams & squash bounce
+
+2. **Vehicles & Transport Icons (4)**:
+   - `AnimatedRocket`: Thruster flame flicker & liftoff elevation
+   - `AnimatedPlane`: Aerodynamic banking tilt & flight glide
+   - `AnimatedCar`: Suspension bounce & spinning wheel rims
+   - `AnimatedBicycle`: Dual spinning wheel spokes & forward pedal glide
+
+3. **Warning & Status Icons (4)**:
+   - `AnimatedAlertTriangle`: Hazard vibration shake & pulsing exclamation mark
+   - `AnimatedShieldCheck`: Checkmark SVG path drawing & emerald verified glow
+   - `AnimatedFlameDanger`: Dancing multi-layer flame tongues & heat bloom
+   - `AnimatedBellRing`: Pendulum bell swing & radiating notification sound ring
+
+4. **Entertainment & Media Icons (4)**:
+   - `AnimatedGamepad`: Tactile button clicks & neon violet glow
+   - `AnimatedHeadphones`: Dynamic audio equalizer wave bars bouncing inside
+   - `AnimatedFilm`: Cinema film reel spool step rotation & projector glow
+   - `AnimatedSparkleStar`: 180° Twinkle star rotation & golden aura
 
 ```tsx
 import {
+  AnimatedIconDock,
   SocialIconDock,
+  AnimatedRocket,
+  AnimatedShieldCheck,
+  AnimatedGamepad,
+  AnimatedHeadphones,
   AnimatedGithub,
-  AnimatedTwitter,
-  AnimatedYoutube,
-  AnimatedInstagram,
 } from 'doni-ui';
 
-export function SocialLinks() {
+export function IconDemo() {
   return (
     <>
-      {/* Ready-to-use Glassmorphic Dock */}
-      <SocialIconDock />
+      {/* Ready-to-use Glassmorphic Docks */}
+      <SocialIconDock iconSize={24} />
+      <AnimatedIconDock icons={['rocket', 'shield-check', 'gamepad', 'headphones', 'sparkle-star']} iconSize={24} />
 
-      {/* Or individual animated icons */}
-      <div className="flex gap-3">
-        <AnimatedGithub size={32} />
-        <AnimatedTwitter size={32} />
-        <AnimatedYoutube size={32} />
-        <AnimatedInstagram size={32} />
+      {/* Or individual component icons */}
+      <div className="flex gap-4">
+        <AnimatedRocket size={32} withGlow />
+        <AnimatedShieldCheck size={32} withGlow />
+        <AnimatedGamepad size={32} withGlow />
+        <AnimatedHeadphones size={32} withGlow />
+        <AnimatedGithub size={32} withGlow />
       </div>
     </>
   );
@@ -654,7 +678,8 @@ function ColorPicker() {
 
 | Component | Category | Animation Highlight |
 |---|---|---|
-| **AnimatedSocialIcon / Suite** | Special / Icons | 10 Handcrafted animated social icons with brand glows, spins, and spring reactions |
+| **AnimatedIcon / Suite** | Special / Icons | 22 Handcrafted animated icons across 4 categories (Social, Vehicles, Warning, Entertainment) |
+| **AnimatedIconDock** | Navigation | Multi-category floating dock supporting any collection of animated icons |
 | **SocialIconDock** | Navigation | Floating glassmorphic dock holding animated social media icons with spring hover |
 | **GlareCard** | Cards | 3D spectral rainbow foil reflection card that glints with pointer tilt |
 | **DirectionAwareHover** | Cards | Smooth overlay sliding in from exact entry vector of cursor |
@@ -705,7 +730,7 @@ function ColorPicker() {
 
 ## 📜 Versioning & Release Policy
 
-Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.1.1**.  
+Doni UI follows [Semantic Versioning](https://semver.org/). Current release: **v0.1.2**.  
 Every release is published to GitHub Releases and deployed automatically to GitHub Pages.
 
 ---

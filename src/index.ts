@@ -48,6 +48,7 @@ export * from './components/ui/glare-card';
 export * from './components/ui/direction-aware-hover';
 export * from './components/ui/tracing-beam';
 export * from './components/ui/animated-social-icons';
+export * from './components/ui/animated-icons';
 
 // Theme Engine Exports
 export * from './theme/theme-context';
