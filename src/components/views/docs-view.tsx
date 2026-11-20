@@ -84,6 +84,7 @@ export const DocsView: React.FC = () => {
       items: [
         { id: 'theme-provider', title: 'ThemeProvider & Context' },
         { id: 'custom-colors', title: 'Runtime Any-Hex Studio' },
+        { id: 'theme-export', title: 'Theme Export (Tailwind / CSS)' },
         { id: 'tailwind-tokens', title: 'Tailwind CSS Variables' },
       ],
     },
@@ -91,7 +92,7 @@ export const DocsView: React.FC = () => {
       id: 'audio',
       title: 'Procedural Audio Engine',
       icon: Volume2,
-      badge: 'v0.6.0',
+      badge: 'Web Audio',
       items: [
         { id: 'sound-engine', title: 'Web Audio API Synth' },
         { id: 'sound-triggers', title: 'Tactile Sound Profiles' },
@@ -101,9 +102,10 @@ export const DocsView: React.FC = () => {
       id: 'navigation',
       title: 'Keyboard & Navigation',
       icon: Keyboard,
-      badge: 'v0.7.0',
+      badge: 'Hotkeys & UX',
       items: [
         { id: 'shortcuts-engine', title: 'Global Hotkeys & Keycaps' },
+        { id: 'scroll-to-top', title: 'Circular Scroll Progress' },
       ],
     },
     {
@@ -131,7 +133,7 @@ export const DocsView: React.FC = () => {
       id: 'templates-guide',
       title: 'Page Templates Hub',
       icon: FileCode,
-      badge: 'v0.9.0',
+      badge: 'Templates',
       items: [
         { id: 'templates-usage', title: 'Pre-built SaaS & AI Blocks' },
       ],
@@ -720,7 +722,7 @@ export default function App() {
           {/* ========================================================================= */}
           {/* TOPIC 4: DYNAMIC ANY-COLOR ENGINE                                         */}
           {/* ========================================================================= */}
-          {(activeItem === 'theme-provider' || activeItem === 'custom-colors' || activeItem === 'tailwind-tokens') && (
+          {(activeItem === 'theme-provider' || activeItem === 'custom-colors' || activeItem === 'tailwind-tokens' || activeItem === 'theme-export') && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -743,6 +745,35 @@ export default function App() {
                   When you call <code className="text-primary font-mono font-bold">setCustomHex('#hex')</code>, Doni UI mathematically converts the hex code into exact HSL color channels and injects CSS variables (<code className="text-primary font-mono">--primary</code>, <code className="text-primary font-mono">--ring</code>, <code className="text-primary font-mono">--glow</code>) straight into the root DOM node. All 55+ components update in 0ms!
                 </p>
               </div>
+
+              {/* Theme Export Studio (v1.0.0) */}
+              <Card className="p-5 bg-card/90 space-y-3 border-border/80">
+                <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="glow">v1.0.0 Feature</Badge>
+                    <span className="text-sm font-bold">Exporting Themes to Tailwind &amp; CSS</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      copy(
+                        `// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        primary: {\n          DEFAULT: '#06b6d4',\n          foreground: '#ffffff',\n        },\n      },\n      borderRadius: {\n        lg: '0.75rem',\n      },\n    },\n  },\n};`,
+                        'Export config snippet'
+                      )
+                    }
+                  >
+                    <Copy className="w-3.5 h-3.5 mr-1" />
+                    Copy
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Use the <strong>Export</strong> button in the sticky top Theme Studio bar, or initialize your project directly via the CLI:
+                </p>
+                <div className="p-2.5 rounded-lg bg-muted/60 font-mono text-xs text-primary">
+                  npx doni-ui init --color=&quot;#06b6d4&quot; --radius=&quot;0.75rem&quot;
+                </div>
+              </Card>
 
               {/* Live Theme Code Snippet */}
               <Card className="p-5 bg-card/90 space-y-2">
@@ -859,9 +890,9 @@ export function InteractiveButtons() {
           )}
 
           {/* ========================================================================= */}
-          {/* TOPIC 6: KEYBOARD & SHORTCUTS (v0.7.0)                                     */}
+          {/* TOPIC 6: KEYBOARD & NAVIGATION                                              */}
           {/* ========================================================================= */}
-          {activeItem === 'shortcuts-engine' && (
+          {(activeItem === 'shortcuts-engine' || activeItem === 'scroll-to-top') && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -869,10 +900,10 @@ export function InteractiveButtons() {
               className="space-y-6"
             >
               <div>
-                <h2 className="text-3xl font-extrabold tracking-tight">Global Keyboard Shortcuts Engine</h2>
-                <Badge variant="glow" className="mt-2 text-xs">New in v0.7.0</Badge>
+                <h2 className="text-3xl font-extrabold tracking-tight">Navigation &amp; Shortcuts Engine</h2>
+                <Badge variant="glow" className="mt-2 text-xs">v1.0.0 Ready</Badge>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Built-in power-user hotkeys and 3D Keycap Cheat-Sheet overlay.
+                  Built-in power-user hotkeys, 3D Keycap cheat-sheet overlay, and dynamic circular scroll-to-top progress widget.
                 </p>
               </div>
 
@@ -900,6 +931,35 @@ export function InteractiveButtons() {
                   </ul>
                 </Card>
               </div>
+
+              {/* Circular Scroll-To-Top Widget */}
+              <Card className="p-5 border-border/80 space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="glow">v1.0.0 Feature</Badge>
+                    <span className="text-sm font-bold">Circular Progress Scroll-to-Top</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      copy(
+                        `import { ScrollToTop } from 'doni-ui';\n\nexport default function RootLayout({ children }) {\n  return (\n    <div>\n      {children}\n      <ScrollToTop />\n    </div>\n  );\n}`,
+                        'Scroll to top snippet'
+                      )
+                    }
+                  >
+                    <Copy className="w-3.5 h-3.5 mr-1" />
+                    Copy
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  A floating 44px SVG circular progress ring that dynamically computes scroll depth across any viewport and gently scrolls back to top with spring physics when tapped.
+                </p>
+                <div className="p-3 bg-muted/30 rounded-lg font-mono text-xs text-primary">
+                  {`import { ScrollToTop } from 'doni-ui';\n\n// Place at the bottom of your root component\n<ScrollToTop />`}
+                </div>
+              </Card>
             </motion.div>
           )}
 
