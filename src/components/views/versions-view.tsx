@@ -24,10 +24,32 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.2.0',
+      title: 'Component Stack Builder, Quick Bundle Exporter & 10 Designer Presets Pack',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Component Stack Builder (StackBuilder): Interactive floating drawer to assemble custom UI stacks, calculate estimated gzip weight, and copy single-command CLI batch installs.',
+        'Single Import Generator: Automatically generates a clean single-line named import for all chosen stack components.',
+        '10 Curated Luxury Designer Presets: Added Nordic Frost (#38bdf8), Sunset Coral (#fb7185), and Solar Gold (#eab308) to the Theme Studio.',
+        'Persistent Local Storage: Stack selections persist across page reloads and browser sessions without cookies or accounts.',
+        'Dual Docked Navigation Architecture: Seamless coexistence of the right-docked Circular Scroll Progress widget and the left-docked Stack Builder pill.',
+      ],
+      componentsAdded: [
+        'StackBuilder',
+        'useComponentStack',
+        'NordicFrostPreset',
+        'SunsetCoralPreset',
+        'SolarGoldPreset',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.2.0',
+    },
+    {
       version: 'v1.1.0',
       title: 'Doni AI Prompt Studio, WCAG 2.1 Accessibility Audit & Device Simulator',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Doni AI Prompt Studio & Component Copilot: Natural language prompt-driven UI synthesis with curated templates for SaaS pricing, DeFi staking, KPI metric cards, and glass auth cards.',

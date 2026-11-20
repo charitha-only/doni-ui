@@ -64,4 +64,28 @@ export const COLOR_PRESETS: ColorPreset[] = [
     description: 'Modern, high-energy purple inspired by Linear and Raycast',
     gradient: 'from-violet-500 to-purple-600',
   },
+  {
+    id: 'frost',
+    name: 'Nordic Frost',
+    hex: '#38bdf8',
+    hsl: '199 89% 60%',
+    description: 'Crisp glacial ice blue tailored for modern SaaS and developer dashboards',
+    gradient: 'from-sky-400 to-cyan-600',
+  },
+  {
+    id: 'coral',
+    name: 'Sunset Coral',
+    hex: '#fb7185',
+    hsl: '351 95% 71%',
+    description: 'Vibrant luminous coral glow for consumer apps and creative portfolios',
+    gradient: 'from-rose-400 to-red-500',
+  },
+  {
+    id: 'gold',
+    name: 'Solar Gold',
+    hex: '#eab308',
+    hsl: '48 96% 53%',
+    description: 'High-visibility Cyberpunk solar gold for badges, alerts, and fintech',
+    gradient: 'from-yellow-400 to-amber-600',
+  },
 ];

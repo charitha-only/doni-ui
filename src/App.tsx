@@ -24,6 +24,7 @@ import {
   Eye,
   Type,
   BookOpen,
+  Keyboard,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './components/ui/button';
@@ -107,6 +108,7 @@ import { COLOR_PRESETS } from './theme/themes';
 import { transitions, cn } from './lib/utils';
 import { COMPONENT_SNIPPETS } from './data/component-snippets';
 import { DocsView } from './components/views/docs-view';
+import { TemplatesView } from './components/views/templates-view';
 import { IconsView } from './components/views/icons-view';
 import { VersionsView } from './components/views/versions-view';
 import { AboutView } from './components/views/about-view';
@@ -131,6 +133,7 @@ import { PinnedThemeBar } from './components/ui/pinned-theme-bar';
 import { ScrollToTop } from './components/ui/scroll-to-top';
 import { ShortcutsDialog } from './components/ui/shortcuts-dialog';
 import { AiPromptStudio } from './components/ui/ai-prompt-studio';
+import { StackBuilder, useComponentStack } from './components/ui/stack-builder';
 import { ComponentSandbox } from './components/showcase/component-sandbox';
 import { playUiSound, toggleSound } from './lib/sound-effects';
 
@@ -150,13 +153,15 @@ export function App() {
   const { toast, triggerConfetti } = useToast();
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'icons' | 'versions' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'components' | 'templates' | 'icons' | 'versions' | 'about'>('home');
   const [activeTab, setActiveTab] = useState('dataApp');
   const [demoSwitch1, setDemoSwitch1] = useState(true);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState([65]);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [aiPromptOpen, setAiPromptOpen] = useState(false);
+  const { stack, add: addToStack, remove: removeFromStack, clear: clearStack } = useComponentStack();
   const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm' | 'bun'>('npm');
   const [gallerySearch, setGallerySearch] = useState('');
 
@@ -172,6 +177,10 @@ export function App() {
   // Keyboard shortcut ⌘K or Ctrl+K to open search command palette
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tagName = target?.tagName?.toLowerCase();
+      const isInput = tagName === 'input' || tagName === 'textarea' || target?.isContentEditable;
+
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setCommandPaletteOpen((prev) => !prev);
@@ -307,6 +316,20 @@ export function App() {
           }}
         />
 
+        {/* Global Keyboard Shortcuts Cheat-Sheet Overlay (?) */}
+        <ShortcutsDialog
+          open={shortcutsOpen}
+          onClose={() => setShortcutsOpen(false)}
+          onNavigate={(page) => setCurrentPage(page as any)}
+          onToggleMode={toggleMode}
+          onToggleSound={toggleSound}
+          onSelectPreset={(pId) => setPreset(pId)}
+          onOpenCommandPalette={() => {
+            setShortcutsOpen(false);
+            setCommandPaletteOpen(true);
+          }}
+        />
+
         {/* Doni AI Prompt Studio & Component Copilot Modal (⌘J) */}
         <AiPromptStudio
           open={aiPromptOpen}
@@ -332,7 +355,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v1.1.0
+                  v1.2.0
                 </span>
               </div>
             </div>
@@ -795,7 +818,12 @@ export function App() {
               </Card>
             </section>
 
-            {/* Featured Showcase on Home */}
+            {/* Interactive Props Sandbox (v0.8.0) */}
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <ComponentSandbox />
+        </section>
+
+        {/* Featured Showcase on Home */}
             <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
                 <div>
@@ -2752,6 +2780,11 @@ export function App() {
         )}
 
         {/* ========================================================================= */}
+        {/* 4. VIEW: TEMPLATES PAGE (v0.9.0)                                          */}
+        {/* ========================================================================= */}
+        {currentPage === 'templates' && <TemplatesView />}
+
+        {/* ========================================================================= */}
         {/* 4. VIEW: ICONS PAGE                                                       */}
         {/* ========================================================================= */}
         {currentPage === 'icons' && <IconsView />}
@@ -2761,10 +2794,10 @@ export function App() {
         {/* ========================================================================= */}
         {currentPage === 'versions' && <VersionsView />}
 
-    {/* ========================================================================= */}
-    {/* 6. VIEW: ABOUT PAGE                                                       */}
-    {/* ========================================================================= */}
-    {currentPage === 'about' && <AboutView />}
+        {/* ========================================================================= */}
+        {/* 6. VIEW: ABOUT PAGE                                                       */}
+        {/* ========================================================================= */}
+        {currentPage === 'about' && <AboutView />}
 
     {/* Footer */}
     <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
@@ -2772,92 +2805,100 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v1.1.0</span>
+            <span className="font-bold text-base">Doni UI Library v1.2.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
           </div>
 
-          {/* Quick Footer Page Links */}
-          <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-muted-foreground">
-            <button
-              type="button"
-              onClick={() => setCurrentPage('home')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Home
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('docs')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Documentation
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('components')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Components
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('templates')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Templates
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('icons')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Icons (1,000+)
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('versions')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              Versions
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('about')}
-              className="hover:text-primary transition-colors cursor-pointer"
-            >
-              About
-            </button>
-          </nav>
+              {/* Quick Footer Page Links */}
+              <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-muted-foreground">
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('home')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Home
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('docs')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Documentation
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('components')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Components
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('templates')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Templates
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('icons')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Icons (1,000+)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('versions')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Versions
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage('about')}
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  About
+                </button>
+              </nav>
 
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            Live on{' '}
-            <a
-              href="https://charitha-only.github.io/doni-ui/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline font-semibold"
-            >
-              GitHub Pages
-            </a>
-            {' '}&amp;{' '}
-            <a
-              href="https://github.com/charitha-only/doni-ui"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline font-semibold"
-            >
-              GitHub Repo
-            </a>
-          </p>
-        </div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                Live on{' '}
+                <a
+                  href="https://charitha-only.github.io/doni-ui/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline font-semibold"
+                >
+                  GitHub Pages
+                </a>
+                {' '}&amp;{' '}
+                <a
+                  href="https://github.com/charitha-only/doni-ui"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline font-semibold"
+                >
+                  GitHub Repo
+                </a>
+              </p>
+            </div>
 
-        <div className="pt-4 border-t border-border/40 flex justify-center">
-          <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
-        </div>
-      </div>
-    </footer>
+            <div className="pt-4 border-t border-border/40 flex justify-center">
+              <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
+            </div>
+          </div>
+        </footer>
+
+        {/* Component Stacking & Quick Bundle Exporter (v1.2.0) */}
+        <StackBuilder
+          stack={stack}
+          onRemove={removeFromStack}
+          onClear={clearStack}
+          onAdd={addToStack}
+        />
 
         {/* Floating Circular Progress Scroll-To-Top Button */}
         <ScrollToTop />
