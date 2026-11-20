@@ -2761,6 +2761,11 @@ export function App() {
         {/* ========================================================================= */}
         {currentPage === 'versions' && <VersionsView />}
 
+    {/* ========================================================================= */}
+    {/* 6. VIEW: ABOUT PAGE                                                       */}
+    {/* ========================================================================= */}
+    {currentPage === 'about' && <AboutView />}
+
     {/* Footer */}
     <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6">
@@ -2773,73 +2778,90 @@ export function App() {
             </span>
           </div>
 
-              {/* Footer */}
-              <footer className="border-t border-border/60 py-12 bg-background/50 backdrop-blur-md">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6">
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-primary" />
-                      <span className="font-bold text-base">Doni UI Library v0.6.0</span>
-                      <span className="text-xs text-muted-foreground">
-                        — Built with love by Charitha
-                      </span>
-                    </div>
+          {/* Quick Footer Page Links */}
+          <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-muted-foreground">
+            <button
+              type="button"
+              onClick={() => setCurrentPage('home')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Home
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('docs')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Documentation
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('components')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Components
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('templates')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Templates
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('icons')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Icons (1,000+)
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('versions')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Versions
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage('about')}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              About
+            </button>
+          </nav>
 
-                    {/* Quick Footer Page Links */}
-                    <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-muted-foreground">
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('home')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        Home
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('docs')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        Documentation
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('components')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        Components
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('icons')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        Icons (1,000+)
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('versions')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        Versions
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrentPage('about')}
-                        className="hover:text-primary transition-colors cursor-pointer"
-                      >
-                        About
-                      </button>
-                    </nav>
+          <p className="text-xs text-muted-foreground flex items-center gap-1">
+            Live on{' '}
+            <a
+              href="https://charitha-only.github.io/doni-ui/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary hover:underline font-semibold"
+            >
+              GitHub Pages
+            </a>
+            {' '}&amp;{' '}
+            <a
+              href="https://github.com/charitha-only/doni-ui"
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary hover:underline font-semibold"
+            >
+              GitHub Repo
+            </a>
+          </p>
+        </div>
 
-                    <div className="pt-4 border-t border-border/40 flex justify-center">
-                      <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
-                    </div>
-                  </div>
-              </footer>
+        <div className="pt-4 border-t border-border/40 flex justify-center">
+          <SocialIconDock iconSize={20} className="p-1.5 gap-2 bg-card/40 border-border/50" />
+        </div>
+      </div>
+    </footer>
 
-              {/* Floating Circular Progress Scroll-To-Top Button */}
-              <ScrollToTop />
-            </div>
-          </TooltipProvider>
-          );
+        {/* Floating Circular Progress Scroll-To-Top Button */}
+        <ScrollToTop />
+      </div>
+    </TooltipProvider>
+  );
 }
