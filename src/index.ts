@@ -32,6 +32,7 @@ export * from './components/ui/badge-delta';
 export * from './components/ui/aspect-ratio';
 export * from './components/ui/pinned-theme-bar';
 export * from './components/ui/theme-export-modal';
+export * from './components/ui/ai-prompt-studio';
 export * from './components/ui/scroll-to-top';
 export * from './components/ui/shortcuts-dialog';
 

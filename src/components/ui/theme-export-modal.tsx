@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Copy, Check, X, Sparkles, Terminal, FileCode } from 'lucide-react';
+import { Code2, Copy, Check, X, Sparkles, Terminal, FileCode, ShieldCheck } from 'lucide-react';
 import { Button } from './button';
 import { Badge } from './badge';
 import { transitions } from '@/lib/utils';
@@ -12,6 +12,24 @@ export interface ThemeExportModalProps {
   onClose: () => void;
 }
 
+const hexToLuminance = (hex: string) => {
+  let clean = hex.replace('#', '');
+  if (clean.length === 3) {
+    clean = clean.split('').map((c) => c + c).join('');
+  }
+  const r = parseInt(clean.substring(0, 2), 16) / 255;
+  const g = parseInt(clean.substring(2, 4), 16) / 255;
+  const b = parseInt(clean.substring(4, 6), 16) / 255;
+  const toLinear = (c: number) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+};
+
+const getContrastRatio = (lum1: number, lum2: number) => {
+  const brightest = Math.max(lum1, lum2);
+  const darkest = Math.min(lum1, lum2);
+  return (brightest + 0.05) / (darkest + 0.05);
+};
+
 export const ThemeExportModal: React.FC<ThemeExportModalProps> = ({ open, onClose }) => {
   const { activePreset, customHex, isCustom, radius } = useTheme();
   const [activeTab, setActiveTab] = useState<'tailwind' | 'css' | 'cli'>('tailwind');
@@ -19,6 +37,11 @@ export const ThemeExportModal: React.FC<ThemeExportModalProps> = ({ open, onClos
 
   const hex = isCustom ? customHex : activePreset.hex;
   const themeName = isCustom ? 'Custom Theme' : activePreset.name;
+
+  const colorLum = hexToLuminance(hex);
+  const contrastOnDark = getContrastRatio(colorLum, 0.002).toFixed(1);
+  const isDarkAAA = Number(contrastOnDark) >= 7.0;
+  const isDarkAA = Number(contrastOnDark) >= 4.5;
 
   const tailwindSnippet = `// tailwind.config.js
 module.exports = {
@@ -176,6 +199,20 @@ npx doni-ui init --color="${hex}" --radius="${radius}"`;
                 <pre className="text-foreground/90 overflow-x-auto leading-relaxed pt-2">
                   <code>{getActiveCode()}</code>
                 </pre>
+              </div>
+
+              {/* WCAG 2.1 Accessibility Audit */}
+              <div className="flex items-center justify-between p-3 rounded-xl border border-border/70 bg-card/60 text-xs">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground">WCAG 2.1 Contrast:</span>
+                  <span className="text-muted-foreground font-mono">
+                    <strong className="text-primary font-bold">{contrastOnDark}:1</strong> vs Dark Canvas
+                  </span>
+                </div>
+                <Badge variant={isDarkAAA ? 'glow' : isDarkAA ? 'default' : 'outline'} className="text-[10px]">
+                  {isDarkAAA ? 'AAA Compliant (Optimal)' : isDarkAA ? 'AA Compliant' : 'Custom Contrast'}
+                </Badge>
               </div>
 
               <p className="text-xs text-muted-foreground leading-relaxed">

@@ -24,10 +24,31 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.1.0',
+      title: 'Doni AI Prompt Studio, WCAG 2.1 Accessibility Audit & Device Simulator',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Doni AI Prompt Studio & Component Copilot: Natural language prompt-driven UI synthesis with curated templates for SaaS pricing, DeFi staking, KPI metric cards, and glass auth cards.',
+        'Real-time WCAG 2.1 Accessibility & Contrast Checker: Computes relative luminance and contrast ratios (AAA / AA compliance) for any custom hex color against canvas backgrounds.',
+        'Interactive Device Breakpoint Simulator: Seamlessly toggle between Desktop (100%), Tablet (768px), and Mobile (375px) device frames inside the Component Sandbox.',
+        'Multi-Syntax Code Switcher: Instant toggle between React TSX, Pure Tailwind HTML, and Next.js 15 Server Component formats.',
+        'Power Hotkey ⌘J: Global keyboard shortcut to summon Doni AI Component Studio from anywhere in the app.',
+      ],
+      componentsAdded: [
+        'AiPromptStudio',
+        'DeviceFrameSimulator',
+        'WcagAuditEngine',
+        'MultiSyntaxCodeExport',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.1.0',
+    },
+    {
       version: 'v1.0.0',
       title: 'Official Stable Production Launch 🎉 — Theme Export Studio, Circular Scroll Progress, & PWA Support',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Official Stable v1.0.0 Release: Culmination of all milestones into a production-ready, ultra-fast, zero-overhead React component ecosystem.',

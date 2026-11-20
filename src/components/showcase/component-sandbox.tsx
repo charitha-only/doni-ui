@@ -9,7 +9,9 @@ import {
   Flame,
   Star,
   Layers,
-  Code2,
+  Monitor,
+  Tablet,
+  Smartphone,
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -30,6 +32,8 @@ export const ComponentSandbox: React.FC = () => {
   const [hasPulse, setHasPulse] = useState(true);
   const [interactiveRating, setInteractiveRating] = useState(4);
   const [progressVal, setProgressVal] = useState([72]);
+  const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
+  const [syntaxFormat, setSyntaxFormat] = useState<'react' | 'tailwind' | 'nextjs'>('react');
   const [copied, setCopied] = useState(false);
 
   // Dynamic code snippet generator based on current interactive state
@@ -87,8 +91,43 @@ export const ComponentSandbox: React.FC = () => {
     }
   };
 
+  const getSyntaxCode = () => {
+    const reactCode = getDynamicCode();
+    if (syntaxFormat === 'react') return reactCode;
+
+    if (syntaxFormat === 'tailwind') {
+      if (selectedComponent === 'button') {
+        return `<button class="inline-flex items-center justify-center font-medium transition-all ${
+          variant === 'glow'
+            ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(6,182,212,0.5)]'
+            : variant === 'outline'
+            ? 'border border-border bg-transparent text-foreground hover:bg-muted'
+            : 'bg-primary text-primary-foreground'
+        } ${size === 'sm' ? 'px-3 py-1.5 text-xs' : size === 'lg' ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'} rounded-xl cursor-pointer">
+  Interactive Button
+</button>`;
+      }
+      return `<!-- Pure Tailwind Atomic Structure -->\n<div class="p-4 rounded-xl border border-border/80 bg-card shadow-sm">\n  ${reactCode}\n</div>`;
+    }
+
+    const compName =
+      selectedComponent === 'button'
+        ? 'Button'
+        : selectedComponent === 'flame'
+        ? 'FlameButton'
+        : selectedComponent === 'badge'
+        ? 'Badge'
+        : selectedComponent === 'rating'
+        ? 'Rating'
+        : selectedComponent === 'progress'
+        ? 'Progress'
+        : 'ConfettiButton';
+
+    return `'use client';\n\nimport React from 'react';\nimport { ${compName} } from 'doni-ui';\n\nexport default function DoniPreview() {\n  return (\n    <div className="flex items-center justify-center p-6">\n      ${reactCode.split('\n').join('\n      ')}\n    </div>\n  );\n}`;
+  };
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(getDynamicCode());
+    navigator.clipboard.writeText(getSyntaxCode());
     setCopied(true);
     playUiSound('success');
     setTimeout(() => setCopied(false), 2000);
@@ -253,10 +292,57 @@ export const ComponentSandbox: React.FC = () => {
 
         {/* Right: Live Interactive Stage & Generated Code */}
         <div className="lg:col-span-7 flex flex-col gap-4">
+          {/* Viewport Breakpoint Switcher */}
+          <div className="flex items-center justify-between px-1 text-xs">
+            <span className="text-muted-foreground font-semibold flex items-center gap-1.5">
+              <span>Device Viewport:</span>
+              <span className="font-mono text-primary uppercase text-[10px]">{deviceView}</span>
+            </span>
+            <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50">
+              {[
+                { id: 'desktop', label: '100%', icon: Monitor },
+                { id: 'tablet', label: '768px', icon: Tablet },
+                { id: 'mobile', label: '375px', icon: Smartphone },
+              ].map((d) => {
+                const Icon = d.icon;
+                const isSelected = deviceView === d.id;
+                return (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => {
+                      setDeviceView(d.id as any);
+                      playUiSound('tab');
+                    }}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-primary text-primary-foreground shadow-xs font-bold'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline text-[11px] font-mono">{d.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Live Stage */}
           <div className="relative min-h-[220px] rounded-xl border border-border/80 bg-gradient-to-b from-card/80 to-card/40 flex items-center justify-center p-8 overflow-hidden shadow-inner">
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+
+            <div className={`transition-all duration-300 flex items-center justify-center ${
+              deviceView === 'desktop'
+                ? 'w-full'
+                : deviceView === 'tablet'
+                ? 'max-w-md w-full border-2 border-border/70 rounded-2xl p-6 bg-card/60 shadow-xl'
+                : 'max-w-[300px] w-full border-2 border-border/70 rounded-3xl p-6 bg-card/60 shadow-2xl relative pt-7'
+            }`}>
+              {deviceView === 'mobile' && (
+                <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full bg-border/80" />
+              )}
 
             {/* Render selected component */}
             <AnimatePresence mode="wait">
@@ -337,20 +423,40 @@ export const ComponentSandbox: React.FC = () => {
                 )}
               </motion.div>
             </AnimatePresence>
+            </div>
           </div>
 
-          {/* Generated Reactive JSX Code */}
+          {/* Generated Code Box with Multi-Syntax Switcher */}
           <div className="relative rounded-xl border border-border/70 bg-muted/40 p-4 font-mono text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-border/40 mb-2">
-              <div className="flex items-center gap-2 text-muted-foreground text-[11px]">
-                <Code2 className="w-3.5 h-3.5 text-primary" />
-                <span>Generated JSX Code</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-border/40 mb-2 gap-2">
+              <div className="flex items-center gap-1 bg-background/50 p-0.5 rounded-lg border border-border/40">
+                {[
+                  { id: 'react', label: 'React TSX' },
+                  { id: 'tailwind', label: 'Tailwind HTML' },
+                  { id: 'nextjs', label: 'Next.js 15' },
+                ].map((fmt) => (
+                  <button
+                    key={fmt.id}
+                    type="button"
+                    onClick={() => {
+                      setSyntaxFormat(fmt.id as any);
+                      playUiSound('tab');
+                    }}
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-semibold transition-all cursor-pointer ${
+                      syntaxFormat === fmt.id
+                        ? 'bg-primary text-primary-foreground font-bold'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {fmt.label}
+                  </button>
+                ))}
               </div>
               <Button
                 variant="glow"
                 size="sm"
                 onClick={handleCopy}
-                className="h-7 px-2.5 text-[11px]"
+                className="h-7 px-2.5 text-[11px] self-end sm:self-auto"
               >
                 {copied ? (
                   <>
@@ -360,13 +466,13 @@ export const ComponentSandbox: React.FC = () => {
                 ) : (
                   <>
                     <Copy className="w-3 h-3 mr-1" />
-                    Copy JSX
+                    Copy Code
                   </>
                 )}
               </Button>
             </div>
             <pre className="text-foreground/90 overflow-x-auto p-1 leading-relaxed selection:bg-primary/20">
-              <code>{getDynamicCode()}</code>
+              <code>{getSyntaxCode()}</code>
             </pre>
           </div>
         </div>

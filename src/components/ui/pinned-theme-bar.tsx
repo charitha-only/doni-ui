@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Palette, Check, Volume2, VolumeX, Download } from 'lucide-react';
+import { Palette, Check, Volume2, VolumeX, Download, Bot } from 'lucide-react';
 import { useTheme, RadiusOption } from '@/theme/theme-context';
 import { COLOR_PRESETS } from '@/theme/themes';
 import { cn, transitions } from '@/lib/utils';
 import { Badge } from './badge';
 import { playUiSound, isSoundEnabled, toggleSound } from '@/lib/sound-effects';
 import { ThemeExportModal } from './theme-export-modal';
+import { AiPromptStudio } from './ai-prompt-studio';
 
 export const PinnedThemeBar: React.FC = () => {
   const {
@@ -21,6 +22,7 @@ export const PinnedThemeBar: React.FC = () => {
 
   const [soundOn, setSoundOn] = useState<boolean>(() => isSoundEnabled());
   const [exportModalOpen, setExportModalOpen] = useState(false);
+  const [aiModalOpen, setAiModalOpen] = useState(false);
 
   const handleToggleSound = () => {
     const next = toggleSound();
@@ -176,6 +178,22 @@ export const PinnedThemeBar: React.FC = () => {
               <Download className="w-3.5 h-3.5 text-primary" />
               <span className="hidden md:inline text-[10px] font-mono">Export</span>
             </motion.button>
+
+            {/* AI Prompt Studio Button */}
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={() => {
+                setAiModalOpen(true);
+                playUiSound('chime');
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-xl border border-primary/40 hover:border-primary bg-primary/10 hover:bg-primary/20 text-xs font-semibold text-primary transition-all cursor-pointer shadow-glow"
+              title="Open Doni AI Component Studio"
+            >
+              <Bot className="w-3.5 h-3.5 text-primary" />
+              <span className="hidden md:inline text-[10px] font-mono font-bold">AI Studio</span>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -184,6 +202,12 @@ export const PinnedThemeBar: React.FC = () => {
       <ThemeExportModal
         open={exportModalOpen}
         onClose={() => setExportModalOpen(false)}
+      />
+
+      {/* Doni AI Component Studio Modal */}
+      <AiPromptStudio
+        open={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
       />
     </div>
   );
