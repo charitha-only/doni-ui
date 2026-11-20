@@ -24,10 +24,32 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.0.0',
+      title: 'Official Stable Production Launch 🎉 — Theme Export Studio, Circular Scroll Progress, & PWA Support',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Official Stable v1.0.0 Release: Culmination of all milestones into a production-ready, ultra-fast, zero-overhead React component ecosystem.',
+        'Theme Export Modal: Instant copy & export of active custom theme colors and border-radii directly into tailwind.config.js, globals.css CSS variables, or npx CLI flags.',
+        'Circular Progress Scroll-to-Top Widget: Floating smooth spring button with dynamic SVG circumference tracking reading progression and auditory feedback.',
+        'Progressive Web App (PWA) Manifest: Native installability on iOS and Android devices with standalone display mode and custom branding.',
+        '55+ Production Components & 1,000+ Vector Animated Icons: Complete catalog covering every modern web design pattern with physics-driven animations.',
+        'Complete Multi-Device Adaptability: Flawless experience from 360px mobile screens to 4K ultra-wide monitors.',
+      ],
+      componentsAdded: [
+        'ScrollToTop',
+        'ThemeExportModal',
+        'PWAManifestEngine',
+        'ThemeStudioConfigurator',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.0.0',
+    },
+    {
       version: 'v0.9.2',
       title: 'Full Multi-Device Responsive UI/UX Overhaul & Mobile Navigation Engine',
       date: 'November 20, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Complete Multi-Device Responsiveness: Adaptive fluidity across Mobile (360px-430px), Tablets (768px-1024px), Laptops, and Ultra-Wide Desktops with zero horizontal page blowout.',
