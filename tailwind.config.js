@@ -111,6 +111,10 @@ export default {
           '0%': { transform: 'translateY(-50%)' },
           '100%': { transform: 'translateY(0)' },
         },
+        'aurora': {
+          from: { backgroundPosition: '50% 50%, 50% 50%' },
+          to: { backgroundPosition: '350% 50%, 350% 50%' },
+        },
       },
       animation: {
         'shimmer': 'shimmer 2.5s linear infinite',
@@ -124,6 +128,7 @@ export default {
         'ripple': 'ripple 3s ease-in-out infinite',
         'orbit': 'orbit calc(var(--duration)*1s) linear infinite',
         'grid': 'grid 15s linear infinite',
+        'aurora': 'aurora 60s linear infinite',
       },
     },
   },

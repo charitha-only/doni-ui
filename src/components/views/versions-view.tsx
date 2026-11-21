@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.3.0',
+      title: 'Aurora Background & Interactive Ambient Mesh Studio Launch',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Aurora Background (AuroraBackground): GPU-accelerated moving atmospheric light streams with dynamic theme adapting and radial vignette edge masks.',
+        'Ambient Mesh & Aurora Studio (BackgroundStudio): Interactive canvas studio to tune diffusion blur, velocity, radial falloff, and copy instant React JSX components.',
+        'Theme Studio Integration: Quick-access Aurora button in the sticky top theme bar for instant visual ambiance exploration.',
+        'Zero Runtime Compilation: Fluidly leverages Tailwind CSS repeating linear gradients and GPU composited CSS keyframes without runtime style re-parsing.',
+        '10 Designer Palettes Compatibility: Aurora light streams automatically blend and harmonize with all 10 curated designer theme presets.',
+      ],
+      componentsAdded: [
+        'AuroraBackground',
+        'BackgroundStudio',
+        'AuroraKeyframes',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.3.0',
+    },
+    {
       version: 'v1.2.0',
       title: 'Component Stack Builder, Quick Bundle Exporter & 10 Designer Presets Pack',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Component Stack Builder (StackBuilder): Interactive floating drawer to assemble custom UI stacks, calculate estimated gzip weight, and copy single-command CLI batch installs.',

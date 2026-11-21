@@ -34,6 +34,8 @@ export * from './components/ui/pinned-theme-bar';
 export * from './components/ui/theme-export-modal';
 export * from './components/ui/ai-prompt-studio';
 export * from './components/ui/stack-builder';
+export * from './components/ui/aurora-background';
+export * from './components/ui/background-studio';
 export * from './components/ui/scroll-to-top';
 export * from './components/ui/shortcuts-dialog';
 
