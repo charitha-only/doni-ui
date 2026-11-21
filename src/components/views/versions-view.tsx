@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.4.0',
+      title: 'Activity & Notification Center, PWA Offline Service Worker Engine',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Activity & Notification Center (NotificationCenter): Glassmorphic interactive tray tracking real-time deployments, security alerts, and team events with auditory feedback.',
+        'Simulated Realtime Activity Generator: Interactive button to test and trigger live spring-animated notification toasts.',
+        'PWA Offline Service Worker (sw.js): Full offline caching engine enabling zero-network documentation browsing and instantaneous page reloads.',
+        'Header Quick-Access Bell: Beautiful unread count badge with ping pulse animations mounted in the global top bar.',
+        'Unified Keyboard Navigation: Added hotkey N to instantly toggle the notification center from anywhere in the platform.',
+      ],
+      componentsAdded: [
+        'NotificationCenter',
+        'ServiceWorkerOfflineEngine',
+        'ActivityEventStream',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.4.0',
+    },
+    {
       version: 'v1.3.0',
       title: 'Aurora Background & Interactive Ambient Mesh Studio Launch',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Aurora Background (AuroraBackground): GPU-accelerated moving atmospheric light streams with dynamic theme adapting and radial vignette edge masks.',
