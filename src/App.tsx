@@ -138,6 +138,7 @@ import { NotificationCenter } from './components/ui/notification-center';
 import { PhysicsPlayground } from './components/ui/physics-playground';
 import { GlassmorphismStudio } from './components/ui/glassmorphism-studio';
 import { PerformanceBenchmark } from './components/ui/performance-benchmark';
+import { TokenExporter } from './components/ui/token-exporter';
 import { ComponentSandbox } from './components/showcase/component-sandbox';
 import { playUiSound, toggleSound } from './lib/sound-effects';
 
@@ -359,7 +360,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v1.8.0
+                  v1.9.0
                 </span>
               </div>
             </div>
@@ -2812,7 +2813,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v1.8.0</span>
+            <span className="font-bold text-base">Doni UI Library v1.9.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
@@ -2915,6 +2916,9 @@ export function App() {
 
         {/* Live Performance Benchmark Suite (v1.8.0) */}
         <PerformanceBenchmark />
+
+        {/* Multi-Platform Design Token Exporter (v1.9.0) */}
+        <TokenExporter />
 
         {/* Floating Circular Progress Scroll-To-Top Button */}
         <ScrollToTop />

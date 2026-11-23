@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.9.0',
+      title: 'Multi-Platform Design Token Exporter (Figma, Tailwind v4, Swift & Compose)',
+      date: 'November 22, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Multi-Platform Token Exporter (TokenExporter): Dynamic design token bridge translating live theme palettes into Figma Tokens Studio JSON, Tailwind v4 @theme, iOS SwiftUI Color extensions, and Android Jetpack Compose Kotlin objects.',
+        'Cross-Platform Color Synchronization: Bridges web and mobile design systems with one-click token export.',
+        'CSS Modules & Variables: Exports standard CSS variables including spring timing functions and border radii.',
+        'Seamless Theme Engine Integration: Dynamically reads active colors and variants from Doni UI Theme Context in real time.',
+      ],
+      componentsAdded: [
+        'TokenExporter',
+        'FigmaTokensStudioBridge',
+        'SwiftUiThemeExtension',
+        'JetpackComposeThemeObject',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.9.0',
+    },
+    {
       version: 'v1.8.0',
       title: 'Performance Benchmark Suite, Bundle Weight Audit & 60 FPS Stress Tester',
       date: 'November 22, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Performance Benchmark Suite (PerformanceBenchmark): Real-time client-side latency profiler with live React mount time analysis (averaging 0.18ms per component).',
