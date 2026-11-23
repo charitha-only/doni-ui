@@ -5,7 +5,7 @@
 ### *The Fastest, Featherweight, Spring-Animated React UI Component Library*
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-charitha--only.github.io%2Fdoni--ui-8b5cf6?style=for-the-badge)](https://charitha-only.github.io/doni-ui/)
-[![Version](https://img.shields.io/badge/Release-v2.5.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v2.5.0)
+[![Version](https://img.shields.io/badge/Release-v2.6.0-06b6d4?style=for-the-badge)](https://github.com/charitha-only/doni-ui/releases/tag/v2.6.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <br />

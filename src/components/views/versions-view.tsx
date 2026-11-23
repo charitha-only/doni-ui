@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.6.0',
+      title: 'Neural Constellation & Interactive Particle Network Canvas',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Interactive Particle Network (ParticleNetwork): High-performance HTML5 Canvas physics simulation rendering responsive nodes and proximity-based constellation links.',
+        'Dynamic Physics Modes & Presets: Switch on the fly between Constellation, Quantum, and Stardust modes with customizable particle count, connection distance, and velocity.',
+        'Fluid Cursor Repulsion & Attract Forces: Mouse and touch proximity interactions pushing particles or drawing neural tendrils in real time with 0ms UI blocking.',
+      ],
+      componentsAdded: [
+        'ParticleNetwork',
+        'ConstellationCanvasEngine',
+        'CursorProximityPhysics',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.6.0',
+    },
+    {
       version: 'v2.5.0',
       title: 'Offline Local Sync Vault & Multi-Tab Broadcast Engine',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Offline Local Sync Vault (OfflineVault): Client-side persistence engine backing up component stacks, custom color values, and preferences with zero database dependencies.',
