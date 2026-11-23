@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.7.0',
+      title: 'Dynamic Island Morphing Floating HUD & Ambient State Engine',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Dynamic Island Morphing HUD (DynamicIsland / DynamicIslandHUD): iOS-style floating pill morphing fluidly between idle, audio player, sprint timer, incoming call, and notification states.',
+        'GPU-Accelerated Spring Layout Transitions: Framer Motion layout physics ensuring zero jumpiness and tactile organic expansions across any viewport size.',
+        'Quick State Switcher Dock & Minimize Mode: Interactive controls dock to preview all HUD modes or minimize into a sleek indicator badge with sound effects.',
+      ],
+      componentsAdded: [
+        'DynamicIsland',
+        'DynamicIslandHUD',
+        'FloatingStateDock',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.7.0',
+    },
+    {
       version: 'v2.6.0',
       title: 'Neural Constellation & Interactive Particle Network Canvas',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Interactive Particle Network (ParticleNetwork): High-performance HTML5 Canvas physics simulation rendering responsive nodes and proximity-based constellation links.',

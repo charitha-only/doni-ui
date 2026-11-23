@@ -48,6 +48,7 @@ export * from './components/ui/kinetic-type-studio';
 export * from './components/ui/spotlight-launcher';
 export * from './components/ui/offline-vault';
 export * from './components/ui/particle-network';
+export * from './components/ui/dynamic-island';
 export * from './components/ui/scroll-to-top';
 export * from './components/ui/shortcuts-dialog';
 
