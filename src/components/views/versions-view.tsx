@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.3.0',
+      title: 'Kinetic Typography & Cyber Text Scramble FX Studio',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Kinetic Typography Studio (KineticTypeStudio): Real-time interactive text decode effect with configurable character cycle speeds (15ms to 80ms).',
+        'Multi-Glyph Streams: Cyber Katakana runes, Raw Binary (0/1), Hex Codec (0x00-0xFF), and Full ASCII character set matrix scramblers.',
+        'Copyable React Component: One-click export of reusable TextScramble React hooks for futuristic hero headlines and terminal logs.',
+      ],
+      componentsAdded: [
+        'KineticTypeStudio',
+        'TextScrambleEngine',
+        'GlyphStreamMatrix',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.3.0',
+    },
+    {
       version: 'v2.2.0',
       title: 'WCAG 2.2 Accessibility & Color Blindness Simulation Studio',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'WCAG 2.2 Accessibility Lab (A11yInspector): Live mathematical contrast ratio calculator evaluating active theme colors against WCAG AA (4.5:1), AAA (7.0:1), and APCA standards.',
