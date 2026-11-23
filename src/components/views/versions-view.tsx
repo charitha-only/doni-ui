@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.5.0',
+      title: 'Offline Local Sync Vault & Multi-Tab Broadcast Engine',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Offline Local Sync Vault (OfflineVault): Client-side persistence engine backing up component stacks, custom color values, and preferences with zero database dependencies.',
+        'Real-Time Multi-Tab Synchronization: Instantaneous cross-tab state synchronization using the native BroadcastChannel API without browser reloads.',
+        'Workspace Snapshot Backup: Download and export the entire workspace configuration as structured JSON for team sharing and device migration.',
+      ],
+      componentsAdded: [
+        'OfflineVault',
+        'BroadcastChannelSync',
+        'WorkspaceSnapshotBackup',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.5.0',
+    },
+    {
       version: 'v2.4.0',
       title: 'Spotlight Quick Launcher 2.0 & Global Command HUD',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Spotlight Quick Launcher 2.0 (SpotlightLauncher): Floating command HUD accessible via global hotkey ⌘+Space / Ctrl+Space.',

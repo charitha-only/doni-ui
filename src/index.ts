@@ -46,6 +46,7 @@ export * from './components/ui/liquid-blob-studio';
 export * from './components/ui/a11y-inspector';
 export * from './components/ui/kinetic-type-studio';
 export * from './components/ui/spotlight-launcher';
+export * from './components/ui/offline-vault';
 export * from './components/ui/scroll-to-top';
 export * from './components/ui/shortcuts-dialog';
 
