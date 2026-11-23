@@ -12,7 +12,7 @@ const command = args[0];
 const target = args[1];
 
 const banner = `
-   ⚡ Doni UI CLI (v1.9.0)
+   ⚡ Doni UI CLI (v2.0.0)
    Ultra-fast, spring-animated React UI library
 `;
 

@@ -136,9 +136,7 @@ import { AiPromptStudio } from './components/ui/ai-prompt-studio';
 import { StackBuilder, useComponentStack } from './components/ui/stack-builder';
 import { NotificationCenter } from './components/ui/notification-center';
 import { PhysicsPlayground } from './components/ui/physics-playground';
-import { GlassmorphismStudio } from './components/ui/glassmorphism-studio';
-import { PerformanceBenchmark } from './components/ui/performance-benchmark';
-import { TokenExporter } from './components/ui/token-exporter';
+import { SpatialHoloCard } from './components/ui/spatial-holo-card';
 import { ComponentSandbox } from './components/showcase/component-sandbox';
 import { playUiSound, toggleSound } from './lib/sound-effects';
 
@@ -360,7 +358,7 @@ export function App() {
                   Doni UI
                 </span>
                 <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v1.9.0
+                  v2.0.0
                 </span>
               </div>
             </div>
@@ -621,6 +619,15 @@ export function App() {
                     </Button>
                   </div>
                 </div>
+              </div>
+
+              {/* Doni UI 2.0 Spatial Holographic Card Showcase */}
+              <div className="mt-12 flex justify-center">
+                <SpatialHoloCard
+                  title="Spatial Holographic UI 2.0"
+                  subtitle="Tilt your cursor in 3D to explore real-time prismatic dispersion, diffraction sheen & specular refraction."
+                  badge="v2.0.0 Milestone"
+                />
               </div>
             </section>
 
@@ -2813,7 +2820,7 @@ export function App() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">Doni UI Library v1.9.0</span>
+            <span className="font-bold text-base">Doni UI Library v2.0.0</span>
             <span className="text-xs text-muted-foreground">
               — Built with love by Charitha
             </span>
@@ -2910,15 +2917,6 @@ export function App() {
 
         {/* Micro-Interactions Physics Playground (v1.6.0) */}
         <PhysicsPlayground />
-
-        {/* Dynamic Glassmorphism & Mesh Gradient Studio (v1.7.0) */}
-        <GlassmorphismStudio />
-
-        {/* Live Performance Benchmark Suite (v1.8.0) */}
-        <PerformanceBenchmark />
-
-        {/* Multi-Platform Design Token Exporter (v1.9.0) */}
-        <TokenExporter />
 
         {/* Floating Circular Progress Scroll-To-Top Button */}
         <ScrollToTop />

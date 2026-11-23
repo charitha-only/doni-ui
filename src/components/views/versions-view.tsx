@@ -24,10 +24,29 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.0.0',
+      title: 'Doni UI 2.0 Grand Milestone: 3D Spatial Holographic UI & Micro-Gesture Engine',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Spatial Holographic UI 2.0 (SpatialHoloCard): Cursor and gyroscope spatial 3D orientation tracking (±15° pitch and roll) with real-time prismatic dispersion and specular refraction sheen.',
+        'Dynamic Optical Sheen Modes: Prism diffraction sheen, Cyber technical grid, Aurora multi-spectral flow, and Obsidian glass backdrops.',
+        'Hardware-Accelerated 3D Depth Elevation: Preserves 3D spatial coordinate transforms (translateZ) across nested interactive action buttons and text.',
+        'Doni UI 2.0 Architecture: Milestone release setting the standard for next-generation tactile, spatial, and physics-driven frontend design systems.',
+      ],
+      componentsAdded: [
+        'SpatialHoloCard',
+        'PrismaticSheenEngine',
+        'SpatialTiltTracker',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.0.0',
+    },
+    {
       version: 'v1.9.0',
       title: 'Multi-Platform Design Token Exporter (Figma, Tailwind v4, Swift & Compose)',
       date: 'November 22, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Multi-Platform Token Exporter (TokenExporter): Dynamic design token bridge translating live theme palettes into Figma Tokens Studio JSON, Tailwind v4 @theme, iOS SwiftUI Color extensions, and Android Jetpack Compose Kotlin objects.',

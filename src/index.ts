@@ -41,6 +41,7 @@ export * from './components/ui/physics-playground';
 export * from './components/ui/glassmorphism-studio';
 export * from './components/ui/performance-benchmark';
 export * from './components/ui/token-exporter';
+export * from './components/ui/spatial-holo-card';
 export * from './components/ui/scroll-to-top';
 export * from './components/ui/shortcuts-dialog';
 
