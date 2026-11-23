@@ -24,10 +24,29 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.1.0',
+      title: 'Liquid SVG Blob Engine & Morphing Spline Studio',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Liquid Blob Studio (LiquidBlobStudio): Procedural vector spline engine generating continuous organic liquid blobs with customizable vertices (3 to 10 points) and irregularity growth.',
+        'Morphing Cycle Tuner: Adjust wave oscillation durations from 1s to 8s with fluid Framer Motion spring rotation.',
+        'Deterministic Random Seed: Click-to-mutate seed generator creating millions of organic vector contours.',
+        'One-Click SVG Path Export: Copy production-ready SVG vector paths with linear gradient stops for background decorations.',
+      ],
+      componentsAdded: [
+        'LiquidBlobStudio',
+        'SplineBezierGenerator',
+        'LiquidGradientEngine',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.1.0',
+    },
+    {
       version: 'v2.0.0',
       title: 'Doni UI 2.0 Grand Milestone: 3D Spatial Holographic UI & Micro-Gesture Engine',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Spatial Holographic UI 2.0 (SpatialHoloCard): Cursor and gyroscope spatial 3D orientation tracking (±15° pitch and roll) with real-time prismatic dispersion and specular refraction sheen.',
