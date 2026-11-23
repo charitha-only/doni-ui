@@ -191,3 +191,38 @@ export function playUiSound(type: SoundEffectType = 'click', volumeMultiplier = 
     // Graceful fallback if AudioContext is blocked by browser policy
   }
 }
+
+/**
+ * Synthesize and play custom frequency tones on-demand with arbitrary waveforms.
+ * Added in v1.5.0 for the Web Audio Frequency Synthesizer Studio.
+ */
+export function playCustomTone(
+  waveform: OscillatorType = 'sine',
+  freq = 440,
+  durationMs = 150,
+  volumeMultiplier = 1
+): void {
+  if (!soundEnabled || typeof window === 'undefined') return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const durSec = Math.max(0.03, durationMs / 1000);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = waveform;
+    osc.frequency.setValueAtTime(Math.max(20, Math.min( freq, 12000 )), now);
+
+    gain.gain.setValueAtTime(0.12 * volumeMultiplier, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + durSec);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + durSec);
+  } catch {
+    // Graceful fallback
+  }
+}

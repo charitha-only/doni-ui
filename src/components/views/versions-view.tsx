@@ -24,10 +24,31 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.5.0',
+      title: 'Zen Canvas Studio, Ambient Texture Switcher & Web Audio Synthesizer',
+      date: 'November 21, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Zen Canvas Studio (ZenMode): Immersive distraction-free component testing studio with smooth framer-motion overlay, zoom controls (50% - 150%), and floating bottom HUD dock.',
+        'Ambient Canvas Texture Switcher: Instant stage backdrops including Graph Grid, Dot Matrix, Blueprint Cyan, Aurora Glow, and Studio Light.',
+        'Web Audio Frequency Synthesizer Studio: Interactive oscillator tuner with live waveform switching (Sine, Square, Sawtooth, Triangle), frequency range (120Hz - 1800Hz), and decay duration controls.',
+        'Procedural Synthesizer Export: One-click export of zero-byte standalone Web Audio API synthesis functions for custom application sound design.',
+        'Procedural Engine Expansion (playCustomTone): Global procedural audio helper capable of synthesizing arbitrary frequencies and waveforms with zero audio assets.',
+      ],
+      componentsAdded: [
+        'ZenCanvasStudio',
+        'CanvasTextureSwitcher',
+        'OscillatorSynthesizerStudio',
+        'playCustomTone',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.5.0',
+    },
+    {
       version: 'v1.4.0',
       title: 'Activity & Notification Center, PWA Offline Service Worker Engine',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Activity & Notification Center (NotificationCenter): Glassmorphic interactive tray tracking real-time deployments, security alerts, and team events with auditory feedback.',

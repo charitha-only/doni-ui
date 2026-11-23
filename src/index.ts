@@ -84,8 +84,9 @@ export * from './data/icons-catalog-1000';
 export * from './theme/theme-context';
 export * from './theme/themes';
 
-// Full Page Templates (v0.9.0)
+// Full Page Templates & Showcase (v0.9.0 & v1.5.0)
 export * from './components/views/templates-view';
+export * from './components/showcase/component-sandbox';
 
 // Utilities & Audio Engine (v0.6.0)
 export * from './lib/utils';

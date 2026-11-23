@@ -12,6 +12,13 @@ import {
   Monitor,
   Tablet,
   Smartphone,
+  Maximize2,
+  Minimize2,
+  Grid,
+  Sun,
+  ZoomIn,
+  ZoomOut,
+  Palette,
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -25,6 +32,8 @@ import { Progress } from '../ui/progress';
 import { transitions } from '@/lib/utils';
 import { playUiSound } from '@/lib/sound-effects';
 
+export type CanvasTexture = 'default' | 'dots' | 'blueprint' | 'aurora' | 'light';
+
 export const ComponentSandbox: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<'button' | 'flame' | 'badge' | 'rating' | 'progress' | 'confetti'>('button');
   const [variant, setVariant] = useState<'default' | 'glow' | 'outline' | 'secondary'>('glow');
@@ -34,6 +43,9 @@ export const ComponentSandbox: React.FC = () => {
   const [progressVal, setProgressVal] = useState([72]);
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [syntaxFormat, setSyntaxFormat] = useState<'react' | 'tailwind' | 'nextjs'>('react');
+  const [canvasTexture, setCanvasTexture] = useState<CanvasTexture>('default');
+  const [canvasZoom, setCanvasZoom] = useState<number>(100);
+  const [isZenMode, setIsZenMode] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Dynamic code snippet generator based on current interactive state
@@ -292,48 +304,150 @@ export const ComponentSandbox: React.FC = () => {
 
         {/* Right: Live Interactive Stage & Generated Code */}
         <div className="lg:col-span-7 flex flex-col gap-4">
-          {/* Viewport Breakpoint Switcher */}
-          <div className="flex items-center justify-between px-1 text-xs">
-            <span className="text-muted-foreground font-semibold flex items-center gap-1.5">
-              <span>Device Viewport:</span>
-              <span className="font-mono text-primary uppercase text-[10px]">{deviceView}</span>
-            </span>
-            <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50">
-              {[
-                { id: 'desktop', label: '100%', icon: Monitor },
-                { id: 'tablet', label: '768px', icon: Tablet },
-                { id: 'mobile', label: '375px', icon: Smartphone },
-              ].map((d) => {
-                const Icon = d.icon;
-                const isSelected = deviceView === d.id;
-                return (
-                  <button
-                    key={d.id}
-                    type="button"
-                    onClick={() => {
-                      setDeviceView(d.id as any);
-                      playUiSound('tab');
-                    }}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                      isSelected
-                        ? 'bg-primary text-primary-foreground shadow-xs font-bold'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline text-[11px] font-mono">{d.label}</span>
-                  </button>
-                );
-              })}
+          {/* Viewport Breakpoint & Zen Mode Toolbar */}
+          <div className="flex flex-wrap items-center justify-between gap-2 px-1 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground font-semibold flex items-center gap-1.5">
+                <span>Viewport:</span>
+                <span className="font-mono text-primary uppercase text-[10px]">{deviceView}</span>
+              </span>
+              <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50">
+                {[
+                  { id: 'desktop', label: '100%', icon: Monitor },
+                  { id: 'tablet', label: '768px', icon: Tablet },
+                  { id: 'mobile', label: '375px', icon: Smartphone },
+                ].map((d) => {
+                  const Icon = d.icon;
+                  const isSelected = deviceView === d.id;
+                  return (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => {
+                        setDeviceView(d.id as any);
+                        playUiSound('tab');
+                      }}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-primary text-primary-foreground shadow-xs font-bold'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline text-[11px] font-mono">{d.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Canvas Texture & Zen Mode Controls */}
+            <div className="flex items-center gap-1.5">
+              {/* Texture Pills */}
+              <div className="flex items-center gap-0.5 bg-muted/40 p-1 rounded-xl border border-border/50">
+                {[
+                  { id: 'default', label: 'Grid', icon: Grid },
+                  { id: 'dots', label: 'Dots', icon: Palette },
+                  { id: 'blueprint', label: 'Blueprint', icon: Sparkles },
+                  { id: 'aurora', label: 'Aurora', icon: Flame },
+                  { id: 'light', label: 'Light', icon: Sun },
+                ].map((t) => {
+                  const Icon = t.icon;
+                  const isSelected = canvasTexture === t.id;
+                  return (
+                    <button
+                      key={t.id}
+                      type="button"
+                      title={`Texture: ${t.label}`}
+                      onClick={() => {
+                        setCanvasTexture(t.id as CanvasTexture);
+                        playUiSound('switch');
+                      }}
+                      className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all flex items-center gap-1 cursor-pointer ${
+                        isSelected
+                          ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                    >
+                      <Icon className="w-3 h-3" />
+                      <span className="hidden md:inline">{t.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Zoom Controls */}
+              <div className="flex items-center gap-0.5 bg-muted/40 p-1 rounded-xl border border-border/50 text-[10px] font-mono">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCanvasZoom((z) => Math.max(50, z - 25));
+                    playUiSound('click');
+                  }}
+                  className="p-1 hover:text-primary transition-colors cursor-pointer text-muted-foreground"
+                  title="Zoom Out"
+                >
+                  <ZoomOut className="w-3 h-3" />
+                </button>
+                <span className="px-1 text-primary font-bold min-w-[34px] text-center">{canvasZoom}%</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCanvasZoom((z) => Math.min(150, z + 25));
+                    playUiSound('click');
+                  }}
+                  className="p-1 hover:text-primary transition-colors cursor-pointer text-muted-foreground"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="w-3 h-3" />
+                </button>
+              </div>
+
+              {/* Zen Fullscreen Trigger */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsZenMode(!isZenMode);
+                  playUiSound('chime');
+                }}
+                className={`p-1.5 rounded-xl border transition-all cursor-pointer flex items-center gap-1 text-xs font-semibold ${
+                  isZenMode
+                    ? 'border-primary bg-primary text-primary-foreground shadow-glow'
+                    : 'border-border/60 bg-muted/40 text-muted-foreground hover:text-foreground hover:border-primary/50'
+                }`}
+                title="Toggle Zen Fullscreen Mode"
+              >
+                {isZenMode ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                <span className="hidden sm:inline text-[11px]">Zen</span>
+              </button>
             </div>
           </div>
 
           {/* Live Stage */}
-          <div className="relative min-h-[220px] rounded-xl border border-border/80 bg-gradient-to-b from-card/80 to-card/40 flex items-center justify-center p-8 overflow-hidden shadow-inner">
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+          <div className={`relative min-h-[220px] rounded-xl border transition-all flex items-center justify-center p-8 overflow-hidden shadow-inner ${
+            canvasTexture === 'blueprint'
+              ? 'border-cyan-500/40 bg-cyan-950/20'
+              : canvasTexture === 'light'
+              ? 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/90'
+              : 'border-border/80 bg-gradient-to-b from-card/80 to-card/40'
+          }`}>
+            {/* Background Texture Patterns */}
+            {canvasTexture === 'default' && (
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+            )}
+            {canvasTexture === 'dots' && (
+              <div className="absolute inset-0 bg-[radial-gradient(#80808035_1.5px,transparent_1.5px)] bg-[size:16px_16px] pointer-events-none" />
+            )}
+            {canvasTexture === 'blueprint' && (
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#06b6d418_1px,transparent_1px),linear-gradient(to_bottom,#06b6d418_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+            )}
+            {canvasTexture === 'aurora' && (
+              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/15 via-purple-500/10 to-pink-500/15 animate-pulse pointer-events-none" />
+            )}
 
-            <div className={`transition-all duration-300 flex items-center justify-center ${
+            <div
+              style={{ transform: `scale(${canvasZoom / 100})`, transformOrigin: 'center center' }}
+              className={`transition-all duration-300 flex items-center justify-center ${
               deviceView === 'desktop'
                 ? 'w-full'
                 : deviceView === 'tablet'
@@ -477,6 +591,242 @@ export const ComponentSandbox: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Zen Fullscreen Modal Overlay (v1.5.0) */}
+      <AnimatePresence>
+        {isZenMode && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={transitions.smoothEase}
+            className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-2xl flex flex-col p-4 sm:p-8"
+          >
+            {/* Top Zen HUD Bar */}
+            <div className="flex items-center justify-between pb-4 border-b border-border/60">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/30 flex items-center justify-center shadow-glow">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-bold tracking-tight">Zen Canvas Studio</h3>
+                    <Badge variant="glow" className="text-[10px]">v1.5.0</Badge>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground hidden sm:block">Immersive distraction-free component testing studio</p>
+                </div>
+              </div>
+
+              {/* Texture & Zoom HUD Controls */}
+              <div className="flex items-center gap-2">
+                {/* Texture Selector */}
+                <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-xl border border-border/60">
+                  {[
+                    { id: 'default', label: 'Grid' },
+                    { id: 'dots', label: 'Dots' },
+                    { id: 'blueprint', label: 'Blueprint' },
+                    { id: 'aurora', label: 'Aurora' },
+                    { id: 'light', label: 'Light' },
+                  ].map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => {
+                        setCanvasTexture(t.id as CanvasTexture);
+                        playUiSound('switch');
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                        canvasTexture === t.id
+                          ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Zoom HUD */}
+                <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-xl border border-border/60 text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCanvasZoom((z) => Math.max(50, z - 25));
+                      playUiSound('click');
+                    }}
+                    className="p-1 hover:text-primary transition-colors cursor-pointer text-muted-foreground"
+                    title="Zoom Out"
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="px-1 text-primary font-bold min-w-[38px] text-center">{canvasZoom}%</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCanvasZoom((z) => Math.min(150, z + 25));
+                      playUiSound('click');
+                    }}
+                    className="p-1 hover:text-primary transition-colors cursor-pointer text-muted-foreground"
+                    title="Zoom In"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* Copy Snippet */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCopy}
+                  className="h-8 px-3 text-xs"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 mr-1.5" /> : <Copy className="w-3.5 h-3.5 mr-1.5" />}
+                  {copied ? 'Copied' : 'Copy'}
+                </Button>
+
+                {/* Close Zen Mode */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsZenMode(false);
+                    playUiSound('pop');
+                  }}
+                  className="p-2 rounded-xl border border-border/80 bg-muted/60 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 transition-colors cursor-pointer"
+                  title="Exit Zen Mode (Esc)"
+                >
+                  <Minimize2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Central Zen Stage */}
+            <div className={`flex-1 my-4 rounded-2xl border relative flex items-center justify-center overflow-hidden transition-all shadow-2xl ${
+              canvasTexture === 'blueprint'
+                ? 'border-cyan-500/40 bg-cyan-950/20'
+                : canvasTexture === 'light'
+                ? 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/90'
+                : 'border-border/80 bg-gradient-to-b from-card/90 to-card/50'
+            }`}>
+              {canvasTexture === 'default' && (
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+              )}
+              {canvasTexture === 'dots' && (
+                <div className="absolute inset-0 bg-[radial-gradient(#80808035_1.5px,transparent_1.5px)] bg-[size:20px_20px] pointer-events-none" />
+              )}
+              {canvasTexture === 'blueprint' && (
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#06b6d420_1px,transparent_1px),linear-gradient(to_bottom,#06b6d420_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />
+              )}
+              {canvasTexture === 'aurora' && (
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-purple-500/15 to-pink-500/20 animate-pulse pointer-events-none" />
+              )}
+
+              <div
+                style={{ transform: `scale(${canvasZoom / 100})`, transformOrigin: 'center center' }}
+                className="relative z-10 transition-transform duration-200"
+              >
+                {selectedComponent === 'button' && (
+                  <Button
+                    variant={variant}
+                    size={size === 'md' ? 'default' : size}
+                    className={variant === 'glow' && hasPulse ? 'shadow-glow text-lg py-6 px-8' : 'text-lg py-6 px-8'}
+                    onClick={() => playUiSound('click')}
+                  >
+                    <Sparkles className="w-5 h-5 mr-2.5" />
+                    Interactive Button
+                  </Button>
+                )}
+
+                {selectedComponent === 'flame' && (
+                  <FlameButton
+                    flameColor={variant === 'glow' ? '#06b6d4' : '#f97316'}
+                    className="px-8 py-4 text-base"
+                    onClick={() => playUiSound('click')}
+                  >
+                    Ignite Experience
+                  </FlameButton>
+                )}
+
+                {selectedComponent === 'badge' && (
+                  <div className="flex flex-wrap items-center gap-3 scale-125">
+                    <Badge variant={variant} withPulse={hasPulse}>
+                      Live Dynamic Badge
+                    </Badge>
+                    <BadgeDelta deltaType="increase">+24.8%</BadgeDelta>
+                  </div>
+                )}
+
+                {selectedComponent === 'rating' && (
+                  <div className="flex flex-col items-center gap-3 scale-125">
+                    <Rating
+                      value={interactiveRating}
+                      size={28}
+                      onChange={(v) => {
+                        setInteractiveRating(v);
+                        playUiSound('chime');
+                      }}
+                    />
+                    <span className="text-sm text-muted-foreground font-mono">
+                      Rating: {interactiveRating} Stars
+                    </span>
+                  </div>
+                )}
+
+                {selectedComponent === 'progress' && (
+                  <div className="w-80 space-y-3">
+                    <Progress
+                      value={progressVal[0]}
+                      size="lg"
+                      withGlow={hasPulse}
+                      showValue
+                    />
+                  </div>
+                )}
+
+                {selectedComponent === 'confetti' && (
+                  <ConfettiButton
+                    particleCount={80}
+                    spread={90}
+                    onClick={() => playUiSound('chime')}
+                    className="px-8 py-4 text-base"
+                  >
+                    🎉 Trigger Celebration
+                  </ConfettiButton>
+                )}
+              </div>
+            </div>
+
+            {/* Bottom Component Switcher HUD */}
+            <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center gap-1.5 p-1.5 bg-muted/60 rounded-2xl border border-border/80 shadow-lg">
+                {[
+                  { id: 'button', label: 'Button' },
+                  { id: 'flame', label: 'Flame' },
+                  { id: 'badge', label: 'Badge' },
+                  { id: 'rating', label: 'Rating' },
+                  { id: 'progress', label: 'Progress' },
+                  { id: 'confetti', label: 'Confetti' },
+                ].map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedComponent(c.id as any);
+                      playUiSound('tab');
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      selectedComponent === c.id
+                        ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

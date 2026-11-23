@@ -24,7 +24,7 @@ import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { transitions, cn } from '@/lib/utils';
-import { playUiSound } from '@/lib/sound-effects';
+import { playUiSound, playCustomTone } from '@/lib/sound-effects';
 
 export interface DocCategory {
   id: string;
@@ -46,6 +46,13 @@ export const DocsView: React.FC = () => {
   const [selectedFramework, setSelectedFramework] = useState<'nextjs' | 'vite' | 'remix'>('nextjs');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [mobileTopicsOpen, setMobileTopicsOpen] = useState(false);
+
+  // v1.5.0 Procedural Audio Synthesizer Studio State
+  const [synthWaveform, setSynthWaveform] = useState<OscillatorType>('sine');
+  const [synthFreq, setSynthFreq] = useState<number>(520);
+  const [synthDuration, setSynthDuration] = useState<number>(160);
+  const [isSynthPlaying, setIsSynthPlaying] = useState(false);
+  const [copiedSynthCode, setCopiedSynthCode] = useState(false);
 
   const copy = (text: string, _label: string) => {
     navigator.clipboard.writeText(text);
@@ -96,6 +103,7 @@ export const DocsView: React.FC = () => {
       items: [
         { id: 'sound-engine', title: 'Web Audio API Synth' },
         { id: 'sound-triggers', title: 'Tactile Sound Profiles' },
+        { id: 'synth-studio', title: 'Synthesizer Studio (v1.5.0)' },
       ],
     },
     {
@@ -824,9 +832,9 @@ export function ThemeSwitcher() {
           )}
 
           {/* ========================================================================= */}
-          {/* TOPIC 5: PROCEDURAL AUDIO ENGINE (v0.6.0)                                 */}
+          {/* TOPIC 5: PROCEDURAL AUDIO ENGINE & SYNTHESIZER STUDIO (v1.5.0)            */}
           {/* ========================================================================= */}
-          {(activeItem === 'sound-engine' || activeItem === 'sound-triggers') && (
+          {(activeItem === 'sound-engine' || activeItem === 'sound-triggers' || activeItem === 'synth-studio') && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -835,44 +843,230 @@ export function ThemeSwitcher() {
             >
               <div>
                 <h2 className="text-3xl font-extrabold tracking-tight">Procedural Micro-Sound Audio Engine</h2>
-                <Badge variant="glow" className="mt-2 text-xs">New in v0.6.0</Badge>
+                <div className="flex items-center gap-2 mt-2">
+                  <Badge variant="glow" className="text-xs">Zero-Byte Runtime</Badge>
+                  <Badge variant="outline" className="text-xs">v1.5.0 Synthesizer Studio</Badge>
+                </div>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Zero-byte synthesized sound effects powered by native Web Audio API oscillators.
+                  Zero-byte synthesized sound effects powered by native Web Audio API oscillators. 0 external audio files, 0 latency, and infinite procedural variation.
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[
-                  { type: 'click', label: 'Click', desc: 'Crisp mechanical switch' },
-                  { type: 'pop', label: 'Pop', desc: 'Bubbly toggle / check' },
-                  { type: 'chime', label: 'Chime', desc: '4-tone harmonic chord' },
-                  { type: 'switch', label: 'Switch', desc: 'Tactile slider snap' },
-                  { type: 'tab', label: 'Tab', desc: 'Soft page selection blip' },
-                  { type: 'success', label: 'Success', desc: 'Euphoric 2-tone chime' },
-                ].map((s) => (
-                  <Card
-                    key={s.type}
-                    onClick={() => playUiSound(s.type as any)}
-                    className="p-3.5 border-border/80 hover:border-primary/60 hover:bg-primary/5 transition-all cursor-pointer group"
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-xs text-foreground group-hover:text-primary transition-colors capitalize">
-                        {s.label}
+              {/* Built-in Soundboard Profiles */}
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">Tactile UI Sound Profiles</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {[
+                    { type: 'click', label: 'Click', desc: 'Crisp mechanical switch' },
+                    { type: 'pop', label: 'Pop', desc: 'Bubbly toggle / check' },
+                    { type: 'chime', label: 'Chime', desc: '4-tone harmonic chord' },
+                    { type: 'switch', label: 'Switch', desc: 'Tactile slider snap' },
+                    { type: 'tab', label: 'Tab', desc: 'Soft page selection blip' },
+                    { type: 'success', label: 'Success', desc: 'Euphoric 2-tone chime' },
+                  ].map((s) => (
+                    <Card
+                      key={s.type}
+                      onClick={() => playUiSound(s.type as any)}
+                      className="p-3.5 border-border/80 hover:border-primary/60 hover:bg-primary/5 transition-all cursor-pointer group"
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-xs text-foreground group-hover:text-primary transition-colors capitalize">
+                          {s.label}
+                        </span>
+                        <Volume2 className="w-3.5 h-3.5 text-primary opacity-70 group-hover:opacity-100" />
+                      </div>
+                      <p className="text-[11px] text-muted-foreground">{s.desc}</p>
+                      <span className="text-[10px] text-primary/80 font-mono mt-2 block">
+                        Click to Test 🔊
                       </span>
-                      <Volume2 className="w-3.5 h-3.5 text-primary opacity-70 group-hover:opacity-100" />
-                    </div>
-                    <p className="text-[11px] text-muted-foreground">{s.desc}</p>
-                    <span className="text-[10px] text-primary/80 font-mono mt-2 block">
-                      Click to Test 🔊
-                    </span>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
+                </div>
               </div>
 
+              {/* Interactive Web Audio Synthesizer Studio & Frequency Tuner (v1.5.0) */}
+              <Card className="p-6 border-border/80 bg-card/60 backdrop-blur-xl space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary border border-primary/25 flex items-center justify-center shadow-glow">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-bold tracking-tight">Oscillator Frequency Synthesizer Studio</h3>
+                        <Badge variant="glow" className="text-[10px]">v1.5.0 Live</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">Synthesize custom waveforms and procedural audio pulses in real time</p>
+                    </div>
+                  </div>
+
+                  {/* Test Tone Trigger */}
+                  <Button
+                    variant="glow"
+                    size="sm"
+                    onClick={() => {
+                      setIsSynthPlaying(true);
+                      playCustomTone(synthWaveform, synthFreq, synthDuration);
+                      setTimeout(() => setIsSynthPlaying(false), synthDuration + 50);
+                    }}
+                    className="gap-2 cursor-pointer shadow-glow"
+                  >
+                    <Volume2 className={`w-4 h-4 ${isSynthPlaying ? 'animate-bounce' : ''}`} />
+                    <span>Synthesize &amp; Play</span>
+                  </Button>
+                </div>
+
+                {/* Synth Controls Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Waveform Selector */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground block">
+                      Oscillator Waveform
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: 'sine', label: 'Sine', desc: 'Smooth, pure tone' },
+                        { id: 'triangle', label: 'Triangle', desc: 'Mellow, soft warmth' },
+                        { id: 'square', label: 'Square', desc: 'Retro 8-bit punch' },
+                        { id: 'sawtooth', label: 'Sawtooth', desc: 'Crisp, buzzing buzz' },
+                      ].map((w) => (
+                        <button
+                          key={w.id}
+                          type="button"
+                          onClick={() => {
+                            setSynthWaveform(w.id as OscillatorType);
+                            playCustomTone(w.id as OscillatorType, synthFreq, 80);
+                          }}
+                          className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                            synthWaveform === w.id
+                              ? 'border-primary bg-primary/10 text-primary shadow-xs font-bold'
+                              : 'border-border/60 text-muted-foreground hover:border-border hover:text-foreground'
+                          }`}
+                        >
+                          <div className="text-xs font-bold capitalize">{w.label}</div>
+                          <div className="text-[10px] opacity-75">{w.desc}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Frequency & Duration Sliders */}
+                  <div className="space-y-4">
+                    {/* Frequency */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-foreground">Oscillator Frequency</span>
+                        <span className="font-mono text-primary font-bold">{synthFreq} Hz</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={120}
+                        max={1800}
+                        step={10}
+                        value={synthFreq}
+                        onChange={(e) => setSynthFreq(Number(e.target.value))}
+                        className="w-full accent-primary cursor-pointer"
+                      />
+                      <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
+                        <span>120 Hz (Sub Bass)</span>
+                        <span>440 Hz (Concert A)</span>
+                        <span>1800 Hz (High Chime)</span>
+                      </div>
+                    </div>
+
+                    {/* Duration */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-foreground">Decay Duration</span>
+                        <span className="font-mono text-primary font-bold">{synthDuration} ms</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={40}
+                        max={450}
+                        step={10}
+                        value={synthDuration}
+                        onChange={(e) => setSynthDuration(Number(e.target.value))}
+                        className="w-full accent-primary cursor-pointer"
+                      />
+                      <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
+                        <span>40ms (Snappy Click)</span>
+                        <span>160ms (Standard)</span>
+                        <span>450ms (Sustained)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Instant Tone Presets */}
+                <div className="pt-2 border-t border-border/40 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground font-semibold">Quick Presets:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        { label: 'Laser Blast', wave: 'sawtooth', f: 880, d: 90 },
+                        { label: 'Sub Thud', wave: 'sine', f: 140, d: 240 },
+                        { label: 'Crystal Bell', wave: 'triangle', f: 1046, d: 200 },
+                        { label: 'Arcade Zap', wave: 'square', f: 520, d: 70 },
+                      ].map((p) => (
+                        <button
+                          key={p.label}
+                          type="button"
+                          onClick={() => {
+                            setSynthWaveform(p.wave as OscillatorType);
+                            setSynthFreq(p.f);
+                            setSynthDuration(p.d);
+                            playCustomTone(p.wave as OscillatorType, p.f, p.d);
+                          }}
+                          className="px-2.5 py-1 rounded-lg text-xs font-mono border border-border/60 hover:border-primary hover:text-primary transition-all cursor-pointer bg-muted/30"
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Copy Synthesizer Hook Code */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const snippet = `// Doni UI Procedural Synthesizer Hook
+export function playSyntheticTone() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = '${synthWaveform}';
+  osc.frequency.setValueAtTime(${synthFreq}, ctx.currentTime);
+
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + ${synthDuration / 1000});
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + ${synthDuration / 1000});
+}`;
+                      navigator.clipboard.writeText(snippet);
+                      setCopiedSynthCode(true);
+                      playUiSound('success');
+                      setTimeout(() => setCopiedSynthCode(false), 2000);
+                    }}
+                    className="text-xs h-8"
+                  >
+                    {copiedSynthCode ? <Check className="w-3.5 h-3.5 text-emerald-400 mr-1.5" /> : <Copy className="w-3.5 h-3.5 mr-1.5" />}
+                    {copiedSynthCode ? 'Hook Copied!' : 'Export Synth Function'}
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Code Usage Card */}
               <Card className="p-5 bg-card/90 space-y-2">
                 <span className="text-xs font-mono text-muted-foreground">Using in your own React code:</span>
                 <pre className="font-mono text-xs sm:text-sm text-foreground overflow-x-auto leading-relaxed">
-{`import { playUiSound, toggleSound, isSoundEnabled } from 'doni-ui';
+{`import { playUiSound, playCustomTone, toggleSound, isSoundEnabled } from 'doni-ui';
 
 export function InteractiveButtons() {
   return (
@@ -880,6 +1074,7 @@ export function InteractiveButtons() {
       <button onClick={() => playUiSound('click')}>Click Me</button>
       <button onClick={() => playUiSound('chime')}>Theme Select</button>
       <button onClick={() => playUiSound('success')}>Save Changes</button>
+      <button onClick={() => playCustomTone('sawtooth', 880, 100)}>Custom Synth Tone</button>
       <button onClick={toggleSound}>Toggle Audio</button>
     </div>
   );
