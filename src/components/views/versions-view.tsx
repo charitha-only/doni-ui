@@ -24,10 +24,30 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.6.0',
+      title: 'Spring Physics Lab, Harmonic Curve Visualizer & Haptic Simulator',
+      date: 'November 22, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Spring Physics Lab (PhysicsPlayground): Real-time interactive physics studio allowing developers to tune stiffness, damping, mass, and toss spring objects with realistic momentum.',
+        'SVG Damped Harmonic Curve: Live visual representation of the harmonic oscillation wave equation e^(-γt) · cos(ωt) updating dynamically on slider adjustment.',
+        'Doni Spring Presets: Built-in quick curves including Doni Snappy, Hyper Bouncy, Velvet Gentle, and Liquid Wobbly.',
+        'Screen Shake & Haptic Simulator: Tactile camera impulse simulation triggered upon high-velocity spring collisions.',
+        'Instant Framer Motion Export: One-click export of production-ready Framer Motion transition objects.',
+      ],
+      componentsAdded: [
+        'PhysicsPlayground',
+        'DONI_SPRING_PRESETS',
+        'DampedHarmonicWaveform',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.6.0',
+    },
+    {
       version: 'v1.5.0',
       title: 'Zen Canvas Studio, Ambient Texture Switcher & Web Audio Synthesizer',
       date: 'November 21, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Zen Canvas Studio (ZenMode): Immersive distraction-free component testing studio with smooth framer-motion overlay, zoom controls (50% - 150%), and floating bottom HUD dock.',
