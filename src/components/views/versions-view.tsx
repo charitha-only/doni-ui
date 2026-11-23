@@ -24,10 +24,29 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v1.7.0',
+      title: 'Glassmorphism & Chromatic Mesh Gradient Studio Launch',
+      date: 'November 22, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Glassmorphism Studio (GlassmorphismStudio): Interactive designer suite for creating specular blurred glass panes with diffusion blur, surface opacity, and border reflection tuning.',
+        'Chromatic Mesh Gradients: Multi-source radial light mesh generator with customizable color nodes (Cyan Aurora, Solar Sunset, Emerald Mint, Deep Violet).',
+        'Micro-Texture Grain Noise: Built-in anti-banding grain overlay simulating premium frosted glass aesthetics.',
+        'Dual Export Mode: One-click export for native CSS backdrop-filter declarations as well as Tailwind CSS utility class combinations.',
+      ],
+      componentsAdded: [
+        'GlassmorphismStudio',
+        'ChromaticMeshEngine',
+        'FrostedNoiseTexture',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v1.7.0',
+    },
+    {
       version: 'v1.6.0',
       title: 'Spring Physics Lab, Harmonic Curve Visualizer & Haptic Simulator',
       date: 'November 22, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Spring Physics Lab (PhysicsPlayground): Real-time interactive physics studio allowing developers to tune stiffness, damping, mass, and toss spring objects with realistic momentum.',
