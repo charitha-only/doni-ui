@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.2.0',
+      title: 'WCAG 2.2 Accessibility & Color Blindness Simulation Studio',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'WCAG 2.2 Accessibility Lab (A11yInspector): Live mathematical contrast ratio calculator evaluating active theme colors against WCAG AA (4.5:1), AAA (7.0:1), and APCA standards.',
+        'Real-Time Color Blindness Simulator: SVG color-matrix filters simulating Protanopia, Deuteranopia, Tritanopia, and Achromatopsia across interactive component previews.',
+        'One-Click Accessibility Audit: Instant copyable markdown audit report for enterprise compliance verification.',
+      ],
+      componentsAdded: [
+        'A11yInspector',
+        'ColorBlindnessFilters',
+        'WcagContrastCalculator',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.2.0',
+    },
+    {
       version: 'v2.1.0',
       title: 'Liquid SVG Blob Engine & Morphing Spline Studio',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Liquid Blob Studio (LiquidBlobStudio): Procedural vector spline engine generating continuous organic liquid blobs with customizable vertices (3 to 10 points) and irregularity growth.',
