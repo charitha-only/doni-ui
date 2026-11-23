@@ -24,10 +24,28 @@ interface VersionRelease {
 export const VersionsView: React.FC = () => {
   const releases: VersionRelease[] = [
     {
+      version: 'v2.4.0',
+      title: 'Spotlight Quick Launcher 2.0 & Global Command HUD',
+      date: 'November 23, 2026',
+      isLatest: true,
+      isMilestone: true,
+      highlights: [
+        'Spotlight Quick Launcher 2.0 (SpotlightLauncher): Floating command HUD accessible via global hotkey ⌘+Space / Ctrl+Space.',
+        'Intelligent Action Execution: Directly trigger theme toggling, sound effects, page navigation, and CLI setup commands from a single keyboard-driven interface.',
+        'Keyboard Navigation & Tactile Audio: Arrow key traversal and enter-to-select with synchronized Web Audio sound feedback.',
+      ],
+      componentsAdded: [
+        'SpotlightLauncher',
+        'CommandHudEngine',
+        'GlobalHotkeyListener',
+      ],
+      githubUrl: 'https://github.com/charitha-only/doni-ui/releases/tag/v2.4.0',
+    },
+    {
       version: 'v2.3.0',
       title: 'Kinetic Typography & Cyber Text Scramble FX Studio',
       date: 'November 23, 2026',
-      isLatest: true,
+      isLatest: false,
       isMilestone: true,
       highlights: [
         'Kinetic Typography Studio (KineticTypeStudio): Real-time interactive text decode effect with configurable character cycle speeds (15ms to 80ms).',
